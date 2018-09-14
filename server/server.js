@@ -3,6 +3,7 @@ require('./config/config.js');
 const express = require('express');
 const path = require("path");
 
+const {authenticate} = require('./middleware/authenticate');
 
 const app = express();
 const publicPath = path.join(__dirname, "..", "public");

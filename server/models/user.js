@@ -40,7 +40,6 @@ var UserSchema = new mongoose.Schema({
     },
     customerId:{
         type:String,
-        trim:true
     },
     lastLogin:{
         type:Number
@@ -151,7 +150,7 @@ UserSchema.pre("save", function(next){
 
     if(user.isModified("password")){
         bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(user.password, salt, (err, has) => {
+            bcrypt.hash(user.password, salt, (err, hash) => {
                 user.password = hash;
                 next();
             });

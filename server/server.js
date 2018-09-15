@@ -113,6 +113,25 @@ app.get("/addux/:id", (req, res) => {
 
 });
 
+app.patch("/addux/:id", authenticate, (req, res) => {
+    const id = req.params.id;
+    const updates = req.body;
+
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+
+    Addux.findOneAndUpdate({_id:id, _creator:req.user._id}, updates).then((addux) => {
+        console.log("ADDUX UPDATED!");
+        console.log(addux);
+        res.send(addux);
+    })
+    .catch((e) => {
+        res.status(400).send(e);
+    })
+
+})
+
 app.post("/users", async (req, res) => {
     
     try{
@@ -154,7 +173,7 @@ app.patch("/users/:id", authenticate, (req, res) =>{
             res.send(req.user);
         })
         .catch((e) => {
-            console.log("ERROR:", e);
+            res.status(400).send(e);
         });
     }
     else{

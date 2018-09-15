@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
 app.post("/users", async (req, res) => {
-    //console.log("REQUEST BODY", req.body);
     
     try{
         var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
@@ -39,7 +38,7 @@ app.post("/users/login", async (req, res) => {
       const body = _.pick(req.body, ["email", "password"]);
       const user = await User.findByCredentials(body.email, body.password);
       const token = await user.generateAuthToken();
-      //console.log("USER: ", user);
+      
       res.header("x-auth", token).send(user);
     }
     catch(e){

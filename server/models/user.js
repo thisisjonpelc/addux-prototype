@@ -63,8 +63,8 @@ UserSchema.methods.generateAuthToken = function() {
     user.removeExpiredTokens();
 
     const options = {
-        expiresIn: '5m'
-    }
+        expiresIn: '3h'
+    };
 
     var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRET, options).toString();
 
@@ -87,14 +87,20 @@ UserSchema.methods.removeToken = function(token){
 
 UserSchema.methods.removeExpiredTokens = function(){
     var user = this;
+    //console.log("---IN removeExpiredTokens---");
 
-    user. tokens = user.tokens.filter((token) => {
+    user.tokens = user.tokens.filter((token) => {
         tokenValue = token.token;
 
+        //console.log("Token: ", token);
+        //console.log("Token Value:", tokenValue);
+
         try{
-            jwt.verify(token, process.env.JWT_SECRET);
+            jwt.verify(tokenValue, process.env.JWT_SECRET);
+            //console.log("Token is valid");
         }
         catch(e){
+            //console.log("Token is not valid");
             return false;
         }
 
@@ -110,8 +116,8 @@ UserSchema.statics.findByToken = function (token) {
         decoded = jwt.verify(token, process.env.JWT_SECRET);
     }
     catch(e){
-        console.log("TOKEN UNABLE TO BE VERIFIED");
-        console.log(e);
+        //console.log("TOKEN UNABLE TO BE VERIFIED");
+        //console.log(e);
         return Promise.reject();
     }
 
@@ -152,6 +158,23 @@ UserSchema.pre("save", function(next){
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(user.password, salt, (err, hash) => {
                 user.password = hash;
+                next();
+            });
+        });
+    }
+    else{
+        next();
+    }
+});
+
+UserSchema.pre("findOneAndUpdate", function(next){
+        
+    const updates = this._update;
+
+    if(updates.password){
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(updates.password, salt, (err, hash) => {
+                updates.password = hash;
                 next();
             });
         });

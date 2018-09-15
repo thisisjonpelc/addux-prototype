@@ -8,6 +8,8 @@ var authenticate = (req, res, next) => {
             return Promise.reject();
         }
 
+        //console.log("USER FOUND:", user);
+
         req.user = user;
         req.token = token;
     

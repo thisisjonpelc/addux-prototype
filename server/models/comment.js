@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 
-const Comment = new mongoose.Schema("Comment", {
+const CommentSchema = new mongoose.Schema({
     text: {
-        type:String
+        type:String,
+        trim:true
     }
 });
 
-module.exports = {String};
+const Comment = mongoose.model("Comment", CommentSchema);
+
+module.exports = {Comment};

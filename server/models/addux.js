@@ -77,6 +77,10 @@ const Addux = mongoose.model("Addux", {
             ref: "Comment"
         }
     },
+    notes:{
+        type:String,
+        trim:true
+    },
     _creator: {
         type:mongoose.Schema.Types.ObjectId,
         required:true

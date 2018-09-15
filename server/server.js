@@ -66,6 +66,23 @@ app.post("/addux", authenticate, (req, res) => {
     });
 });
 
+app.get("/addux", authenticate, (req, res) => {
+
+    Addux.find({_creator: req.user._id})
+    .populate('objective.comments')
+    .populate('goals.comments')
+    .populate('projects.comments')
+    .populate('timelines.comments')
+    .populate('projectOwner.comments')
+    .populate('expertise.comments')
+    .exec()
+    .then((adduxes) => {
+        res.send({adduxes});
+      }, (e) => {
+        res.status(400).send(e);
+      });
+});
+
 app.get("/addux/:id", (req, res) => {
     const id = req.params.id;
 

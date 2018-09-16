@@ -20,6 +20,25 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
+app.patch("/comments/:id", (req, res) => {
+    const id = req.params.id;
+    const updates = req.body;
+
+    Comment.findOneAndUpdate({_id: id}, updates)
+    .then((comment) => {
+
+        if(!comment){
+            return res.status(404).send();
+        }
+
+        res.send(comment);
+
+    })
+    .catch((e) => {
+        res.status(400).send(e);    
+    });
+});
+
 app.post("/addux", authenticate, (req, res) => {
     const addux = new Addux({
         name: req.body.name,
@@ -28,7 +47,7 @@ app.post("/addux", authenticate, (req, res) => {
 
     const comments = [];
 
-    for(let i = 0; i < 6; i++){
+    for(let i = 0; i < 7; i++){
         //let comment = new Comment();
         comments.push({text:`TEST COMMENT ${i + 1}`});
     }
@@ -37,19 +56,20 @@ app.post("/addux", authenticate, (req, res) => {
         console.log("COMMENTS INSERTED!");
         //console.log(comments);
 
-        addux.objective.comments = comments[0]._id;
-        addux.goals.comments = comments[1]._id;
-        addux.projects.comments = comments[2]._id;
-        addux.timelines.comments = comments[3]._id;
-        addux.projectOwner.comments = comments[4]._id;
-        addux.expertise.comments = comments[5]._id;
+        addux.objective_comments = comments[0]._id;
+        addux.goals_comments = comments[1]._id;
+        addux.projects_comments = comments[2]._id;
+        addux.timelines_comments = comments[3]._id;
+        addux.projectOwner_comments = comments[4]._id;
+        addux.resources_comments = comments[5]._id;
+        addux.progress_comments = comments[6]._id;
 
-        addux.markModified("objective");
-        addux.markModified("goals");
-        addux.markModified("projects");
-        addux.markModified("timelines");
-        addux.markModified("projectOwner");
-        addux.markModified("expertise");
+        // addux.markModified("objective");
+        // addux.markModified("goals");
+        // addux.markModified("projects");
+        // addux.markModified("timelines");
+        // addux.markModified("projectOwner");
+        // addux.markModified("expertise");
 
         addux.save().then((doc) => {
             res.send(doc);
@@ -69,12 +89,13 @@ app.post("/addux", authenticate, (req, res) => {
 app.get("/addux", authenticate, (req, res) => {
 
     Addux.find({_creator: req.user._id})
-    .populate('objective.comments')
-    .populate('goals.comments')
-    .populate('projects.comments')
-    .populate('timelines.comments')
-    .populate('projectOwner.comments')
-    .populate('expertise.comments')
+    .populate('objective_comments')
+    .populate('goals_comments')
+    .populate('projects_comments')
+    .populate('timelines_comments')
+    .populate('projectOwner_comments')
+    .populate('resources_comments')
+    .populate('progress_comments')
     .exec()
     .then((adduxes) => {
         res.send({adduxes});
@@ -93,12 +114,13 @@ app.get("/addux/:id", (req, res) => {
     Addux.findOne({
         _id: id,
     })
-    .populate('objective.comments')
-    .populate('goals.comments')
-    .populate('projects.comments')
-    .populate('timelines.comments')
-    .populate('projectOwner.comments')
-    .populate('expertise.comments')
+    .populate('objective_comments')
+    .populate('goals_comments')
+    .populate('projects_comments')
+    .populate('timelines_comments')
+    .populate('projectOwner_comments')
+    .populate('resources_comments')
+    .populate('progress_comments')
     .exec()
     .then((addux) => {
         if(!addux){
@@ -122,15 +144,57 @@ app.patch("/addux/:id", authenticate, (req, res) => {
     }
 
     Addux.findOneAndUpdate({_id:id, _creator:req.user._id}, updates).then((addux) => {
-        console.log("ADDUX UPDATED!");
-        console.log(addux);
+
+        if(!addux){
+            return res.status(404).send();
+        }
+
+        //console.log("ADDUX UPDATED!");
+        //console.log(addux);
         res.send(addux);
     })
     .catch((e) => {
         res.status(400).send(e);
     })
 
-})
+});
+
+app.delete("/addux/:id", authenticate, (req, res) => {
+    const id = req.params.id;
+    
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+
+    Addux.findOne({_id:id, _creator:req.user._id}).then((addux) => {
+        if(!addux){
+            return res.status(404).send();
+        }
+
+        addux.remove().then((removedAddux) =>{
+            
+            res.send(removedAddux);
+        })
+        .catch((e) => {
+            res.status(400).send(e);
+        });
+    });
+
+    // Addux.remove({_id:id, _creator:req.user._id}).then((adduxes) => {
+        
+    //     console.log("REMOVE RESULTS: ", adduxes);
+        
+    //     if(!adduxes){
+    //         return res.status(404).send();
+    //     }
+
+    //     res.send({adduxes});
+    // })
+    // .catch((e) => {
+    //     console.log(e);
+    //     res.status(400).send(e);
+    // });
+});
 
 app.post("/users", async (req, res) => {
     
@@ -169,6 +233,11 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     if(id === req.user._id.toString()){
         //console.log("USER HAS PERMISSION TO UPDATE THIS USER");
         User.findOneAndUpdate({_id: req.user._id}, updates).then((user) => {
+
+            if(!user){
+                return res.status(404).send();
+            }
+
             console.log(user);
             res.send(req.user);
         })
@@ -183,7 +252,7 @@ app.patch("/users/:id", authenticate, (req, res) =>{
 
 app.get("/users/me", authenticate, (req, res) => {
     res.send(req.user);
-  });
+});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));

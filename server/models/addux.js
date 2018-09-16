@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const {Comment} = require('./comment');
 
-const AdduxSchema = mongoose.Schema({
+const AdduxSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -9,84 +9,348 @@ const AdduxSchema = mongoose.Schema({
         trim:true
     },
     objective:{
-        input:{
-            type:String,
-            trim:true
-        },
-        comments:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment",
-        }
+        type:String,
+        trim:true
     },
-    goals:{
-        inputs:[
-            {
-                type:String,
-                trim:true
-            }
-        ],
-        comments: {
-            type:mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
+    objective_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
     },
-    projects:{
-        inputs:[
-            {
-                type:String,
-                trim:true
-            }
-        ],
-        comments: {
-            type:mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
+    goals_1:{
+        type:String,
+        trim:true
     },
-    timelines:{
-        inputs:[
-            {
-                type:String,
-                trim:true
-            }
-        ],
-        comments: {
-            type:mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
+    goals_2:{
+        type:String,
+        trim:true
     },
-    projectOwner:{
-        inputs:[
-            {
-                type:String,
-                trim:true
-            }
-        ],
-        comments: {
-            type:mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
+    goals_3:{
+        type:String,
+        trim:true
     },
-    expertise:{
-        inputs:[
-            {
-                type:String,
-                trim:true
-            }
-        ],
-        comments: {
-            type:mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
+    goals_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    projects_1:{
+        type:String,
+        trim:true
+    },
+    projects_2:{
+        type:String,
+        trim:true
+    },
+    projects_3:{
+        type:String,
+        trim:true
+    },
+    projects_4:{
+        type:String,
+        trim:true
+    },
+    projects_5:{
+        type:String,
+        trim:true
+    },
+    projects_6:{
+        type:String,
+        trim:true
+    },
+    projects_7:{
+        type:String,
+        trim:true
+    },
+    projects_8:{
+        type:String,
+        trim:true
+    },
+    projects_9:{
+        type:String,
+        trim:true
+    },
+    projects_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    timelines_1:{
+        type:String,
+        trim:true
+    },
+    timelines_2:{
+        type:String,
+        trim:true
+    },
+    timelines_3:{
+        type:String,
+        trim:true
+    },
+    timelines_4:{
+        type:String,
+        trim:true
+    },
+    timelines_5:{
+        type:String,
+        trim:true
+    },
+    timelines_6:{
+        type:String,
+        trim:true
+    },
+    timelines_7:{
+        type:String,
+        trim:true
+    },
+    timelines_8:{
+        type:String,
+        trim:true
+    },
+    timelines_9:{
+        type:String,
+        trim:true
+    },
+    timelines_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    projectOwner_1:{
+        type:String,
+        trim:true
+    },
+    projectOwner_2:{
+        type:String,
+        trim:true
+    },
+    projectOwner_3:{
+        type:String,
+        trim:true
+    },
+    projectOwner_4:{
+        type:String,
+        trim:true
+    },
+    projectOwner_5:{
+        type:String,
+        trim:true
+    },
+    projectOwner_6:{
+        type:String,
+        trim:true
+    },
+    projectOwner_7:{
+        type:String,
+        trim:true
+    },
+    projectOwner_8:{
+        type:String,
+        trim:true
+    },
+    projectOwner_9:{
+        type:String,
+        trim:true
+    },
+    projectOwner_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    resources_1:{
+        type:String,
+        trim:true
+    },
+    resources_2:{
+        type:String,
+        trim:true
+    },
+    resources_3:{
+        type:String,
+        trim:true
+    },
+    resources_4:{
+        type:String,
+        trim:true
+    },
+    resources_5:{
+        type:String,
+        trim:true
+    },
+    resources_6:{
+        type:String,
+        trim:true
+    },
+    resources_7:{
+        type:String,
+        trim:true
+    },
+    resources_8:{
+        type:String,
+        trim:true
+    },
+    resources_9:{
+        type:String,
+        trim:true
+    },
+    resources_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    progress_1:{
+        type:String,
+        trim:true
+    },
+    progress_2:{
+        type:String,
+        trim:true
+    },
+    progress_3:{
+        type:String,
+        trim:true
+    },
+    progress_4:{
+        type:String,
+        trim:true
+    },
+    progress_5:{
+        type:String,
+        trim:true
+    },
+    progress_6:{
+        type:String,
+        trim:true
+    },
+    progress_7:{
+        type:String,
+        trim:true
+    },
+    progress_8:{
+        type:String,
+        trim:true
+    },
+    progress_9:{
+        type:String,
+        trim:true
+    },
+    progress_comments:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
     },
     notes:{
         type:String,
         trim:true
     },
-    _creator: {
+    _creator:{
         type:mongoose.Schema.Types.ObjectId,
         required:true
     }
 });
+
+AdduxSchema.pre("remove", function(next){
+    //console.log("REMOVING COMMENTS");
+    //console.log("THIS IS: ", this);
+
+    const addux = this;
+
+    //console.log(addux.objective_comments);
+
+    Comment.findByIdAndDelete(addux.objective_comments).exec();
+    Comment.findByIdAndDelete(addux.goals_comments).exec();
+    Comment.findByIdAndDelete(addux.projects_comments).exec();
+    Comment.findByIdAndDelete(addux.timelines_comments).exec();
+    Comment.findByIdAndDelete(addux.projectOwner_comments).exec();
+    Comment.findByIdAndDelete(addux.resources_comments).exec();
+    Comment.findByIdAndDelete(addux.progress_comments).exec();
+    
+    next();
+});
+
+const Addux = mongoose.model("Addux", AdduxSchema);
+
+module.exports = {Addux};
+
+// const AdduxSchema = new mongoose.Schema({
+//     name:{
+//         type:String,
+//         required:true,
+//         minlength:1,
+//         trim:true
+//     },
+//     objective:{
+//         input:{
+//             type:String,
+//             trim:true
+//         },
+//         comments:{
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: "Comment",
+//         }
+//     },
+//     goals:{
+//         inputs:[
+//             {
+//                 type:String,
+//                 trim:true
+//             }
+//         ],
+//         comments: {
+//             type:mongoose.Schema.Types.ObjectId,
+//             ref: "Comment"
+//         }
+//     },
+//     projects:{
+//         inputs:[
+//             {
+//                 type:String,
+//                 trim:true
+//             }
+//         ],
+//         comments: {
+//             type:mongoose.Schema.Types.ObjectId,
+//             ref: "Comment"
+//         }
+//     },
+//     timelines:{
+//         inputs:[
+//             {
+//                 type:String,
+//                 trim:true
+//             }
+//         ],
+//         comments: {
+//             type:mongoose.Schema.Types.ObjectId,
+//             ref: "Comment"
+//         }
+//     },
+//     projectOwner:{
+//         inputs:[
+//             {
+//                 type:String,
+//                 trim:true
+//             }
+//         ],
+//         comments: {
+//             type:mongoose.Schema.Types.ObjectId,
+//             ref: "Comment"
+//         }
+//     },
+//     expertise:{
+//         inputs:[
+//             {
+//                 type:String,
+//                 trim:true
+//             }
+//         ],
+//         comments: {
+//             type:mongoose.Schema.Types.ObjectId,
+//             ref: "Comment"
+//         }
+//     },
+//     notes:{
+//         type:String,
+//         trim:true
+//     },
+//     _creator: {
+//         type:mongoose.Schema.Types.ObjectId,
+//         required:true
+//     }
+// });
 
 // AdduxSchema.pre("save", async function(next){
     
@@ -152,6 +416,3 @@ const AdduxSchema = mongoose.Schema({
 
 // });
 
-const Addux = mongoose.model("Addux", AdduxSchema);
-
-module.exports = {Addux};

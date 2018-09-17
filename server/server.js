@@ -21,7 +21,11 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
-app.post("/walkthrough", (req, res) => {
+app.post("/walkthrough", authenticate, (req, res) => {
+
+    if(!req.user.isAdmin){
+        return res.status(403).send();
+    }
 
     const walkthroughData = req.body;
     walkthroughData.createdAt = moment().unix();
@@ -246,6 +250,10 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     
     const id = req.params.id;
     const updates = req.body;
+
+    if(updates.hasOwnProperty(isAdmin)){
+        delete updates.isAdmin;
+    }
 
     if(id === req.user._id.toString()){
         //console.log("USER HAS PERMISSION TO UPDATE THIS USER");

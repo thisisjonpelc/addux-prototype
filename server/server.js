@@ -251,7 +251,7 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     const id = req.params.id;
     const updates = req.body;
 
-    if(updates.hasOwnProperty(isAdmin)){
+    if(updates.hasOwnProperty("isAdmin")){
         delete updates.isAdmin;
     }
 

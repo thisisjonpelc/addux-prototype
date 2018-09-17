@@ -250,13 +250,27 @@ AdduxSchema.pre("remove", function(next){
 
     //console.log(addux.objective_comments);
 
-    Comment.findByIdAndDelete(addux.objective_comments).exec();
-    Comment.findByIdAndDelete(addux.goals_comments).exec();
-    Comment.findByIdAndDelete(addux.projects_comments).exec();
-    Comment.findByIdAndDelete(addux.timelines_comments).exec();
-    Comment.findByIdAndDelete(addux.projectOwner_comments).exec();
-    Comment.findByIdAndDelete(addux.resources_comments).exec();
-    Comment.findByIdAndDelete(addux.progress_comments).exec();
+    // Comment.findByIdAndDelete(addux.objective_comments).exec();
+    // Comment.findByIdAndDelete(addux.goals_comments).exec();
+    // Comment.findByIdAndDelete(addux.projects_comments).exec();
+    // Comment.findByIdAndDelete(addux.timelines_comments).exec();
+    // Comment.findByIdAndDelete(addux.projectOwner_comments).exec();
+    // Comment.findByIdAndDelete(addux.resources_comments).exec();
+    // Comment.findByIdAndDelete(addux.progress_comments).exec();
+
+    Comment.deleteMany(
+        {
+           $or:[
+               {_id: addux.objective_comments},
+               {_id: addux.goals_comments},
+               {_id: addux.projects_comments},
+               {_id: addux.timelines_comments},
+               {_id: addux.projectOwner_comments},
+               {_id: addux.resources_comments},
+               {_id: addux.progress_comments}
+           ] 
+        }
+    ).exec();
     
     next();
 });

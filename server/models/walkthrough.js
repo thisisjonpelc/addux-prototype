@@ -61,7 +61,6 @@ const WalkthroughSchema = new mongoose.Schema({
         type:Number,
         required:true
     }
-
 });
 
 const Walkthrough = mongoose.model("Walkthrough", WalkthroughSchema);

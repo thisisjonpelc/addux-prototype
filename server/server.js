@@ -12,6 +12,7 @@ const {authenticate} = require('./middleware/authenticate');
 const {User} = require('./models/user');
 const {Addux} = require('./models/addux');
 const {Comment} = require('./models/comment');
+const {Walkthrough} = require('./models/walkthrough');
 
 const app = express();
 const publicPath = path.join(__dirname, '..', 'public');
@@ -19,6 +20,22 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
+
+app.post("/walkthrough", (req, res) => {
+
+    const walkthroughData = req.body;
+    walkthroughData.createdAt = moment().unix();
+
+    const walkthrough = new Walkthrough(walkthroughData);
+
+    walkthrough.save().then((doc) => {
+        res.send(doc);    
+    })
+    .catch((e) => {
+        res.status(400).send(e);
+    });
+
+});
 
 app.patch("/comments/:id", (req, res) => {
     const id = req.params.id;

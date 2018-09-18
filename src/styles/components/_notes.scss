@@ -1,0 +1,37 @@
+.notes{
+    width:50rem;
+    position:absolute;
+    background-color:$gray-lighter;
+    top: 0;
+    right:-50rem;
+    height:100vh;
+    z-index:200;
+
+    border-right:1px solid $gray-darker;
+
+    @include respond(phone) {
+        width:100%;
+        left:-100%;
+    }
+
+    &__close{
+        display:block;
+        cursor: pointer;
+        height:3rem;
+        width:3rem;
+        fill:$gray-darker;
+
+        margin-top:1rem;
+        margin-right:1rem;
+        margin-bottom:1rem;
+        margin-left:auto;
+
+        &:hover{
+            fill:$black;
+        }
+    }
+
+    &--active{
+        right:0px;
+    }
+}

@@ -3,8 +3,10 @@ console.log("App is running!");
 import React from "react";
 import ReactDOM from "react-dom";
 
-import './styles/styles.scss';
+import AdduxApp from "./components/AdduxApp";
 
-const template = (<div className="test class"><h1>This is the app!</h1></div>);
+import './styles/main.scss';
+
+const template = (<AdduxApp />);
 
 ReactDOM.render(template, document.getElementById('app'));

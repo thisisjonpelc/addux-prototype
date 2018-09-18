@@ -1,0 +1,31 @@
+.scroll-button{
+    position:fixed;
+    background-color:$gray-lighter;
+    z-index: 100;
+    display:flex;
+    height:6rem;
+    align-items: center;
+    justify-content: center;
+    top:50%;
+    transform: translateY(-50%);
+    width:4.2rem;
+    border: 1px solid $gray-light;
+
+    &__icon{
+        height:3rem;
+        fill:#9DA145;
+        width:3rem;
+
+        &--left{
+            transform:rotate(180deg);
+        }
+    }
+
+    &--left{
+        left:0;
+    }
+
+    &--right{
+        right:0;
+    }
+}

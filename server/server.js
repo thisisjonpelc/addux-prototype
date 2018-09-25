@@ -21,6 +21,17 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
+app.get("/walkthrough", (req, res) => {
+
+    Walkthrough.findOne({}, {}, {sort: {'createdAt': -1}})
+        .then((walkthrough) => {
+            res.send(walkthrough);
+        })
+        .catch((e) => {
+            res.status(400).send(e);
+        });
+});
+
 app.post("/walkthrough", authenticate, (req, res) => {
 
     if(!req.user.isAdmin){
@@ -42,8 +53,12 @@ app.post("/walkthrough", authenticate, (req, res) => {
 });
 
 app.patch("/comments/:id", (req, res) => {
+    console.log("GOT A PATCH REQUEST");
+    
     const id = req.params.id;
     const updates = req.body;
+
+    console.log("COMMENT ID: ", id);
 
     Comment.findOneAndUpdate({_id: id}, updates)
     .then((comment) => {
@@ -63,14 +78,17 @@ app.patch("/comments/:id", (req, res) => {
 app.post("/addux", authenticate, (req, res) => {
     const addux = new Addux({
         name: req.body.name,
-        _creator:req.user._id
+        _creator:req.user._id,
+        goals_1: "",
+        goals_2: "",
+        goals_3: ""
     });
 
     const comments = [];
 
     for(let i = 0; i < 7; i++){
         //let comment = new Comment();
-        comments.push({text:`TEST COMMENT ${i + 1}`});
+        comments.push({text:""});
     }
 
     Comment.insertMany(comments).then((comments) => {
@@ -92,8 +110,29 @@ app.post("/addux", authenticate, (req, res) => {
         // addux.markModified("projectOwner");
         // addux.markModified("expertise");
 
-        addux.save().then((doc) => {
-            res.send(doc);
+        addux.save()
+        .then((addux) => {
+        
+            console.log(addux);
+            
+            //res.send({addux});
+            //res.send({addux});
+        
+            addux
+             .populate('objective_comments')
+             .populate('goals_comments')
+             .populate('projects_comments')
+             .populate('timelines_comments')
+             .populate('projectOwner_comments')
+             .populate('resources_comments')
+             .populate('progress_comments')
+             .execPopulate()
+             .then((addux) => {
+                res.send({addux});
+            })
+            .catch((e) => {
+                 res.status(400).send(e);
+            });
         })
         .catch((e) => {
             res.status(400).send(e);
@@ -226,9 +265,13 @@ app.post("/users", async (req, res) => {
 
         await user.save();
         const token = await user.generateAuthToken();
+        delete user.password;
+        delete user.tokens;
+
         res.header("x-auth", token).send(user);
     }
     catch(e){
+        console.log(e);
         res.status(400).send(e);
     }
 });
@@ -239,10 +282,15 @@ app.post("/users/login", async (req, res) => {
       const user = await User.findByCredentials(body.email, body.password);
       const token = await user.generateAuthToken();
       
+    //   user.password = "";
+    //   user.tokens = [];
+
+      console.log(user);
+
       res.header("x-auth", token).send(user);
     }
     catch(e){
-      res.status(400).send();
+      res.status(400).send(e);
     }
 });
 
@@ -263,7 +311,7 @@ app.patch("/users/:id", authenticate, (req, res) =>{
                 return res.status(404).send();
             }
 
-            console.log(user);
+            //console.log(user);
             res.send(req.user);
         })
         .catch((e) => {

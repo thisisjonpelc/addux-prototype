@@ -4,21 +4,51 @@ import AccordionItem from "./AccordionItem";
 
 import {accordionSize} from './../constants/constants';
 
-const Accordion = ({category}) => {
-    
-    let result = []
+class Accordion extends React.Component{
+    constructor(props){
+        super(props);
 
-    for(let i = 1; i<accordionSize[category]+1; i++){
-        result[i] = <AccordionItem key={i} category={category} number={i}/>
+        this.state = {
+            open: -1
+        }
     }
 
-    //return result;
+    onLabelClick = (e) => {
+       //console.log(e.target);
+        
+        // this.setState({
+        //     active: number
+        // });
+    };
 
-    return (
-        <div className="accordion">
-            {result}
-        </div>
-    );
+    changeOpenItem = (num) => {
+        //console.log("CHANGING OPEN ITEM");
+
+        const newOpen = num === this.state.open ? -1 : num;
+
+        //console.log("NEW OPEN: ", newOpen);
+
+        this.setState({
+            open:newOpen
+        });
+    }
+
+    render() {
+
+        let result = []
+
+        for(let i = 1; i<accordionSize[this.props.category]+1; i++){
+            result[i] = <AccordionItem key={i} category={this.props.category} number={i} open={i === this.state.open} changeOpenItem={this.changeOpenItem} onLabelClick={this.onLabelClick}/>
+        }
+
+        return (
+            <div className="accordion">
+                {result}
+            </div>
+        );
+
+    }
+
 }
 
 export default Accordion;

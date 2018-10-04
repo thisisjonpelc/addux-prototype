@@ -12,8 +12,8 @@ const AdduxList = (props) => {
 
     for(let key in props.addux){
 
-        console.log(props.addux.active);
-        console.log(key);
+        //console.log(props.addux.active);
+        //console.log(key);
 
         //() => {console.log("CLICKED!"); ;
 
@@ -33,7 +33,10 @@ const AdduxList = (props) => {
                 <use href='img/sprite.svg#icon-close'></use>    
             </svg>
 
-            {AdduxItems}
+            {props.empty ? 
+                <h1> You don't have any Adduxes! </h1>
+                :
+            AdduxItems}
 
         </div>
 

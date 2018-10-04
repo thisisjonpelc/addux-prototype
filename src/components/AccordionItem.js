@@ -4,6 +4,7 @@ import {debounce} from 'throttle-debounce';
 import axios from 'axios';
 
 import {labels} from '../constants/constants';
+
 import {editAddux} from './../actions/addux';
 
 
@@ -12,8 +13,7 @@ class AccordionItem extends React.Component{
         super(props);
 
         this.state ={
-            open: props.open,
-            text: "" 
+            text: props.activeAddux[`${props.category}_${props.number}`] 
             //props.activeAddux[`${props.category}_${props.number}`] ? props.activeAddux[`${props.category}_${props.number}`] : ""
         }
     }
@@ -24,19 +24,19 @@ class AccordionItem extends React.Component{
         this.props.changeOpenItem(Number(e.target.id.slice(-1)));
     }
 
-    shouldComponentUpdate(nextProps, nextState){
+    // shouldComponentUpdate(nextProps, nextState){
 
-        if(this.props.category==="goals"){    
-            console.log("oldProps", this.props);
-            console.log("nextProps", nextProps);
-            console.log("oldState", this.state);
-            console.log("nextState", nextState);
-        }
+    //     if(this.props.category==="goals"){    
+    //         console.log("oldProps", this.props);
+    //         console.log("nextProps", nextProps);
+    //         console.log("oldState", this.state);
+    //         console.log("nextState", nextState);
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    saveText = debounce(1000, () => {
+    saveText = debounce(1000, (text) => {
         console.log('SAVING INPUT');
         //console.log(this.props.comment);
         //console.log(this.props.comment._id);
@@ -44,7 +44,7 @@ class AccordionItem extends React.Component{
 
         const updates = {};
 
-        updates[`${this.props.category}_${this.props.number}`] = this.state.text;
+        updates[`${this.props.category}_${this.props.number}`] = text;
 
         console.log(updates);
 
@@ -72,21 +72,32 @@ class AccordionItem extends React.Component{
         console.log("TEXT CHANGED");
         const text = e.target.value;
         this.setState(() => ({text}));
-        this.saveText();
+        this.saveText(text);
     }
 
     render() {
         return (
             <div className='accordion__item'>
-                <input id={`${this.props.category}-${this.props.number}`} onChange={this.onCheckChange} type='checkbox' checked={this.props.open}/>
-                <label className='accordion__label' htmlFor={`${this.props.category}-${this.props.number}`}>
+                <input id={`${this.props.category}-${this.props.number}`} 
+                       onChange={this.onCheckChange} 
+                       type='checkbox' 
+                       checked={this.props.open}
+                />
+                <label className='accordion__label' 
+                       htmlFor={`${this.props.category}-${this.props.number}`}
+                    >
                     <span>{`${labels[this.props.category]} ${this.props.number}`}</span>
                     <svg className='accordion__icon'>
                         <use href='img/sprite.svg#icon-chevron-down-solid'></use>
                     </svg>
                 </label>
                 <div className='accordion__text'>
-                    <textarea maxLength='50' className='addux-textarea' onChange={this.onTextChange} value={this.props.activeAddux[`${this.props.category}_${this.props.number}`] || this.state.text}></textarea>
+                    <textarea 
+                        maxLength='50' 
+                        className='addux-textarea' 
+                        onChange={this.onTextChange} 
+                        value={this.state.text}>
+                    </textarea>
                 </div> 
             </div>
         );

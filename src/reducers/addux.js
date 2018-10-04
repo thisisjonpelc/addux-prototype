@@ -14,6 +14,10 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
                 newState[element._id] = element;
             });
 
+            if(action.adduxes.length > 0){
+                newState.active = action.adduxes[0]._id;
+            }
+
             return newState;
         case "SET_ACTIVE":
             console.log("SETTING A NEW ACTIVE ADDUX");
@@ -46,7 +50,8 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
 
         case "ADD_ADDUX":
            newState = {
-               ...state
+               ...state,
+               active: action.addux._id
            };
 
            newState[action.addux._id] = action.addux;

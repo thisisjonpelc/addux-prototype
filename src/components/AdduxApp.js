@@ -7,6 +7,8 @@ import Columns from "./Columns";
 import Footer from "./Footer";
 import LoadingPage from "./LoadingPage";
 import AdduxList from './AdduxList';
+import Notes from './Notes';
+
 
 import {dataReceived, dataError} from '../actions/data';
 import {setAdduxes, setActive} from '../actions/addux';
@@ -29,6 +31,15 @@ class AdduxApp extends React.Component{
 
         this.setState((prevState) => ({
            listActive: !prevState.listActive 
+        }));
+    }
+
+    changeNotesActive = () => {
+
+        console.log("CHANGING NOTE STATUS");
+
+        this.setState((prevState) => ({
+           notesActive: !prevState.notesActive 
         }));
     }
 
@@ -55,9 +66,9 @@ class AdduxApp extends React.Component{
             const walkthroughResponse = responses[1];
             
             this.props.setAdduxes(adduxResponse.data.adduxes);
-            if(adduxResponse.data.adduxes.length > 0){
-                this.props.setActive(adduxResponse.data.adduxes[0]._id);
-            }
+            // if(adduxResponse.data.adduxes.length > 0){
+            //     this.props.setActive(adduxResponse.data.adduxes[0]._id);
+            // }
             this.props.setWalkthrough(walkthroughResponse.data);
             this.props.dataReceived();
         })
@@ -108,10 +119,11 @@ class AdduxApp extends React.Component{
         else if(this.props.dataStatus === "RECIEVED"){
             return (
                 <div className="app">
-                    <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive}/>
-                    <Header changeListActive={this.changeListActive}/>
+                    <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
+                    <Header changeListActive={this.changeListActive} empty={this.props.empty} token={this.props.token}/>
                     <Columns />
                     <Footer />
+                    <Notes />
                 </div>
             );
         }
@@ -126,7 +138,8 @@ class AdduxApp extends React.Component{
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
-        dataStatus: state.data.status
+        dataStatus: state.data.status,
+        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object
     }
 };
 

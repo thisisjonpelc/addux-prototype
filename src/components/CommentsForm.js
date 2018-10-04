@@ -5,28 +5,35 @@ import axios from "axios";
 
 import {editComments} from "./../actions/addux";
 
+import CommentTextArea from './CommentTextArea';
+
 class CommentsForm extends React.Component{
 
     constructor(props){
+
+        //console.log("CONSTRUCTOR CALLED!");
+
         super(props);
 
         //console.log(props);
-        console.log(props.comment);
-        console.log(props.comment.text);
+        //console.log('--------------------------------');
+        //console.log(props.comment);
+        //console.log(props.comment.text);
+        //console.log('-----------------------------');
 
         this.state = {
-            comments:  ""
+             comments:  props.comment.text
         }
     }
 
-    saveComments = debounce(1000, () => {
+    saveComments = debounce(1000, (comments) => {
         console.log('SAVING COMMENT');
-        console.log(this.props.comment);
-        console.log(this.props.comment._id);
+        //console.log(this.props.comment);
+        //console.log(this.props.comment._id);
         //console.log(`/comments/${this.props.comment._id.toHexString()}`);
 
         const updates = {
-            text: this.state.comments
+            text: comments
         }
 
         axios.patch(
@@ -35,10 +42,10 @@ class CommentsForm extends React.Component{
         .then((response) => {
             console.log("COMMENT SAVED");
             console.log(response);
-            const upDateObj = {};
-            upDateObj[`${this.props.category}_comments`] = this.state.comments;
+            //const upDateObj = {};
+            //upDateObj[`${this.props.category}_comments`] = comments;
 
-            this.props.editComments(this.props.active, `${this.props.category}_comments`, this.state.comments);
+            this.props.editComments(this.props.active, `${this.props.category}_comments`, comments);
         })
         .catch((e) => {
             console.log("COULDN'T SAVE COMMENT");
@@ -49,8 +56,14 @@ class CommentsForm extends React.Component{
     onCommentsChange = (e) => {
         const comments = e.target.value;
         this.setState(() => ({comments}));
-        this.saveComments();
+        this.saveComments(comments);
     }
+
+    // componentWillReceiveProps(nextProps){
+    //    console.log("Next Props:", nextProps);
+       
+    //    if(this.state)
+    // }
 
     // shouldComponentUpdate(nextProps, nextState){
     //     console.log("oldProps", this.props);
@@ -67,7 +80,11 @@ class CommentsForm extends React.Component{
 
     render(){
 
-        //console.log("RENDERING");
+        //console.log("RENDERING COMMENT FORM");
+
+
+
+        //<CommentTextArea commentText={this.props.comment.text} onCommentsChange={this.onCommentsChange} />
 
         return (
             <div className="comments-form">
@@ -75,9 +92,9 @@ class CommentsForm extends React.Component{
                 <textarea 
                     className="comments-form__comments" 
                     placeholder="Comments go here"
-                    value={this.props.comment.text || this.state.comments}
+                    value={this.state.comments}
                     onChange={this.onCommentsChange}>
-                </textarea>
+                </textarea>                
             </div>
         );
     }
@@ -89,6 +106,9 @@ const mapStateToProps = (state, ownProps) => {
     // console.log(state.addux);
     // console.log(state.addux.active);
     // console.log(state.addux[state.addux.active]);
+
+    //console.log("Addux", state.addux[state.addux.active]);
+    //console.log("Comment", state.addux[state.addux.active][`${ownProps.category}_comments`]);
 
     return {
         comment: state.addux[state.addux.active][`${ownProps.category}_comments`],

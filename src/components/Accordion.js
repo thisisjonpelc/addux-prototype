@@ -13,14 +13,6 @@ class Accordion extends React.Component{
         }
     }
 
-    onLabelClick = (e) => {
-       //console.log(e.target);
-        
-        // this.setState({
-        //     active: number
-        // });
-    };
-
     changeOpenItem = (num) => {
         //console.log("CHANGING OPEN ITEM");
 
@@ -38,7 +30,7 @@ class Accordion extends React.Component{
         let result = []
 
         for(let i = 1; i<accordionSize[this.props.category]+1; i++){
-            result[i] = <AccordionItem key={i} category={this.props.category} number={i} open={i === this.state.open} changeOpenItem={this.changeOpenItem} onLabelClick={this.onLabelClick}/>
+            result[i] = <AccordionItem key={`${this.props.active}-${i}`} category={this.props.category} number={i} open={i === this.state.open} changeOpenItem={this.changeOpenItem} onLabelClick={this.onLabelClick}/>
         }
 
         return (

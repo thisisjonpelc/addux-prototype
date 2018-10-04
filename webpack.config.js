@@ -20,6 +20,13 @@ module.exports = {
                 'css-loader',
                 'sass-loader'
             ]
+        },
+        {
+            test: /\.css$/,
+            loaders: [
+                'style-loader',
+                'css-loader?modules'
+            ]
         }]
     },
     devtool: 'cheap-module-eval-source-map',

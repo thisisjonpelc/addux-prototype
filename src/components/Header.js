@@ -54,7 +54,7 @@ class Header extends React.Component{
             console.log(response.data);
             this.handleCloseModal();
             this.props.addAddux(response.data.addux);
-            this.props.setActive(response.data.addux._id);
+            //this.props.setActive(response.data.addux._id);
         })
         .catch((e) => {
             console.log("FAILED TO CREATE NEW ADDUX");
@@ -100,11 +100,13 @@ class Header extends React.Component{
                                 </svg>
                             </div>
                         </nav>
-            
-                        <div onClick={this.showEditModal} className="info-box">
-                            <h1 className="info-box__title">{this.props.activeAddux.name}</h1>
-                            <div className="info-box__progress-bar"></div>
-                        </div>
+
+                        {!this.props.empty &&
+                            <div onClick={this.showEditModal} className="info-box">
+                                <h1 className="info-box__title">{this.props.activeAddux.name}</h1>
+                                <div className="info-box__progress-bar"></div>
+                            </div>
+                        }
                 </header>
 
                 <Modal
@@ -133,16 +135,14 @@ class Header extends React.Component{
 const mapStateToProps = (state) => {
 
     return {
-        activeAddux: state.addux[state.addux.active],
-        token: state.auth.token
-    }
-    
+        activeAddux: state.addux[state.addux.active]
+    }    
 };
 
 const mapDispatchToProps = (dispatch) => {    
     return {
         addAddux: (addux) => dispatch(addAddux(addux)),
-        setActive: (id) => dispatch(setActive(id))
+        setActive: (id) => dispatch(setActive(id)),
     }
 };
 

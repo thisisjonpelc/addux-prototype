@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import axios from "axios";
+import $ from 'jquery';
 
 import Header from "./Header";
 import Columns from "./Columns";
@@ -8,7 +9,7 @@ import Footer from "./Footer";
 import LoadingPage from "./LoadingPage";
 import AdduxList from './AdduxList';
 import Notes from './Notes';
-
+import ScrollArrow from './ScrollArrow';
 
 import {dataReceived, dataError} from '../actions/data';
 import {setAdduxes, setActive} from '../actions/addux';
@@ -41,6 +42,20 @@ class AdduxApp extends React.Component{
         this.setState((prevState) => ({
            notesActive: !prevState.notesActive 
         }));
+    }
+
+    scrollLeft = () => {
+        console.log('SCROLL LEFT');
+
+        const mainContent = $('.main-content');
+        mainContent.animate({scrollLeft: mainContent.scrollLeft() - 250}, 500);
+    }
+
+    scrollRight = () => {
+        console.log('SCROLL RIGHT');
+
+        const mainContent = $('.main-content');
+        mainContent.animate({scrollLeft: mainContent.scrollLeft() + 250}, 500);
     }
 
     componentDidMount(){
@@ -119,6 +134,8 @@ class AdduxApp extends React.Component{
         else if(this.props.dataStatus === "RECIEVED"){
             return (
                 <div className="app">
+                    <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>
+                    <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
                     <Header changeListActive={this.changeListActive} empty={this.props.empty} token={this.props.token}/>
                     <Columns />

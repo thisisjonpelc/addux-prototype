@@ -14,6 +14,7 @@ import ScrollArrow from './ScrollArrow';
 import {dataReceived, dataError} from '../actions/data';
 import {setAdduxes, setActive} from '../actions/addux';
 import {setWalkthrough} from '../actions/walkthrough';
+import {initializeApp} from './../actions/universal';
 
 
 class AdduxApp extends React.Component{
@@ -80,12 +81,14 @@ class AdduxApp extends React.Component{
             const adduxResponse = responses[0];
             const walkthroughResponse = responses[1];
             
-            this.props.setAdduxes(adduxResponse.data.adduxes);
-            // if(adduxResponse.data.adduxes.length > 0){
-            //     this.props.setActive(adduxResponse.data.adduxes[0]._id);
-            // }
-            this.props.setWalkthrough(walkthroughResponse.data);
-            this.props.dataReceived();
+            this.props.initializeApp(adduxResponse.data.adduxes, walkthroughResponse.data);
+
+            // this.props.setAdduxes(adduxResponse.data.adduxes);
+            // // if(adduxResponse.data.adduxes.length > 0){
+            // //     this.props.setActive(adduxResponse.data.adduxes[0]._id);
+            // // }
+            // this.props.setWalkthrough(walkthroughResponse.data);
+            // this.props.dataReceived();
         })
         .catch((e) => {
             this.props.dataError();
@@ -165,7 +168,8 @@ const mapDispatchToProps = (dispatch) => ({
     dataError: () => dispatch(dataError()),
     setAdduxes: (adduxes) => dispatch(setAdduxes(adduxes)),
     setActive: (id) => dispatch(setActive(id)),
-    setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough))
+    setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough)),
+    initializeApp: (adduxes, walkthrough) => dispatch(initializeApp(adduxes, walkthrough))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdduxApp);

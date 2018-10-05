@@ -159,7 +159,7 @@ const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
         dataStatus: state.data.status,
-        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object
+        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
     }
 };
 

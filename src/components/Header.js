@@ -74,6 +74,18 @@ class Header extends React.Component{
                     <img src="img/addux-logo.png" className="logo" />
             
                     <nav className="app-nav">
+
+                       {
+                           this.props.isAdmin 
+                           && 
+                           (
+                               <div className="app-nav__icon-box">
+                                    <svg className="app-nav__icon">
+                                        <use href="img/sprite.svg#icon-cog"></use>
+                                    </svg>
+                                </div>
+                            )
+                       }     
                             <div className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
                                     <use href="img/sprite.svg#icon-share-alt-solid"></use>
@@ -126,6 +138,7 @@ class Header extends React.Component{
                 >
                     <AdduxNameForm addux={this.props.activeAddux} buttonText='Edit your Addux' onSubmit={this.createNewModal}/>
                 </Modal>
+                
             </div>
         );
     }
@@ -135,7 +148,8 @@ class Header extends React.Component{
 const mapStateToProps = (state) => {
 
     return {
-        activeAddux: state.addux[state.addux.active]
+        activeAddux: state.addux[state.addux.active],
+        isAdmin: state.auth.isAdmin
     }    
 };
 

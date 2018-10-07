@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom';
 import axios from "axios";
 import $ from 'jquery';
 
@@ -11,10 +12,14 @@ import AdduxList from './AdduxList';
 import Notes from './Notes';
 import ScrollArrow from './ScrollArrow';
 
+import {history} from './../routers/AppRouter'
+
+
 import {dataReceived, dataError} from '../actions/data';
 import {setAdduxes, setActive} from '../actions/addux';
 import {setWalkthrough} from '../actions/walkthrough';
 import {initializeApp} from './../actions/universal';
+import {unsubscribe} from './../actions/subscription';
 
 
 class AdduxApp extends React.Component{
@@ -23,7 +28,8 @@ class AdduxApp extends React.Component{
     
         this.state = {
             listActive: false,
-            notesActive: false
+            notesActive: false,
+            dataStatus: "WAITING",
         }
     }
 
@@ -60,7 +66,7 @@ class AdduxApp extends React.Component{
     }
 
     componentDidMount(){
-        console.log(this.props.dataStatus);
+        console.log(this.state.dataStatus);
 
         Promise.all(
             [
@@ -82,6 +88,11 @@ class AdduxApp extends React.Component{
             const walkthroughResponse = responses[1];
             
             this.props.initializeApp(adduxResponse.data.adduxes, walkthroughResponse.data);
+            this.setState(() => {
+                return {
+                    dataStatus: 'RECIEVED'
+                }
+            });
 
             // this.props.setAdduxes(adduxResponse.data.adduxes);
             // // if(adduxResponse.data.adduxes.length > 0){
@@ -91,8 +102,26 @@ class AdduxApp extends React.Component{
             // this.props.dataReceived();
         })
         .catch((e) => {
-            this.props.dataError();
-            console.log(e);
+            if(e.response.status === 402){
+                //history.push('/subscribe');
+
+                // this.setState(() => {
+                //     return {
+                //         subscribed: false
+                //     }
+                // })
+                this.props.unsubscribe();
+                history.push('/subscribe');
+            }
+            else{
+                //this.props.dataError();
+                this.setState(() => {
+                    return {
+                        dataStatus: 'ERROR'
+                    }
+                });
+                console.log(e);
+            }
         });
 
         // axios.all(
@@ -129,12 +158,16 @@ class AdduxApp extends React.Component{
 
     render(){
 
-        if(this.props.dataStatus === "WAITING"){
+        // if(!this.props.subscribed){
+        //     return <Redirect to='/subscribe' />
+        // }
+
+        if(this.state.dataStatus === "WAITING"){
             return (
                 <LoadingPage />
             )
         }
-        else if(this.props.dataStatus === "RECIEVED"){
+        else if(this.state.dataStatus === "RECIEVED"){
             return (
                 <div className="app">
                     <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>
@@ -158,18 +191,20 @@ class AdduxApp extends React.Component{
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
-        dataStatus: state.data.status,
-        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
+        //dataStatus: state.data.status,
+        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object
+        //subscribed: state.subscription.subscribed
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    dataReceived: () => dispatch(dataReceived()),
-    dataError: () => dispatch(dataError()),
-    setAdduxes: (adduxes) => dispatch(setAdduxes(adduxes)),
-    setActive: (id) => dispatch(setActive(id)),
-    setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough)),
-    initializeApp: (adduxes, walkthrough) => dispatch(initializeApp(adduxes, walkthrough))
+    // dataReceived: () => dispatch(dataReceived()),
+    // dataError: () => dispatch(dataError()),
+    // setAdduxes: (adduxes) => dispatch(setAdduxes(adduxes)),
+    // setActive: (id) => dispatch(setActive(id)),
+    // setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough)),
+    initializeApp: (adduxes, walkthrough) => dispatch(initializeApp(adduxes, walkthrough)),
+    unsubscribe: () => dispatch(unsubscribe())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdduxApp);

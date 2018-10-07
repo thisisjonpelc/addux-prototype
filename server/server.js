@@ -6,9 +6,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const {ObjectID} = require("mongodb");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const {mongoose} = require('./db/mongoose');
 const {authenticate} = require('./middleware/authenticate');
+const {subscribed} = require('./middleware/subscribed');
 const {User} = require('./models/user');
 const {Addux} = require('./models/addux');
 const {Comment} = require('./models/comment');
@@ -20,6 +22,34 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
+
+app.post('/users/subscribe', authenticate, async (req, res) => {
+
+    const user = req.user;
+
+    console.log(req.body);
+
+    try{
+        const card = await stripe.customers.createSource(user.customerId, {source: req.body.token});
+        console.log(card);
+
+        const subscription = await stripe.subscriptions.create({
+            customer: user.customerId,
+            items: [
+                {
+                    plan: 'plan_DjB2FnOBuqQ2y7'
+                }
+            ]
+        });
+        console.log(subscription);
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    res.send('WE COOL');
+});
+
 
 app.get("/walkthrough", (req, res) => {
 
@@ -93,7 +123,6 @@ app.post("/addux", authenticate, (req, res) => {
 
     Comment.insertMany(comments).then((comments) => {
         console.log("COMMENTS INSERTED!");
-        //console.log(comments);
 
         addux.objective_comments = comments[0]._id;
         addux.goals_comments = comments[1]._id;
@@ -103,20 +132,8 @@ app.post("/addux", authenticate, (req, res) => {
         addux.resources_comments = comments[5]._id;
         addux.progress_comments = comments[6]._id;
 
-        // addux.markModified("objective");
-        // addux.markModified("goals");
-        // addux.markModified("projects");
-        // addux.markModified("timelines");
-        // addux.markModified("projectOwner");
-        // addux.markModified("expertise");
-
         addux.save()
         .then((addux) => {
-        
-            console.log(addux);
-            
-            //res.send({addux});
-            //res.send({addux});
         
             addux
              .populate('objective_comments')
@@ -146,7 +163,7 @@ app.post("/addux", authenticate, (req, res) => {
     });
 });
 
-app.get("/addux", authenticate, (req, res) => {
+app.get("/addux", authenticate, subscribed, (req, res) => {
 
     Addux.find({_creator: req.user._id})
     .populate('objective_comments')
@@ -209,8 +226,6 @@ app.patch("/addux/:id", authenticate, (req, res) => {
             return res.status(404).send();
         }
 
-        //console.log("ADDUX UPDATED!");
-        //console.log(addux);
         res.send(addux);
     })
     .catch((e) => {
@@ -234,26 +249,12 @@ app.delete("/addux/:id", authenticate, (req, res) => {
         addux.remove().then((removedAddux) =>{
             
             res.send(removedAddux);
-        })
-        .catch((e) => {
-            res.status(400).send(e);
         });
+    })
+    .catch((e) => {
+        res.status(400).send(e);
     });
 
-    // Addux.remove({_id:id, _creator:req.user._id}).then((adduxes) => {
-        
-    //     console.log("REMOVE RESULTS: ", adduxes);
-        
-    //     if(!adduxes){
-    //         return res.status(404).send();
-    //     }
-
-    //     res.send({adduxes});
-    // })
-    // .catch((e) => {
-    //     console.log(e);
-    //     res.status(400).send(e);
-    // });
 });
 
 app.post("/users", async (req, res) => {
@@ -264,14 +265,25 @@ app.post("/users", async (req, res) => {
         user.lastLogin = moment().unix();
 
         await user.save();
+        const customer = await stripe.customers.create({
+            description: `Customer for id ${user._id}; ${user.firstName} ${user.lastName}`,
+            email: user.email
+        });
+        
+        user.customerId = customer.id;
+        
+        
+        //await user.save();
+        //await User.findOneAndUpdate({_id: user._id}, {customerId: customer.id});
         const token = await user.generateAuthToken();
-        delete user.password;
-        delete user.tokens;
+
+        //TODO: Remove User's tokens and password before sending back
 
         res.header("x-auth", token).send(user);
     }
     catch(e){
         console.log(e);
+        await user.remove();
         res.status(400).send(e);
     }
 });
@@ -282,10 +294,9 @@ app.post("/users/login", async (req, res) => {
       const user = await User.findByCredentials(body.email, body.password);
       const token = await user.generateAuthToken();
       
-    //   user.password = "";
-    //   user.tokens = [];
-
       console.log(user);
+      //TODO: Remove User's tokens and password before sending back
+
 
       res.header("x-auth", token).send(user);
     }
@@ -304,14 +315,12 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     }
 
     if(id === req.user._id.toString()){
-        //console.log("USER HAS PERMISSION TO UPDATE THIS USER");
         User.findOneAndUpdate({_id: req.user._id}, updates).then((user) => {
 
             if(!user){
                 return res.status(404).send();
             }
 
-            //console.log(user);
             res.send(req.user);
         })
         .catch((e) => {
@@ -323,7 +332,7 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     }
 });
 
-app.get("/users/me", authenticate, (req, res) => {
+app.get("/users/me", authenticate, subscribed, (req, res) => {
     res.send(req.user);
 });
 

@@ -5,7 +5,9 @@ import createHistory from 'history/createBrowserHistory';
 import AdduxApp from "../components/AdduxApp";
 import AdduxWrapper from "../components/AdduxWrapper";
 import LoginPage from "../components/LoginPage";
+import SubscribePage from './../components/SubscribePage';
 import PublicRoute from "./PublicRoute";
+import PrivateRoute from './PrivateRoute';
 
 export const history = createHistory();
 
@@ -17,6 +19,7 @@ const AppRouter = () => (
     <Router history={history}>
         <Switch>
             <Route path="/" component={AdduxWrapper} exact={true} />
+            <PrivateRoute path="/subscribe" component={SubscribePage} />
             <PublicRoute path="/login" component={LoginPage} />
             <Redirect to="/" />
         </Switch>

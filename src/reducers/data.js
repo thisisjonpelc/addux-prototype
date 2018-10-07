@@ -4,7 +4,7 @@ const dataReducerDefaultState = {
 
 export default (state = dataReducerDefaultState, action) => {
     switch(action.type) {
-        case "INITIALIZE_APP":
+        //case "INITIALIZE_APP":
         case "DATA_RECEIVED":
             return {
                 status: "RECIEVED"

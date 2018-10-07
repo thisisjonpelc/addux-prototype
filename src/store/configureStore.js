@@ -4,6 +4,7 @@ import adduxReducer from "../reducers/addux";
 import authReducer from "../reducers/auth";
 import dataReducer from "../reducers/data";
 import walkthroughReducer from '../reducers/walkthrough';
+import subscriptionReducer from '../reducers/subscription'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE_ || compose;
 
@@ -13,8 +14,9 @@ export default () => {
         combineReducers({
             addux: adduxReducer,
             auth: authReducer,
-            data: dataReducer,
-            walkthrough: walkthroughReducer
+            //data: dataReducer,
+            walkthrough: walkthroughReducer,
+            subscription: subscriptionReducer
         }),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );

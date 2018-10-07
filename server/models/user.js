@@ -58,6 +58,14 @@ var UserSchema = new mongoose.Schema({
         type:Boolean,
         required: true,
         default: false
+    },
+    passwordReset:{
+        type:String,
+        default: ""
+    },
+    resetExpire:{
+        type:Number,
+        default: 0
     }
 });
 

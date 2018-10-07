@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const {ObjectID} = require("mongodb");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const {mongoose} = require('./db/mongoose');
 const {authenticate} = require('./middleware/authenticate');
@@ -23,32 +25,27 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
-app.post('/users/subscribe', authenticate, async (req, res) => {
-
-    const user = req.user;
-
-    console.log(req.body);
-
-    try{
-        const card = await stripe.customers.createSource(user.customerId, {source: req.body.token});
-        console.log(card);
-
-        const subscription = await stripe.subscriptions.create({
-            customer: user.customerId,
-            items: [
-                {
-                    plan: 'plan_DjB2FnOBuqQ2y7'
-                }
-            ]
-        });
-        console.log(subscription);
+const transporter = nodemailer.createTransport(
+    {
+        host:'secure46.webhostinghub.com',
+        port:465,
+        secure:true,
+        auth: {
+            user:'jon@thisisjonpelc.com',
+            pass:'jonathan10!'
+        }
     }
-    catch(e){
-        console.log(e);
-    }
+);
 
-    res.send('WE COOL');
-});
+
+
+// transporter.verify(function(error, success) {
+//     if (error) {
+//          console.log(error);
+//     } else {
+//          console.log('Server is ready to take our messages');
+//     }
+//  });
 
 
 app.get("/walkthrough", (req, res) => {
@@ -255,6 +252,64 @@ app.delete("/addux/:id", authenticate, (req, res) => {
         res.status(400).send(e);
     });
 
+});
+
+app.post('/users/reset', async (req, res) => { 
+
+    try{
+        const email = req.body.email;
+        const passwordReset = crypto.randomBytes(32).toString('hex');
+        const resetExpire = moment().add(4, 'h').unix();
+
+        const user = await User.findOneAndUpdate({email}, {passwordReset, resetExpire});
+        
+        if(!user){
+            res.status(404).send();
+        }
+
+        messageText = `Hi ${user.firstName}!  A password reset was requested for your Addux account.  Please visit https://${req.headers.host}/reset/${passwordReset} to create a new password. This link will expire in 4 hours`;
+
+        const message = {
+            from: 'jon@thisisjonpelc.com',
+            to: user.email,
+            subject: 'Addux Password Reset',
+            message: messageText,
+            html: `<p>${messageText}</p>`
+        }
+
+        console.log(req.headers.host);
+
+    }
+    catch(e){
+        console.log(e);
+    }
+});
+
+app.post('/users/:id/subscribe', authenticate, async (req, res) => {
+
+    const user = req.user;
+
+    console.log(req.body);
+
+    try{
+        const card = await stripe.customers.createSource(user.customerId, {source: req.body.token});
+        console.log(card);
+
+        const subscription = await stripe.subscriptions.create({
+            customer: user.customerId,
+            items: [
+                {
+                    plan: 'plan_DjB2FnOBuqQ2y7'
+                }
+            ]
+        });
+        console.log(subscription);
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    res.send('WE COOL');
 });
 
 app.post("/users", async (req, res) => {

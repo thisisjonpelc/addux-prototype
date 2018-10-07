@@ -18,6 +18,7 @@ export default () => {
             walkthrough: walkthroughReducer,
             subscription: subscriptionReducer
         }),
+        composeEnhancers(applyMiddlware()),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 

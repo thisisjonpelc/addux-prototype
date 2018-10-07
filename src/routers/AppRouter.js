@@ -6,6 +6,9 @@ import AdduxApp from "../components/AdduxApp";
 import AdduxWrapper from "../components/AdduxWrapper";
 import LoginPage from "../components/LoginPage";
 import SubscribePage from './../components/SubscribePage';
+import ResetRequestPage from './../components/ResetRequestPage';
+import ResetPasswordPage from './../components/ResetPasswordPage';
+
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from './PrivateRoute';
 
@@ -21,6 +24,8 @@ const AppRouter = () => (
             <Route path="/" component={AdduxWrapper} exact={true} />
             <PrivateRoute path="/subscribe" component={SubscribePage} />
             <PublicRoute path="/login" component={LoginPage} />
+            <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
+            <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
             <Redirect to="/" />
         </Switch>
     </Router>

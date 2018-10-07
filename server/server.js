@@ -277,12 +277,55 @@ app.post('/users/reset', async (req, res) => {
             html: `<p>${messageText}</p>`
         }
 
-        console.log(req.headers.host);
-
+        transporter.sendMail(message, (err, info) => {
+            if(err){
+                res.status(400).send(err);
+            }
+            else{
+                res.send(info);
+            }
+        });
     }
     catch(e){
-        console.log(e);
+        res.status(400).send(e);
     }
+});
+
+// app.get('users/reset/:token', async (req, res) => {
+
+//     try{
+//         const resetToken = req.params.token;
+        
+//         const user = await User.findOne({passwordReset: resetToken});
+//     }
+//     catch(e){
+
+//     }
+// };
+
+app.post('/users/reset/:token', async (req, res) => {
+
+    console.log("POST TO USER RESET WITH TOKEN");
+
+    try{
+        const resetToken = req.params.token;
+        const password = req.body.password;
+        
+        console.log('Reset token: ', resetToken);
+        console.log('Password: ', password);
+
+        const user = await User.findOneAndUpdate({passwordReset: resetToken, resetExpire: {$gt: moment().unix()}}, {password, passwordReset: "", resetExpire: 0});
+        
+        if(!user){
+            res.status(404).send();
+        }
+
+        res.send(user);
+    }
+    catch(e){
+        res.status(400).send();
+    }
+
 });
 
 app.post('/users/:id/subscribe', authenticate, async (req, res) => {
@@ -303,13 +346,12 @@ app.post('/users/:id/subscribe', authenticate, async (req, res) => {
                 }
             ]
         });
-        console.log(subscription);
+
+        res.send(subscription);
     }
     catch(e){
-        console.log(e);
+        res.status(400).send(e);
     }
-
-    res.send('WE COOL');
 });
 
 app.post("/users", async (req, res) => {

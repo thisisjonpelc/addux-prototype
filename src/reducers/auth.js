@@ -5,11 +5,13 @@ export default (state = {}, action) => {
             return action.user;
         case "LOGOUT":
             return {};
+            
         case "UPDATE_TOKEN":
             return {
                 ...state,
                 token: action.token
             }
+            
         default:
             return state;
     }

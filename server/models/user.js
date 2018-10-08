@@ -68,9 +68,13 @@ var UserSchema = new mongoose.Schema({
     }
 });
 
-UserSchema.methods.generateAuthToken = function() {
+UserSchema.methods.generateAuthToken = function(oldToken) {
     var user = this;
     var access = 'auth';
+
+    if(oldToken){
+        user.removeToken(oldToken);
+    }
 
     user.removeExpiredTokens();
 

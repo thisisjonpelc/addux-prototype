@@ -1,17 +1,71 @@
 import React from "react";
 import {connect} from "react-redux";
+import axios from 'axios';
 
 import AdduxApp from "./AdduxApp";
 import SignUpPage from "./SignUpPage";
+import LoadingPage from './LoadingPage';
 
-const AdduxWrapper = ({isAuthenticated}) => {
+import {login} from './../actions/auth';
 
-    console.log("USER IS AUTHENTICATED?", isAuthenticated);
+class AdduxWrapper extends React.Component{
+    constructor(props){
+        super(props);
 
-    return (
-        isAuthenticated ? (<AdduxApp />) : (<SignUpPage />)
-    );
+        this.state = {
+             checkAuth: props.isAuthenticated
+        }
+    }
 
+    componentDidMount(){
+            if(!this.state.checkAuth){
+            
+                if(localStorage.getItem('AUTH_TOKEN')){
+                    console.log("There is an authorization token");
+        
+                    axios({
+                        method: 'get',
+                        url: '/users/me/token',
+                        headers: {'x-auth': localStorage.getItem('AUTH_TOKEN')}
+                    })
+                    .then((response) => {
+                        
+                        console.log(response); 
+        
+                        this.props.login(
+                            {
+                                ...response.data,
+                                token: response.headers['x-auth']
+                            }
+                        );
+                        
+                        this.setState(() => ({checkAuth: true}));
+    
+                    })
+                    .catch((e) => {
+                        console.log('IT DIDN\'T WORK');
+                        console.log(e);
+                    });
+                }
+                else{
+                    console.log('There is no authorization token');
+                    this.setState(() => ({checkAuth: true}));
+                }   
+            }
+        
+    }
+
+    render(){
+        console.log("RENDERING WRAPPER");
+        //console.log('Checked auth?', this.)
+
+        if(this.state.checkAuth){
+            return this.props.isAuthenticated ? (<AdduxApp />) : (<SignUpPage />);
+        }
+        else{
+            return <LoadingPage />
+        }
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -20,4 +74,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(AdduxWrapper);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (user) => dispatch(login(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdduxWrapper);

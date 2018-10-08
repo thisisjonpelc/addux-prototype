@@ -93,23 +93,9 @@ class AdduxApp extends React.Component{
                     dataStatus: 'RECIEVED'
                 }
             });
-
-            // this.props.setAdduxes(adduxResponse.data.adduxes);
-            // // if(adduxResponse.data.adduxes.length > 0){
-            // //     this.props.setActive(adduxResponse.data.adduxes[0]._id);
-            // // }
-            // this.props.setWalkthrough(walkthroughResponse.data);
-            // this.props.dataReceived();
         })
         .catch((e) => {
             if(e.response.status === 402){
-                //history.push('/subscribe');
-
-                // this.setState(() => {
-                //     return {
-                //         subscribed: false
-                //     }
-                // })
                 this.props.unsubscribe();
                 history.push('/subscribe');
             }
@@ -123,37 +109,6 @@ class AdduxApp extends React.Component{
                 console.log(e);
             }
         });
-
-        // axios.all(
-        //     axios({
-        //         method:'get',
-        //         url:'/addux',
-        //         headers: {
-        //             'x-auth': this.props.token
-        //         }
-        //     }),
-        //     axios({
-        //         method:'get',
-        //         url:'/walkthrough',
-        //     })
-        // )
-        // .then((response) => {
-        //     console.log("GET ADDUXES SUCCESSFUL");
-        //     console.log(response);
-            
-        //     //console.log(response.data);
-        //     //console.log(response.data.adduxes);
-        //     //this.props.setAdduxes(response.data.adduxes);
-        //     // if(response.data.adduxes.length > 0){
-        //     //     this.props.setActive(response.data.adduxes[0]._id);
-        //     // }
-        //     // this.props.dataReceived();
-        // })
-        // .catch((e) => {
-        //     console.log("GET ADDUXES FAILED");
-        //     this.props.dataError();
-        //     console.log(e);
-        // });
     }
 
     render(){

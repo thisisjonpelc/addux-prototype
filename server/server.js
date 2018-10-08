@@ -429,6 +429,29 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     }
 });
 
+app.delete("/users/me/token", authenticate, async (req, res) => {
+    try{
+      await req.user.removeToken(req.Token);
+      res.status(200).send();
+    }
+    catch(e){
+      res.status(400).send();
+    }
+  });
+
+app.get("/users/me/token", authenticate, async (req, res) => {
+    console.log("Trying to get a new token");
+    try{
+      const token = await req.user.generateAuthToken(req.token);
+      console.log("New token is: ", token);
+      res.header("x-auth", token).send(req.user);
+    }
+    catch(e){
+      console.log(e);
+      res.status(400).send();
+    }
+  });
+
 app.get("/users/me", authenticate, subscribed, (req, res) => {
     res.send(req.user);
 });

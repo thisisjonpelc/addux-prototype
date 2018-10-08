@@ -1,6 +1,8 @@
 import React from "react";
+import {connect} from 'react-redux';
 import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
+import {StripeProvider} from 'react-stripe-elements';
 
 import AdduxApp from "../components/AdduxApp";
 import AdduxWrapper from "../components/AdduxWrapper";
@@ -18,17 +20,29 @@ const redirectJsx = (
     <Redirect to="/" />
 );
 
-const AppRouter = () => (
-    <Router history={history}>
-        <Switch>
-            <Route path="/" component={AdduxWrapper} exact={true} />
-            <PrivateRoute path="/subscribe" component={SubscribePage} />
-            <PublicRoute path="/login" component={LoginPage} />
-            <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
-            <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
-            <Redirect to="/" />
-        </Switch>
-    </Router>
-);
+const AppRouter = (props) => {
+
+    // console.log(props);
+
+    // props.dispatch({
+    //     type: 'ON_INIT'
+    // });
+    
+    return (
+        <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
+            <Router history={history}>
+                <Switch>
+                    <Route path="/" component={AdduxWrapper} exact={true} />
+                    <PrivateRoute path="/subscribe" component={SubscribePage} />
+                    <PublicRoute path="/login" component={LoginPage} />
+                    <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
+                    <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
+                    <Redirect to="/" />
+                </Switch>
+            </Router>
+        </StripeProvider>
+    );
+
+}
 
 export default AppRouter;

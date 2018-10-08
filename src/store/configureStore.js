@@ -1,12 +1,14 @@
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 
+import {saveAuthToken} from './../middleware/middleware';
+
 import adduxReducer from "../reducers/addux";
 import authReducer from "../reducers/auth";
 import dataReducer from "../reducers/data";
 import walkthroughReducer from '../reducers/walkthrough';
 import subscriptionReducer from '../reducers/subscription'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE_ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
 
@@ -18,8 +20,7 @@ export default () => {
             walkthrough: walkthroughReducer,
             subscription: subscriptionReducer
         }),
-        composeEnhancers(applyMiddlware()),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        composeEnhancers(applyMiddleware(saveAuthToken))
     );
 
     return store;

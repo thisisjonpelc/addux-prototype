@@ -60,11 +60,11 @@ class SubscribePage extends React.Component{
             }
             else{
                 return (
-                    <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
+                    //<StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
                             <Elements>
                                 <CardForm token={this.props.token}/>
                             </Elements>
-                    </StripeProvider>
+                    //</StripeProvider>
                 );
             }
         }

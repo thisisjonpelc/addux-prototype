@@ -17,9 +17,9 @@ class ObjectiveTextArea extends React.Component{
     }
 
     onTextChange = (e) => {
-        const text = e.target.value;
-        this.setState(() => ({text}));
-        this.saveText(text);
+            const text = e.target.value;
+            this.setState(() => ({text}));
+            this.saveText(text);
     }
 
     saveText = debounce(1000, (text) => {
@@ -58,7 +58,7 @@ class ObjectiveTextArea extends React.Component{
 
     render(){
         return (
-            <textarea maxLength='50' className='addux-textarea addux-textarea--single' onChange={this.onTextChange} value={this.state.text}></textarea>
+            <textarea maxLength='50' className='addux-textarea addux-textarea--single' onChange={this.onTextChange} value={this.state.text} readOnly={this.props.readOnly}></textarea>
         );
     }
 }

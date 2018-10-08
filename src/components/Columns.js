@@ -12,13 +12,13 @@ const Columns = (props) => (
             :
             (
                 <main className='main-content'>
-                <Column category='objective'/>
-                <Column category='goals'/>
-                <Column category='projects'/>
-                <Column category='timelines'/>
-                <Column category='projectOwner'/>
-                <Column category='resources'/>
-                <Column category='progress'/>
+                <Column category='objective' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='goals' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='projects' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='timelines' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='projectOwner' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='resources' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='progress' readOnly={props.readOnly} showComments={props.showComments}/>
                 </main>
             )
 );

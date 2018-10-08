@@ -14,33 +14,16 @@ class AccordionItem extends React.Component{
 
         this.state ={
             text: props.activeAddux[`${props.category}_${props.number}`] 
-            //props.activeAddux[`${props.category}_${props.number}`] ? props.activeAddux[`${props.category}_${props.number}`] : ""
         }
     }
 
     onCheckChange = (e) => {
-        //console.log(e.target.id);
 
         this.props.changeOpenItem(Number(e.target.id.slice(-1)));
     }
 
-    // shouldComponentUpdate(nextProps, nextState){
-
-    //     if(this.props.category==="goals"){    
-    //         console.log("oldProps", this.props);
-    //         console.log("nextProps", nextProps);
-    //         console.log("oldState", this.state);
-    //         console.log("nextState", nextState);
-    //     }
-
-    //     return true;
-    // }
-
     saveText = debounce(1000, (text) => {
         console.log('SAVING INPUT');
-        //console.log(this.props.comment);
-        //console.log(this.props.comment._id);
-        //console.log(`/comments/${this.props.comment._id.toHexString()}`);
 
         const updates = {};
 
@@ -69,10 +52,10 @@ class AccordionItem extends React.Component{
     });
 
     onTextChange = (e) => {
-        console.log("TEXT CHANGED");
-        const text = e.target.value;
-        this.setState(() => ({text}));
-        this.saveText(text);
+            console.log("TEXT CHANGED");
+            const text = e.target.value;
+            this.setState(() => ({text}));
+            this.saveText(text);
     }
 
     render() {
@@ -96,7 +79,8 @@ class AccordionItem extends React.Component{
                         maxLength='50' 
                         className='addux-textarea' 
                         onChange={this.onTextChange} 
-                        value={this.state.text}>
+                        value={this.state.text}
+                        readOnly={this.props.readOnly}>
                     </textarea>
                 </div> 
             </div>

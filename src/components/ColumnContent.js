@@ -19,14 +19,15 @@ class ColumnContent extends React.Component{
 
     render() {
         console.log("RENDERING COLUMN CONTENT!");
+        console.log(this.props.showComments);
         return (
             <div className="column__content">
                 <p className="column__question">
                     {this.props.prompt}
                 </p>
 
-                {accordionSize[this.props.category] > 1 ? (<Accordion active={this.props.active} category={this.props.category} />) : (<ObjectiveTextArea key={`${this.props.active}-obj`} initialText={this.state.text} category={this.props.category} id={this.props.activeAddux._id} />)}
-                <CommentsForm key={`${this.props.active}-comments`} category={this.props.category}/>
+                {accordionSize[this.props.category] > 1 ? (<Accordion active={this.props.active} category={this.props.category} readOnly={this.props.readOnly} />) : (<ObjectiveTextArea key={`${this.props.active}-obj`} initialText={this.state.text} category={this.props.category} id={this.props.activeAddux._id} readOnly={this.props.readOnly}/>)}
+                {this.props.showComments && <CommentsForm key={`${this.props.active}-comments`} category={this.props.category}/>}
             </div>
         );
     }
@@ -34,7 +35,6 @@ class ColumnContent extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        token: state.auth.token,
         activeAddux: state.addux[state.addux.active],
         prompt: state.walkthrough[`${ownProps.category}_prompt`],
         active: state.addux.active

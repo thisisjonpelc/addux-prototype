@@ -1,5 +1,4 @@
 import React from "react";
-import {connect} from "react-redux";
 
 import Column from "./Column";
 
@@ -24,11 +23,4 @@ const Columns = (props) => (
             )
 );
 
-const mapStateToProps = (state) => {
-    return {
-        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
-        active: state.addux.active 
-    };
-}
-
-export default connect(mapStateToProps)(Columns);
+export default Columns;

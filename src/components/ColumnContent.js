@@ -16,43 +16,6 @@ class ColumnContent extends React.Component{
             text: props.activeAddux[`${props.category}`] ? props.activeAddux[`${props.category}`] : ""
         }
     }
-    
-    // saveText = debounce(1000, () => {
-    //     console.log('SAVING INPUT');
-    //     //console.log(this.props.comment);
-    //     //console.log(this.props.comment._id);
-    //     //console.log(`/comments/${this.props.comment._id.toHexString()}`);
-
-    //     const updates = {};
-
-    //     updates[`${this.props.category}`] = this.state.text;
-
-    //     console.log(updates);
-
-    //     axios.patch(
-    //         `/addux/${this.props.activeAddux._id}`,
-    //         updates,
-    //         {
-    //             headers: {
-    //                 'x-auth': this.props.token
-    //             }
-    //         }
-    //     )
-    //     .then((response) => {
-    //         console.log("INPUT SAVED");
-    //         console.log(response);
-    //     })
-    //     .catch((e) => {
-    //         console.log("COULDN'T SAVE INPUT");
-    //         console.log(e);
-    //     });
-    // });
-
-    // onTextChange = (e) => {
-    //     const text = e.target.value;
-    //     this.setState(() => ({text}));
-    //     this.saveText();
-    // }
 
     render() {
         console.log("RENDERING COLUMN CONTENT!");

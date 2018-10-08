@@ -129,7 +129,7 @@ class AdduxApp extends React.Component{
                     <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
                     <Header changeListActive={this.changeListActive} empty={this.props.empty} token={this.props.token}/>
-                    <Columns />
+                    <Columns empty={this.props.empty}/>
                     <Footer />
                     <Notes />
                 </div>

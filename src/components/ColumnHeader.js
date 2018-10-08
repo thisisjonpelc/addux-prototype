@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Modal from "react-modal";
 import YouTube from "react-youtube";
+import Vimeo from 'react-vimeo';
 
 import {labels} from "../constants/constants";
 
@@ -47,7 +48,7 @@ class ColumnHeader extends React.Component{
                     onRequestClose={this.handleCloseModal}
                     shouldCloseOnOverlayClick={true}
                 >
-                <iframe src={`https://player.vimeo.com/video/${this.props.video}`} width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <iframe src={`https://player.vimeo.com/video/${this.props.video}`} width="640" height="360" frameBorder="0" webkitallowfullscreen='true' mozallowfullscreen='true' allowFullScreen></iframe>           
             </Modal>
             </div>
         );

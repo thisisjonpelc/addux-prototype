@@ -41,7 +41,7 @@ class SubscribePage extends React.Component{
             .catch((e) => {
                 if(e.response.status === 402){
                     console.log('User is not subscribed');
-                    this.props.subscribe();
+                    this.props.unsubscribe();
                 }
                 else{
                     console.log('User could not be found');
@@ -60,11 +60,9 @@ class SubscribePage extends React.Component{
             }
             else{
                 return (
-                    //<StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
                             <Elements>
                                 <CardForm token={this.props.token}/>
                             </Elements>
-                    //</StripeProvider>
                 );
             }
         }

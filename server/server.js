@@ -328,7 +328,7 @@ app.post('/users/reset/:token', async (req, res) => {
 
 });
 
-app.post('/users/:id/subscribe', authenticate, async (req, res) => {
+app.post('/users/subscribe', authenticate, async (req, res) => {
 
     const user = req.user;
 
@@ -342,7 +342,7 @@ app.post('/users/:id/subscribe', authenticate, async (req, res) => {
             customer: user.customerId,
             items: [
                 {
-                    plan: 'plan_DjB2FnOBuqQ2y7'
+                    plan: process.env[`${req.body.plan}_PLAN_ID`]
                 }
             ]
         });
@@ -350,6 +350,7 @@ app.post('/users/:id/subscribe', authenticate, async (req, res) => {
         res.send(subscription);
     }
     catch(e){
+        console.log(e);
         res.status(400).send(e);
     }
 });

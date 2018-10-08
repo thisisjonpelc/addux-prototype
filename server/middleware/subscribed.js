@@ -16,7 +16,12 @@ const subscribed = async (req, res, next) => {
         const subscriptions = customer.subscriptions.data;
 
         subscriptions.forEach((subscription) => {
-            if(subscription.plan.id === process.env.DAILY_PLAN_ID || subscription.plan.id === process.env.THREE_DAY_PLAN_ID && subscription.status === 'active'){
+            console.log(subscription);
+            console.log('Subscription id is: ', subscription.plan.id);
+            console.log('Subscription status is: ', subscription.status);
+
+            if(subscription.plan.id === process.env.MONTHLY_PLAN_ID || subscription.plan.id === process.env.YEARLY_PLAN_ID && subscription.status === 'active'){
+                
                 subscribed = true;
             }
         });

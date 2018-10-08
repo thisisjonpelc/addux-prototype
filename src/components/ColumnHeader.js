@@ -47,7 +47,7 @@ class ColumnHeader extends React.Component{
                     onRequestClose={this.handleCloseModal}
                     shouldCloseOnOverlayClick={true}
                 >
-                    <YouTube videoId={this.props.video} />
+                <iframe src={`https://player.vimeo.com/video/${this.props.video}`} width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </Modal>
             </div>
         );

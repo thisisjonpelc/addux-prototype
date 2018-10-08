@@ -2,38 +2,52 @@ import React from 'react';
 import {CardElement, injectStripe} from 'react-stripe-elements';
 import axios from 'axios';
 
+import {history} from './../routers/AppRouter';
 
 class CardForm extends React.Component{
 
     constructor(props){
         super(props);
+
+        this.state = {
+            error: '',
+        }
     }
 
     onCardSubmit = (e) => {
+        e.preventDefault();
+
+        const subDropdown = e.target.children[0];
+        const planValue = subDropdown[subDropdown.selectedIndex].value;
+
         console.log('submitting card');
 
         this.props.stripe.createToken()
         .then((response) => {
             
-            console.log(response.token);
+            if(response.error){
+                this.setState(() => ({error: response.error.message}));
+            }
+            else{
 
-            axios.post('/users/subscribe', {
-                token:response.token.id
-            },
-            {
-                headers: {
-                    'x-auth': this.props.token
-                }
-            })
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((e) => {
-                console.log(e);
-            })
-        })
-        .catch((e) => {
-            console.log(e);
+                axios.post('/users/subscribe', {
+                    token:response.token.id,
+                    plan: planValue
+                },
+                {
+                    headers: {
+                        'x-auth': this.props.token
+                    }
+                })
+                .then((response) => {
+                    console.log(response);
+                    history.push('/');
+                })
+                .catch((err) => {
+                    this.setState(() => ({error: 'Unable to subscribe you at this time'}))
+                    console.log(err);
+                })
+            }
         });
         
     }
@@ -41,11 +55,17 @@ class CardForm extends React.Component{
     render(){
         return (
             <div>
-                <h1>This is the Subscribe Page</h1>
-                <div>
+                <p>This is the description of the monthly plan</p>
+                <p>This is the description of the annual plan</p>
+                {this.state.error && <p>{this.state.error}</p>}
+                <form onSubmit={this.onCardSubmit}>
+                    <select name='plans'>
+                        <option value="MONTHLY">Monthly plan</option>
+                        <option value="YEARLY">Yearly plan</option>
+                    </select>
                     <CardElement />
-                    <button onClick={this.onCardSubmit}>Submit</button>
-                </div>
+                    <button>Submit</button>
+                </form>
             </div>        
         )
     }

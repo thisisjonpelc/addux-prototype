@@ -12,13 +12,13 @@ const Columns = (props) => (
             :
             (
                 <main className='main-content'>
-                <Column category='objective' readOnly={props.readOnly} showComments={props.showComments}/>
-                <Column category='goals' readOnly={props.readOnly} showComments={props.showComments}/>
-                <Column category='projects' readOnly={props.readOnly} showComments={props.showComments}/>
-                <Column category='timelines' readOnly={props.readOnly} showComments={props.showComments}/>
-                <Column category='projectOwner' readOnly={props.readOnly} showComments={props.showComments}/>
-                <Column category='resources' readOnly={props.readOnly} showComments={props.showComments}/>
-                <Column category='progress' readOnly={props.readOnly} showComments={props.showComments}/>
+                <Column category='objective' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
+                <Column category='goals' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
+                <Column category='projects' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
+                <Column category='timelines' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
+                <Column category='projectOwner' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
+                <Column category='resources' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
+                <Column category='progress' readOnly={props.readOnly} showComments={props.showComments} activeAddux={props.activeAddux} walkthrough={props.walkthrough}/>
                 </main>
             )
 );

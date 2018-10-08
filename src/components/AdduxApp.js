@@ -129,7 +129,7 @@ class AdduxApp extends React.Component{
                     <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
                     <Header changeListActive={this.changeListActive} empty={this.props.empty} token={this.props.token}/>
-                    <Columns empty={this.props.empty} readOnly={false} showComments={true}/>
+                    <Columns empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
                     <Footer />
                     <Notes />
                 </div>
@@ -147,7 +147,9 @@ const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
         //dataStatus: state.data.status,
-        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object
+        empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
+        activeAddux: state.addux[state.addux.active],
+        walkthrough: state.walkthrough
         //subscribed: state.subscription.subscribed
     }
 };

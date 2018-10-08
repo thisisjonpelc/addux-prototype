@@ -30,7 +30,15 @@ class Accordion extends React.Component{
         let result = []
 
         for(let i = 1; i<accordionSize[this.props.category]+1; i++){
-            result[i] = <AccordionItem key={`${this.props.active}-${i}`} category={this.props.category} number={i} open={i === this.state.open} changeOpenItem={this.changeOpenItem} onLabelClick={this.onLabelClick} readOnly={this.props.readOnly}/>
+            result[i] = <AccordionItem 
+                            key={`${this.props.activeAddux._id}-${i}`} 
+                            category={this.props.category} 
+                            number={i} 
+                            open={i === this.state.open} 
+                            changeOpenItem={this.changeOpenItem} 
+                            onLabelClick={this.onLabelClick} 
+                            readOnly={this.props.readOnly}
+                            activeAddux={this.props.activeAddux}/>
         }
 
         return (

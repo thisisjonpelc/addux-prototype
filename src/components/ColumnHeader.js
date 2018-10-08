@@ -33,6 +33,8 @@ class ColumnHeader extends React.Component{
     }
 
     render(){
+        const videoId = this.props.walkthrough[`${this.props.category}_video`];
+
         return (
             <div>
             <div onClick={this.onHeaderClick} className="column-header">
@@ -48,17 +50,12 @@ class ColumnHeader extends React.Component{
                     onRequestClose={this.handleCloseModal}
                     shouldCloseOnOverlayClick={true}
                 >
-                <iframe src={`https://player.vimeo.com/video/${this.props.video}`} width="640" height="360" frameBorder="0" webkitallowfullscreen='true' mozallowfullscreen='true' allowFullScreen></iframe>           
+                <iframe src={`https://player.vimeo.com/video/${videoId}`} width="640" height="360" frameBorder="0" webkitallowfullscreen='true' mozallowfullscreen='true' allowFullScreen></iframe>           
             </Modal>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        video: state.walkthrough[`${ownProps.category}_video`]
-    }
-}
 
-export default connect(mapStateToProps)(ColumnHeader);
+export default ColumnHeader;

@@ -13,21 +13,29 @@ class ColumnContent extends React.Component{
         super(props);
 
         this.state ={
-            text: props.activeAddux[`${props.category}`] ? props.activeAddux[`${props.category}`] : ""
+            //text: props.activeAddux[`${props.category}`] ? props.activeAddux[`${props.category}`] : ""
         }
     }
 
     render() {
         console.log("RENDERING COLUMN CONTENT!");
         console.log(this.props.showComments);
+        const prompt = this.props.walkthrough[`${this.props.category}_prompt`];
+        
         return (
             <div className="column__content">
                 <p className="column__question">
-                    {this.props.prompt}
+                    {prompt}
                 </p>
 
-                {accordionSize[this.props.category] > 1 ? (<Accordion active={this.props.active} category={this.props.category} readOnly={this.props.readOnly} />) : (<ObjectiveTextArea key={`${this.props.active}-obj`} initialText={this.state.text} category={this.props.category} id={this.props.activeAddux._id} readOnly={this.props.readOnly}/>)}
-                {this.props.showComments && <CommentsForm key={`${this.props.active}-comments`} category={this.props.category}/>}
+                {accordionSize[this.props.category] > 1 
+                    ? 
+                    (<Accordion activeAddux={this.props.activeAddux} category={this.props.category} readOnly={this.props.readOnly} />) 
+                    : 
+                    (<ObjectiveTextArea key={`${this.props.activeAddux._id}-obj`} initialText={this.state.text} category={this.props.category} id={this.props.activeAddux._id} readOnly={this.props.readOnly}/>)
+                }
+
+                {this.props.showComments && <CommentsForm key={`${this.props.activeAddux._id}-comments`} category={this.props.category}/>}
             </div>
         );
     }
@@ -35,9 +43,9 @@ class ColumnContent extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        activeAddux: state.addux[state.addux.active],
-        prompt: state.walkthrough[`${ownProps.category}_prompt`],
-        active: state.addux.active
+        //activeAddux: state.addux[state.addux.active],
+        //prompt: state.walkthrough[`${ownProps.category}_prompt`],
+        //active: state.addux.active
     }
 }
 

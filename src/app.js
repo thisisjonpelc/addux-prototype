@@ -9,7 +9,7 @@ import {Provider} from "react-redux";
 
 import AdduxApp from "./components/AdduxApp";
 import AppRouter from "./routers/AppRouter";
-import configureStore from "./store/configurestore";
+import configureStore from "./store/configureStore";
 
 import jsPDF from 'jspdf';
 

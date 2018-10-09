@@ -17,26 +17,26 @@ const subscribed = async (req, res, next) => {
 
         subscriptions.forEach((subscription) => {
             //console.log(subscription);
-            console.log('Subscription id is: ', subscription.plan.id);
-            console.log('Subscription status is: ', subscription.status);
+            //console.log('Subscription id is: ', subscription.plan.id);
+            //console.log('Subscription status is: ', subscription.status);
 
             if(subscription.plan.id === process.env.MONTHLY_PLAN_ID || subscription.plan.id === process.env.YEARLY_PLAN_ID && subscription.status === 'active'){
                 
                 subscribed = true;
+                break;
             }
         });
 
         if(subscribed){
-            console.log(`User ${user._id} is subscribed`);
+            //console.log(`User ${user._id} is subscribed`);
             next();
         }
         else{
-            console.log(`User ${user._id} is not subscribed`);
-            throw 'User is not subscribed';
+            //console.log(`User ${user._id} is not subscribed`);
+            throw `User ${user._id} is not subscribed`;
         }
     }
     catch(e){
-        console.log(`User ${user._id} is not subscribed`);
         console.log(e);
         res.status(402).send();
     }

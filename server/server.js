@@ -37,29 +37,32 @@ const transporter = nodemailer.createTransport(
     }
 );
 
-
-
-// transporter.verify(function(error, success) {
-//     if (error) {
-//          console.log(error);
-//     } else {
-//          console.log('Server is ready to take our messages');
-//     }
-//  });
+transporter.verify(function(error, success) {
+    if (error) {
+        console.log('Server is not ready to take our email messages:', error);   
+    } else {
+         console.log('Server is ready to take our email messages!');
+    }
+ });
 
 
 app.get("/walkthrough", (req, res) => {
+
+    console.log('Received GET /walkthrough');
 
     Walkthrough.findOne({}, {}, {sort: {'createdAt': -1}})
         .then((walkthrough) => {
             res.send(walkthrough);
         })
         .catch((e) => {
+            console.log('Error: ', e);
             res.status(400).send(e);
         });
 });
 
 app.post("/walkthrough", authenticate, (req, res) => {
+
+    console.log('Received POST /walkthrough');
 
     if(!req.user.isAdmin){
         return res.status(403).send();
@@ -74,18 +77,18 @@ app.post("/walkthrough", authenticate, (req, res) => {
         res.send(doc);    
     })
     .catch((e) => {
+        console.log('Error: ', e);
         res.status(400).send(e);
     });
 
 });
 
 app.patch("/comments/:id", (req, res) => {
-    console.log("GOT A PATCH REQUEST");
+    
+    console.log('Received PATCH /comments/' + req.params.id);
     
     const id = req.params.id;
     const updates = req.body;
-
-    console.log("COMMENT ID: ", id);
 
     Comment.findOneAndUpdate({_id: id}, updates)
     .then((comment) => {
@@ -98,11 +101,15 @@ app.patch("/comments/:id", (req, res) => {
 
     })
     .catch((e) => {
+        console.log('Error: ', e);
         res.status(400).send(e);    
     });
 });
 
 app.post("/addux", authenticate, (req, res) => {
+
+    console.log('Received POST /addux');
+
     const addux = new Addux({
         name: req.body.name,
         _creator:req.user._id,
@@ -119,7 +126,6 @@ app.post("/addux", authenticate, (req, res) => {
     }
 
     Comment.insertMany(comments).then((comments) => {
-        console.log("COMMENTS INSERTED!");
 
         addux.objective_comments = comments[0]._id;
         addux.goals_comments = comments[1]._id;
@@ -152,18 +158,15 @@ app.post("/addux", authenticate, (req, res) => {
             res.status(400).send(e);
         });
     })
-    .catch((e) => {
-        console.log("COULDN'T INSERT COMMENTS!");
-        console.log(e);
-        
+    .catch((e) => {   
+        console.log('Error: ', e);     
         res.status(400).send(e);
     });
 });
 
 app.get("/addux", authenticate, subscribed, (req, res) => {
 
-    console.log('Got GET /addux');
-    console.log(req.params);
+    console.log('Received GET /addux');
 
     Addux.find({_creator: req.user._id})
     .populate('objective_comments')
@@ -176,18 +179,17 @@ app.get("/addux", authenticate, subscribed, (req, res) => {
     .exec()
     .then((adduxes) => {
 
-        console.log('GOT ADDUXES!');
-        //console.log(adduxes);
         res.send({adduxes});
-        console.log('This should not appear');
       }, (e) => {
-        console.log('ERRROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        console.log(e);
+        console.log('Error: ', e);
         res.status(400).send(e);
       });
 });
 
 app.get("/addux/:id", (req, res) => {
+    
+    console.log('Received GET /addux/' + req.params.id);
+    
     const id = req.params.id;
 
     if(!ObjectID.isValid(id)){
@@ -213,12 +215,16 @@ app.get("/addux/:id", (req, res) => {
         res.send({addux});
     })
     .catch((e) => {
+        console.log('Error: ', e);
         res.status(400).send();
     });
 
 });
 
 app.patch("/addux/:id", authenticate, (req, res) => {
+    
+    console.log('PATCH /addux/' + req.params.id);
+    
     const id = req.params.id;
     const updates = req.body;
 
@@ -235,12 +241,16 @@ app.patch("/addux/:id", authenticate, (req, res) => {
         res.send(addux);
     })
     .catch((e) => {
+        console.log('Error: ', e);
         res.status(400).send(e);
     })
 
 });
 
 app.delete("/addux/:id", authenticate, (req, res) => {
+    
+    console.log('DELETE /addux/' + req.params.id);
+
     const id = req.params.id;
     
     if(!ObjectID.isValid(id)){
@@ -258,12 +268,15 @@ app.delete("/addux/:id", authenticate, (req, res) => {
         });
     })
     .catch((e) => {
+        console.log('Error: ', e);
         res.status(400).send(e);
     });
 
 });
 
 app.post('/users/reset', async (req, res) => { 
+
+    console.log('POST /users/reset');
 
     try{
         const email = req.body.email;
@@ -296,32 +309,18 @@ app.post('/users/reset', async (req, res) => {
         });
     }
     catch(e){
+        console.log('Error: ', e);
         res.status(400).send(e);
     }
 });
 
-// app.get('users/reset/:token', async (req, res) => {
-
-//     try{
-//         const resetToken = req.params.token;
-        
-//         const user = await User.findOne({passwordReset: resetToken});
-//     }
-//     catch(e){
-
-//     }
-// };
-
 app.post('/users/reset/:token', async (req, res) => {
 
-    console.log("POST TO USER RESET WITH TOKEN");
+    console.log("POST /users/reset/" + req.params.token);
 
     try{
         const resetToken = req.params.token;
         const password = req.body.password;
-        
-        console.log('Reset token: ', resetToken);
-        console.log('Password: ', password);
 
         const user = await User.findOneAndUpdate({passwordReset: resetToken, resetExpire: {$gt: moment().unix()}}, {password, passwordReset: "", resetExpire: 0});
         
@@ -332,12 +331,15 @@ app.post('/users/reset/:token', async (req, res) => {
         res.send(user);
     }
     catch(e){
+        console.log('Error: ', e);
         res.status(400).send();
     }
 
 });
 
 app.post('/users/subscribe', authenticate, async (req, res) => {
+
+    console.log('POST /users/subscribe');
 
     const user = req.user;
 
@@ -359,13 +361,15 @@ app.post('/users/subscribe', authenticate, async (req, res) => {
         res.send(subscription);
     }
     catch(e){
-        console.log(e);
+        console.log('Error: ', e);
         res.status(400).send(e);
     }
 });
 
 app.post("/users", async (req, res) => {
     
+    console.log('POST /users');
+
     try{
         var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
         var user = new User(body);
@@ -379,9 +383,6 @@ app.post("/users", async (req, res) => {
         
         user.customerId = customer.id;
         
-        
-        //await user.save();
-        //await User.findOneAndUpdate({_id: user._id}, {customerId: customer.id});
         const token = await user.generateAuthToken();
 
         //TODO: Remove User's tokens and password before sending back
@@ -389,35 +390,38 @@ app.post("/users", async (req, res) => {
         res.header("x-auth", token).send(user);
     }
     catch(e){
-        console.log(e);
+        console.log('Error: ', e);
         await user.remove();
         res.status(400).send(e);
     }
 });
 
 app.post("/users/login", async (req, res) => {
+
+    console.log('POST /users/login');
+
     try{
       const body = _.pick(req.body, ["email", "password"]);
       const user = await User.findByCredentials(body.email, body.password);
       const token = await user.generateAuthToken();
       
-      console.log(user);
       //TODO: Remove User's tokens and password before sending back
 
 
       res.header("x-auth", token).send(user);
     }
     catch(e){
+        console.log('Error: ', e);
       res.status(400).send(e);
     }
 });
 
 app.patch("/users/:id", authenticate, (req, res) =>{
     
+    console.log('PATCH /users/' + req.params.id);
+
     const id = req.params.id;
     const updates = req.body;
-
-    console.log('UPDATES:', updates);
 
     if(updates.hasOwnProperty("isAdmin")){
         delete updates.isAdmin;
@@ -433,6 +437,7 @@ app.patch("/users/:id", authenticate, (req, res) =>{
             res.send(req.user);
         })
         .catch((e) => {
+            console.log('Error: ', e);
             res.status(400).send(e);
         });
     }
@@ -442,31 +447,37 @@ app.patch("/users/:id", authenticate, (req, res) =>{
 });
 
 app.delete("/users/me/token", authenticate, async (req, res) => {
+
+    console.log('DELETE /users/me/token');
+
     try{
       await req.user.removeToken(req.Token);
       res.status(200).send();
     }
     catch(e){
+        console.log('Error: ', e);
       res.status(400).send();
     }
   });
 
 app.get("/users/me/token", authenticate, async (req, res) => {
-    console.log("Trying to get a new token");
+
+    console.log('GET /users/me/token');
+
     try{
       const token = await req.user.generateAuthToken(req.token);
-      console.log("New token is: ", token);
       res.header("x-auth", token).send(req.user);
     }
     catch(e){
-      console.log(e);
+      console.log('Error: ', e);
       res.status(400).send();
     }
   });
 
 
 app.get('/users/me/customer', authenticate, async (req, res) => {
-    console.log('Attempting to get customer');
+
+    console.log('GET /users/me/customer');
 
     const user = req.user;
 
@@ -476,13 +487,15 @@ app.get('/users/me/customer', authenticate, async (req, res) => {
         res.send(customer);
     }
     catch(e){
-        console.log(e);
+        console.log('Error: ', e);
         res.status(400).send(e);
     }
 
 });
 
 app.post('/users/me/card', authenticate, async (req, res) => {
+
+    console.log('POST /users/me/card');
 
     const user = req.user;
 
@@ -494,18 +507,19 @@ app.post('/users/me/card', authenticate, async (req, res) => {
         res.send(customer);
     }
     catch(err){
-        console.log(err);
+        console.log('Error: ', err);
         res.status(400).send(e);
     }
 });
 
 app.get("/users/me", authenticate, subscribed, (req, res) => {
+
+    console.log('GET /users/me');
+
     res.send(req.user);
 });
 
 app.get('*', (req, res) => {
-    console.log(req.params);
-    console.log("SENDING HTML");
     res.sendFile(path.join(publicPath, 'index.html'));
 });
 

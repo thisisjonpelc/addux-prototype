@@ -49,6 +49,7 @@ class CardPanel extends React.Component{
                         status: 'Your card was succesfully updated'
                     }))
                     this.props.updateCustomer(response.data);
+                    console.log('yep');
                 })
                 .catch((err) => {
                     this.setState(() => ({error: 'Unable to update your card at this time', status: ''}))

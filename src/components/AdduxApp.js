@@ -208,8 +208,8 @@ class AdduxApp extends React.Component{
                     />
                     <Columns empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
                     <Footer showCreateModal={this.showCreateModal}/>
-                    <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>
-                    <SharePage hidden={!this.state.shareActive} changeShareActive={this.changeShareActive} activeAddux={this.props.activeAddux}/>
+                    {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
+                    {!this.props.empty && <SharePage hidden={!this.state.shareActive} changeShareActive={this.changeShareActive} activeAddux={this.props.activeAddux}/>}
                     <UserPage hidden={!this.state.userActive} changeUserActive={this.changeUserActive} />
                     {this.props.isAdmin && <AdminPage hidden={!this.state.adminActive} changeAdminActive={this.changeAdminActive} walkthrough={this.props.walkthrough} token={this.props.token}/>}
                 

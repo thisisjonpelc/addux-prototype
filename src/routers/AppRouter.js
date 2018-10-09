@@ -17,34 +17,46 @@ import PrivateRoute from './PrivateRoute';
 
 export const history = createHistory();
 
-const redirectJsx = (
-    <Redirect to="/" />
-);
+class AppRouter extends React.Component {
+    constructor(props){
+        super(props);
 
-const AppRouter = (props) => {
-
-    // console.log(props);
-
-    // props.dispatch({
-    //     type: 'ON_INIT'
-    // });
+        this.state = {
+            checkAuth: false
+        }
+    }
     
-    return (
-        <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
-            <Router history={history}>
-                <Switch>
-                    <Route path="/" component={AdduxWrapper} exact={true} />
-                    <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
-                    <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
-                    <PrivateRoute path="/subscribe" component={SubscribePage} />
-                    <PublicRoute path="/login" component={LoginPage} />
-                    <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
-                    <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
-                    <Redirect to="/" />
-                </Switch>
-            </Router>
-        </StripeProvider>
-    );
+    // componentDidMount(){
+    //     if(!this.state.checkAuth){
+
+    //         if(localStorage.getItem('AUTH_TOKEN')){
+    //             console.log('There is an authorization token in local storage');
+    //         }
+
+
+
+    //     }
+    // }
+
+    render(){
+        return (
+            <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
+                <Router history={history}>
+                    <Switch>
+                        <Route path="/" component={AdduxWrapper} exact={true} />
+                        <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
+                        <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
+                        <PrivateRoute path="/subscribe" component={SubscribePage} />
+                        <PublicRoute path="/login" component={LoginPage} />
+                        <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
+                        <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
+                        <Redirect to="/" />
+                    </Switch>
+                </Router>
+            </StripeProvider>
+        );
+    }
+
 
 }
 

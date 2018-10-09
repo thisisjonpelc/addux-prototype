@@ -287,29 +287,31 @@ app.post('/users/reset', async (req, res) => {
         const resetExpire = moment().add(4, 'h').unix();
 
         const user = await User.findOneAndUpdate({email}, {passwordReset, resetExpire});
-        
-        if(!user){
+
+        if(user){
+            messageText = `Hi ${user.firstName}!  A password reset was requested for your Addux account.  Please visit https://${req.headers.host}/reset/${passwordReset} to create a new password. This link will expire in 4 hours`;
+
+            const message = {
+                from: 'jon@thisisjonpelc.com',
+                to: user.email,
+                subject: 'Addux Password Reset',
+                message: messageText,
+                html: `<p>${messageText}</p>`
+            }
+
+            transporter.sendMail(message, (err, info) => {
+                if(err){
+                    res.status(400).send(err);
+                }
+                else{
+                    res.send(info);
+                }
+            });
+        }
+        else{
             res.status(404).send();
         }
-
-        messageText = `Hi ${user.firstName}!  A password reset was requested for your Addux account.  Please visit https://${req.headers.host}/reset/${passwordReset} to create a new password. This link will expire in 4 hours`;
-
-        const message = {
-            from: 'jon@thisisjonpelc.com',
-            to: user.email,
-            subject: 'Addux Password Reset',
-            message: messageText,
-            html: `<p>${messageText}</p>`
-        }
-
-        transporter.sendMail(message, (err, info) => {
-            if(err){
-                res.status(400).send(err);
-            }
-            else{
-                res.send(info);
-            }
-        });
+        
     }
     catch(e){
         console.log('Error: ', e);

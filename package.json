@@ -1,6 +1,9 @@
 {
   "name": "addux-prototype",
   "version": "1.0.0",
+  "engines": {
+    "node": "9.9.0"
+  },
   "description": "Prototype for Addux Web App",
   "main": "server.js",
   "author": "Jon Pelc <thisisjonpelc@gmail.com>",

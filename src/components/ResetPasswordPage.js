@@ -49,7 +49,7 @@ class ResetPasswordPage extends React.Component{
                 {this.state.result && <p>{this.state.result}</p>}
                 <form onSubmit={this.onPasswordSubmit}>  
                     <input type='password' placeholder='Enter Your New Password' value={this.state.email} onChange={this.onPasswordChange} />
-                    <button>Chang Your Password</button>
+                    <button>Change Your Password</button>
                 </form>
             </div>
         )

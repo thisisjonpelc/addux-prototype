@@ -11,6 +11,15 @@
     position:relative;
     cursor:pointer;
 
+    &:hover{
+        background-color:$gray-medium;
+        color:$white;
+    
+        &__icon{
+            fill:$white;
+        }
+    }
+
 
     &__icon{
         width:3rem;

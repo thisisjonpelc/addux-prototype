@@ -79,24 +79,24 @@ class Header extends React.Component{
                            this.props.isAdmin 
                            && 
                            (
-                               <div className="app-nav__icon-box">
+                               <div onClick={this.props.changeAdminActive} className="app-nav__icon-box">
                                     <svg className="app-nav__icon">
                                         <use href="img/sprite.svg#icon-cog"></use>
                                     </svg>
                                 </div>
                             )
                        }     
-                            <div className="app-nav__icon-box">
+                            <div onClick={this.props.changeShareActive} className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
                                     <use href="img/sprite.svg#icon-share-alt-solid"></use>
                                 </svg>
                             </div>
-                            <div className="app-nav__icon-box">
+                            <div onClick={this.props.changeUserActive} className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
                                     <use href="img/sprite.svg#icon-user-solid"></use>
                                 </svg>
                             </div>
-                            <div className="app-nav__icon-box">
+                            <div onClick={this.props.changeNotesActive} className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
                                     <use href="img/sprite.svg#icon-pencil-alt-solid"></use>
                                 </svg>
@@ -106,7 +106,7 @@ class Header extends React.Component{
                                     <use href="img/sprite.svg#icon-list-solid"></use>
                                 </svg>
                             </div>
-                            <div onClick={this.showCreateModal} className="app-nav__icon-box app-nav__icon-box--invert">
+                            <div onClick={this.props.showCreateModal} className="app-nav__icon-box app-nav__icon-box--invert">
                                 <svg className="app-nav__icon app-nav__icon-small">
                                     <use href="img/sprite.svg#icon-plus-solid"></use>
                                 </svg>
@@ -120,15 +120,6 @@ class Header extends React.Component{
                             </div>
                         }
                 </header>
-
-                <Modal
-                    isOpen={this.state.createModal}
-                    contentLabel="Name Your New Addux"
-                    onRequestClose={this.handleCloseModal}
-                    shouldCloseOnOverlayClick={true}
-                >
-                    <AdduxNameForm buttonText='Create new Addux' onSubmit={this.createNewModal}/>
-                </Modal>
 
                 <Modal
                     isOpen={this.state.editModal}

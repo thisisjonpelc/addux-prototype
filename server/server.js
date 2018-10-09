@@ -162,6 +162,9 @@ app.post("/addux", authenticate, (req, res) => {
 
 app.get("/addux", authenticate, subscribed, (req, res) => {
 
+    console.log('Got GET /addux');
+    console.log(req.params);
+
     Addux.find({_creator: req.user._id})
     .populate('objective_comments')
     .populate('goals_comments')
@@ -172,8 +175,14 @@ app.get("/addux", authenticate, subscribed, (req, res) => {
     .populate('progress_comments')
     .exec()
     .then((adduxes) => {
+
+        console.log('GOT ADDUXES!');
+        //console.log(adduxes);
         res.send({adduxes});
+        console.log('This should not appear');
       }, (e) => {
+        console.log('ERRROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        console.log(e);
         res.status(400).send(e);
       });
 });
@@ -458,6 +467,8 @@ app.get("/users/me", authenticate, subscribed, (req, res) => {
 });
 
 app.get('*', (req, res) => {
+    console.log(req.params);
+    console.log("SENDING HTML");
     res.sendFile(path.join(publicPath, 'index.html'));
 });
 

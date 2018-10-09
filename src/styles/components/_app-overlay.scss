@@ -1,0 +1,25 @@
+.app-overlay{
+    position: absolute;
+    top:0px;
+    left:0px;
+    height:100vh;
+    width:100%;
+    background-color:white;
+    overflow:auto;
+    z-index:200;
+    padding:2rem;
+
+    &__close{
+        display:block;
+        cursor: pointer;
+        position:fixed;
+        right:4rem;
+        height:3rem;
+        width:3rem;
+        fill:$gray-darker;
+
+        &:hover{
+            fill:$black;
+        }
+    }
+}

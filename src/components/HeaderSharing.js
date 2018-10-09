@@ -11,12 +11,12 @@ const HeaderSharing = (props) => {
     return (
         <div>
             <header className="header">
-                <img src="img/addux-logo.png" className="logo" />
+                <img src="/img/addux-logo.png" className="logo" />
 
                         
-                        <div onClick={this.showEditModal} className="info-box">
-                                <h1 className="info-box__title">{this.props.activeAddux.name}</h1>
-                            </div>
+                        <div  className="info-box">
+                                <h1 className="info-box__title">{props.activeAddux.name}</h1>
+                        </div>
                         
                 </header>
         </div>

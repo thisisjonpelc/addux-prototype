@@ -234,7 +234,9 @@ const AdduxSchema = new mongoose.Schema({
     },
     notes:{
         type:String,
-        trim:true
+        trim:true,
+        default:''
+
     },
     _creator:{
         type:mongoose.Schema.Types.ObjectId,

@@ -45,7 +45,12 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
                ...state
            };
 
-           newState[action.adduxId][action.commentId].text=action.text;
+           if(!(Object.keys(newState).length === 0 && newState.constructor === Object)){
+                newState[action.adduxId][action.commentId].text=action.text;
+           }
+           else{
+               console.log('STATE IS EMPTY!');
+           }
 
            return newState;
 

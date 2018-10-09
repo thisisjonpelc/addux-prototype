@@ -1,12 +1,11 @@
 import React from "react";
 
-const Footer = () => (
+const Footer = (props) => (
     <footer className="footer">
-        <div className="footer__box footer__box--alt">
+        <div onClick={props.showCreateModal} className="footer__box footer__box--alt">
             <svg className="footer__icon footer__icon--alt">
                 <use href="img/sprite.svg#icon-plus-solid"></use>
             </svg>
-
             <span className="footer__text--margin">Create a new Roadmap</span>
         </div>
         <div className="footer__box">

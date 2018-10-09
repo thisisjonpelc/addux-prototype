@@ -10,6 +10,7 @@ import LoginPage from "../components/LoginPage";
 import SubscribePage from './../components/SubscribePage';
 import ResetRequestPage from './../components/ResetRequestPage';
 import ResetPasswordPage from './../components/ResetPasswordPage';
+import ShareAddux from './../components/ShareAddux';
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from './PrivateRoute';
@@ -33,6 +34,8 @@ const AppRouter = (props) => {
             <Router history={history}>
                 <Switch>
                     <Route path="/" component={AdduxWrapper} exact={true} />
+                    <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
+                    <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
                     <PrivateRoute path="/subscribe" component={SubscribePage} />
                     <PublicRoute path="/login" component={LoginPage} />
                     <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />

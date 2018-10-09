@@ -29,6 +29,7 @@
     "node-sass": "^4.9.3",
     "nodemailer": "^4.6.8",
     "react": "^16.5.1",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.1",
     "react-modal": "^3.5.1",
     "react-redux": "^5.0.7",

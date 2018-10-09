@@ -40,7 +40,7 @@ class ColumnHeader extends React.Component{
             <div onClick={this.onHeaderClick} className="column-header">
                 <span className="column-header__text">{labels[this.props.category]}</span>
                 <svg className="column-header__icon">
-                    <use href="img/sprite.svg#icon-video-solid"></use>
+                    <use href="/img/sprite.svg#icon-video-solid"></use>
                 </svg>
             </div>
 

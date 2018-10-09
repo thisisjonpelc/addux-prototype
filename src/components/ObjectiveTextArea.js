@@ -11,6 +11,8 @@ class ObjectiveTextArea extends React.Component{
     constructor(props){
         super(props);
 
+        console.log('Props: ', props);
+
         this.state = {
             text: this.props.activeAddux[this.props.category]
         }
@@ -66,7 +68,7 @@ class ObjectiveTextArea extends React.Component{
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
-        activeAddux: state.addux[state.addux.active]
+        //activeAddux: state.addux[state.addux.active]
     }
 } 
 

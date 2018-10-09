@@ -18,8 +18,8 @@ class ColumnContent extends React.Component{
     }
 
     render() {
-        console.log("RENDERING COLUMN CONTENT!");
-        console.log(this.props.showComments);
+        //console.log("RENDERING COLUMN CONTENT!");
+        //console.log(this.props.showComments);
         const prompt = this.props.walkthrough[`${this.props.category}_prompt`];
         
         return (
@@ -32,10 +32,24 @@ class ColumnContent extends React.Component{
                     ? 
                     (<Accordion activeAddux={this.props.activeAddux} category={this.props.category} readOnly={this.props.readOnly} />) 
                     : 
-                    (<ObjectiveTextArea key={`${this.props.activeAddux._id}-obj`} initialText={this.state.text} category={this.props.category} id={this.props.activeAddux._id} readOnly={this.props.readOnly}/>)
+                    (<ObjectiveTextArea 
+                        key={`${this.props.activeAddux._id}-obj`} 
+                        initialText={this.state.text} 
+                        category={this.props.category}
+                        activeAddux={this.props.activeAddux} 
+                        id={this.props.activeAddux._id} 
+                        readOnly={this.props.readOnly}/>)
                 }
-
-                {this.props.showComments && <CommentsForm key={`${this.props.activeAddux._id}-comments`} category={this.props.category}/>}
+                {
+                    this.props.showComments 
+                        && 
+                    <CommentsForm 
+                        key={`${this.props.activeAddux._id}-comments`} 
+                        category={this.props.category} 
+                        comment={this.props.activeAddux[`${this.props.category}_comments`]}
+                        active={this.props.activeAddux._id}
+                    />
+                }
             </div>
         );
     }

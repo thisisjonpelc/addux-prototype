@@ -16,7 +16,7 @@ const subscribed = async (req, res, next) => {
         const subscriptions = customer.subscriptions.data;
 
         subscriptions.forEach((subscription) => {
-            console.log(subscription);
+            //console.log(subscription);
             console.log('Subscription id is: ', subscription.plan.id);
             console.log('Subscription status is: ', subscription.status);
 

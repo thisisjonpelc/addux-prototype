@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Redirect} from 'react-router-dom';
 import axios from "axios";
 import $ from 'jquery';
+import Modal from 'react-modal';
 
 import Header from "./Header";
 import Columns from "./Columns";
@@ -11,16 +12,19 @@ import LoadingPage from "./LoadingPage";
 import AdduxList from './AdduxList';
 import Notes from './Notes';
 import ScrollArrow from './ScrollArrow';
+import SharePage from './SharePage';
+import AdminPage from './AdminPage';
+import UserPage from './UserPage';
+import AdduxNameForm from './AdduxNameForm';
 
 import {history} from './../routers/AppRouter'
 
 
 import {dataReceived, dataError} from '../actions/data';
-import {setAdduxes, setActive} from '../actions/addux';
+import {setAdduxes, setActive, addAddux} from '../actions/addux';
 import {setWalkthrough} from '../actions/walkthrough';
 import {initializeApp} from './../actions/universal';
 import {unsubscribe} from './../actions/subscription';
-
 
 class AdduxApp extends React.Component{
     constructor(props){
@@ -30,6 +34,11 @@ class AdduxApp extends React.Component{
             listActive: false,
             notesActive: false,
             dataStatus: "WAITING",
+            shareActive: false,
+            adminActive: false,
+            notesActive: false,
+            userActive: false,
+            createModal: false
         }
     }
 
@@ -42,6 +51,19 @@ class AdduxApp extends React.Component{
         }));
     }
 
+    changeShareActive = () => {
+        console.log('Changing Share Status');
+        this.setState((prevState) => ({
+            shareActive: !prevState.shareActive
+        }));
+    }
+
+    changeAdminActive = () => {
+        this.setState((prevState) => ({
+            adminActive: !prevState.adminActive
+        }));
+    }
+
     changeNotesActive = () => {
 
         console.log("CHANGING NOTE STATUS");
@@ -49,6 +71,21 @@ class AdduxApp extends React.Component{
         this.setState((prevState) => ({
            notesActive: !prevState.notesActive 
         }));
+    }
+
+    changeUserActive = () => {
+        console.log('Changing User active');
+        this.setState((prevState) => ({
+            userActive: !prevState.userActive
+        }));
+    }
+
+    showCreateModal = () => {
+        this.setState({createModal:true});
+    }
+
+    handleCloseModal = () => {
+        this.setState({createModal:false, editModal:false})
     }
 
     scrollLeft = () => {
@@ -63,6 +100,34 @@ class AdduxApp extends React.Component{
 
         const mainContent = $('.main-content');
         mainContent.animate({scrollLeft: mainContent.scrollLeft() + 250}, 500);
+    }
+
+    createNewModal = (e) => {
+        e.preventDefault();
+        console.log(e.target.children[0].value);
+        console.log("CREATING NEW MODAL");
+
+        axios.post(
+            `/addux`,
+            {
+                name: e.target.children[0].value
+            },
+            {
+                headers: {
+                    'x-auth': this.props.token
+                }
+            })
+        .then((response) => {
+            console.log("CREATED A NEW ADDUX");
+            console.log(response.data);
+            this.handleCloseModal();
+            this.props.addAddux(response.data.addux);
+            //this.props.setActive(response.data.addux._id);
+        })
+        .catch((e) => {
+            console.log("FAILED TO CREATE NEW ADDUX");
+            console.log(e);
+        })
     }
 
     componentDidMount(){
@@ -95,6 +160,7 @@ class AdduxApp extends React.Component{
             });
         })
         .catch((e) => {
+            console.log(e);
             if(e.response.status === 402){
                 this.props.unsubscribe();
                 history.push('/subscribe');
@@ -113,10 +179,6 @@ class AdduxApp extends React.Component{
 
     render(){
 
-        // if(!this.props.subscribed){
-        //     return <Redirect to='/subscribe' />
-        // }
-
         if(this.state.dataStatus === "WAITING"){
             return (
                 <LoadingPage />
@@ -128,10 +190,32 @@ class AdduxApp extends React.Component{
                     <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>
                     <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
-                    <Header changeListActive={this.changeListActive} empty={this.props.empty} token={this.props.token}/>
+                    <Header 
+                        showCreateModal={this.showCreateModal} 
+                        changeListActive={this.changeListActive} 
+                        changeShareActive={this.changeShareActive} 
+                        changeAdminActive={this.changeAdminActive} 
+                        changeNotesActive={this.changeNotesActive} 
+                        changeUserActive={this.changeUserActive}
+                        empty={this.props.empty} 
+                        token={this.props.token}
+                    />
                     <Columns empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-                    <Footer />
-                    <Notes />
+                    <Footer showCreateModal={this.showCreateModal}/>
+                    <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>
+                    <SharePage hidden={!this.state.shareActive} changeShareActive={this.changeShareActive} activeAddux={this.props.activeAddux}/>
+                    <UserPage hidden={!this.state.userActive} changeUserActive={this.changeUserActive} />
+                    {this.props.isAdmin && <AdminPage hidden={!this.state.adminActive} changeAdminActive={this.changeAdminActive} walkthrough={this.props.walkthrough} token={this.props.token}/>}
+                
+                    <Modal
+                        isOpen={this.state.createModal}
+                        contentLabel="Name Your New Addux"
+                        onRequestClose={this.handleCloseModal}
+                        shouldCloseOnOverlayClick={true}
+                    >
+                        <AdduxNameForm buttonText='Create new Addux' onSubmit={this.createNewModal}/>
+                    </Modal>
+
                 </div>
             );
         }
@@ -149,7 +233,8 @@ const mapStateToProps = (state) => {
         //dataStatus: state.data.status,
         empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
         activeAddux: state.addux[state.addux.active],
-        walkthrough: state.walkthrough
+        walkthrough: state.walkthrough,
+        isAdmin: state.auth.isAdmin
         //subscribed: state.subscription.subscribed
     }
 };
@@ -161,7 +246,8 @@ const mapDispatchToProps = (dispatch) => ({
     // setActive: (id) => dispatch(setActive(id)),
     // setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough)),
     initializeApp: (adduxes, walkthrough) => dispatch(initializeApp(adduxes, walkthrough)),
-    unsubscribe: () => dispatch(unsubscribe())
+    unsubscribe: () => dispatch(unsubscribe()),
+    addAddux: (addux) => dispatch(addAddux(addux))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdduxApp);

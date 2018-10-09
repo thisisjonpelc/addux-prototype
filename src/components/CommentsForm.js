@@ -45,6 +45,9 @@ class CommentsForm extends React.Component{
             //const upDateObj = {};
             //upDateObj[`${this.props.category}_comments`] = comments;
 
+            console.log(this.props.active);
+            console.log()
+
             this.props.editComments(this.props.active, `${this.props.category}_comments`, comments);
         })
         .catch((e) => {
@@ -59,32 +62,7 @@ class CommentsForm extends React.Component{
         this.saveComments(comments);
     }
 
-    // componentWillReceiveProps(nextProps){
-    //    console.log("Next Props:", nextProps);
-       
-    //    if(this.state)
-    // }
-
-    // shouldComponentUpdate(nextProps, nextState){
-    //     console.log("oldProps", this.props);
-    //     console.log("nextProps", nextProps);
-    //     console.log("oldState", this.state);
-    //     console.log("nextState", nextState);
-
-    //     if(this.props.active !== nextProps.active){
-    //         console.log("NOT THE SAME!");
-    //     }
-
-    //     return true;
-    // }
-
     render(){
-
-        //console.log("RENDERING COMMENT FORM");
-
-
-
-        //<CommentTextArea commentText={this.props.comment.text} onCommentsChange={this.onCommentsChange} />
 
         return (
             <div className="comments-form">
@@ -101,18 +79,9 @@ class CommentsForm extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
-
-    // console.log(`${ownProps.category}_comments`);
-    // console.log(state.addux);
-    // console.log(state.addux.active);
-    // console.log(state.addux[state.addux.active]);
-
-    //console.log("Addux", state.addux[state.addux.active]);
-    //console.log("Comment", state.addux[state.addux.active][`${ownProps.category}_comments`]);
-
     return {
-        comment: state.addux[state.addux.active][`${ownProps.category}_comments`],
-        active: state.addux.active
+        //comment: state.addux[state.addux.active][`${ownProps.category}_comments`],
+        //active: state.addux.active
     }
 }
 

@@ -8,7 +8,7 @@ var authenticate = (req, res, next) => {
             return Promise.reject();
         }
 
-        //console.log("USER FOUND:", user);
+        console.log(`User ${user._id} authenticated`);
 
         req.user = user;
         req.token = token;

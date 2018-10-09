@@ -1,6 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 import axios from "axios";
+import {Link} from 'react-router-dom';
+
 
 import {login, updateToken} from "./../actions/auth";
 
@@ -85,6 +87,8 @@ class LoginPage extends React.Component{
                     />
                     <button>Log in!</button>
                 </form>
+                <Link to='/'>Don't have an account?</Link>
+                <Link to='/reset'>Forgot your password?</Link>
             </div>
         );
     }

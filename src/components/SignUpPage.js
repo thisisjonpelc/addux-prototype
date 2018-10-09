@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 import {login} from "./../actions/auth";
 import {history} from "./../routers/AppRouter";
@@ -117,7 +118,9 @@ class SignUpPage extends React.Component{
                         onChange = {this.onPasswordChange}
                     />
                     <button>Sign up!</button>
+                    
                 </form>
+                <Link to='/login'>Already have an account?</Link>
             </div>
         );
     };

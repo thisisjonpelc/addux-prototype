@@ -106,7 +106,7 @@ app.patch("/comments/:id", (req, res) => {
     });
 });
 
-app.post("/addux", authenticate, (req, res) => {
+app.post("/addux", authenticate, subscribed, (req, res) => {
 
     console.log('Received POST /addux');
 
@@ -178,12 +178,15 @@ app.get("/addux", authenticate, subscribed, (req, res) => {
     .populate('progress_comments')
     .exec()
     .then((adduxes) => {
-
+        
         res.send({adduxes});
       }, (e) => {
         console.log('Error: ', e);
         res.status(400).send(e);
-      });
+      })
+    .catch((e) => {
+        console.log(e);
+    });
 });
 
 app.get("/addux/:id", (req, res) => {
@@ -221,7 +224,7 @@ app.get("/addux/:id", (req, res) => {
 
 });
 
-app.patch("/addux/:id", authenticate, (req, res) => {
+app.patch("/addux/:id", authenticate, subscribed, (req, res) => {
     
     console.log('PATCH /addux/' + req.params.id);
     
@@ -411,7 +414,7 @@ app.post("/users/login", async (req, res) => {
       res.header("x-auth", token).send(user);
     }
     catch(e){
-        console.log('Error: ', e);
+      console.log('Error: ', e);
       res.status(400).send(e);
     }
 });

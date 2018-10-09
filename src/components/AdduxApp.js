@@ -17,7 +17,7 @@ import AdminPage from './AdminPage';
 import UserPage from './UserPage';
 import AdduxNameForm from './AdduxNameForm';
 
-import {history} from './../routers/AppRouter'
+import {history} from './../routers/AppRouter';
 
 
 import {dataReceived, dataError} from '../actions/data';
@@ -125,8 +125,14 @@ class AdduxApp extends React.Component{
             //this.props.setActive(response.data.addux._id);
         })
         .catch((e) => {
-            console.log("FAILED TO CREATE NEW ADDUX");
-            console.log(e);
+            if(e.response.status === 402){
+                this.props.unsubscribe();
+                history.push('/subscribe');
+            }
+            else{
+                console.log("FAILED TO CREATE NEW ADDUX");
+                console.log(e);
+            }
         })
     }
 

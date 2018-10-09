@@ -183,13 +183,17 @@ class UserPage extends React.Component {
                         <button>Update User Info</button>
                     </form>
                 </div>
-                <div>
-                    <h1>Subscription Info</h1>
-                    {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
-                    {this.state.stripeData==='RECEIVED' && <StripePanel customer={this.state.customer} token={this.props.auth.token} updateCustomer={this.updateCustomer}/>}
-                    {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
-                </div>
-                 
+
+                {(this.props.auth.isAdmin ? 
+                    (<p>This is an Admin account.  There is no payment or subscription information to display</p>)
+                    :
+                    (<div>
+                        <h1>Subscription Info</h1>
+                        {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
+                        {this.state.stripeData==='RECEIVED' && <StripePanel customer={this.state.customer} token={this.props.auth.token} updateCustomer={this.updateCustomer}/>}
+                        {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
+                    </div>)
+                )}
             </div>
         );
     }

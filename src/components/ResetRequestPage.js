@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 class ResetRequestPage extends React.Component{
@@ -50,6 +51,8 @@ class ResetRequestPage extends React.Component{
                 <input type='email' placeholder='Enter your email' value={this.state.email} onChange={this.onEmailChange} />
                 <button>Request Password Reset</button>
             </form>
+            <Link to='/login'>Login to your account</Link>
+            <Link to='/'>Don't have an account?</Link>
             </div>
         )
     }

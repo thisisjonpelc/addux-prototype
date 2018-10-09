@@ -3,10 +3,12 @@ import {connect} from 'react-redux';
 import {debounce} from 'throttle-debounce';
 import axios from 'axios';
 
+import {history} from './../routers/AppRouter';
+
 import {labels} from '../constants/constants';
 
 import {editAddux} from './../actions/addux';
-
+import {unsubscribe} from './../actions/subscription';
 
 class AccordionItem extends React.Component{
     constructor(props){
@@ -46,8 +48,14 @@ class AccordionItem extends React.Component{
             this.props.editAddux(this.props.activeAddux._id, updates);
         })
         .catch((e) => {
-            console.log("COULDN'T SAVE INPUT");
-            console.log(e);
+            if(e.response.status === 402){
+                this.props.unsubscribe();
+                history.push('/subscribe');
+            }
+            else{
+                console.log("COULDN'T SAVE INPUT");
+                console.log(e);
+            }
         });
     });
 
@@ -98,7 +106,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        editAddux: (activeAddux, updates) => dispatch(editAddux(activeAddux, updates))
+        editAddux: (activeAddux, updates) => dispatch(editAddux(activeAddux, updates)),
+        unsubscribe: () => dispatch(unsubscribe())
     }
     
 }

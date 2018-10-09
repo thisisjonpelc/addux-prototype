@@ -8,37 +8,33 @@ const subscribed = async (req, res, next) => {
     console.log(`Checking if user ${user._id} is subscribed`);
 
     if(user.isAdmin){
+        console.log(`User ${user._id} is an Admin`);
         next();
     }
-
-    try{
-        const customer = await stripe.customers.retrieve(user.customerId);
-        const subscriptions = customer.subscriptions.data;
-
-        subscriptions.forEach((subscription) => {
-            //console.log(subscription);
-            //console.log('Subscription id is: ', subscription.plan.id);
-            //console.log('Subscription status is: ', subscription.status);
-
-            if(subscription.plan.id === process.env.MONTHLY_PLAN_ID || subscription.plan.id === process.env.YEARLY_PLAN_ID && subscription.status === 'active'){
-                
-                subscribed = true;
-                break;
+    else{
+        try{
+            const customer = await stripe.customers.retrieve(user.customerId);
+            const subscriptions = customer.subscriptions.data;
+    
+            subscriptions.forEach((subscription) => {
+                if(subscription.plan.id === process.env.MONTHLY_PLAN_ID || subscription.plan.id === process.env.YEARLY_PLAN_ID && subscription.status === 'active'){
+                    subscribed = true;
+                }
+            });
+    
+            if(subscribed){
+                console.log(`User ${user._id} is subscribed`);
+                next();
             }
-        });
-
-        if(subscribed){
-            //console.log(`User ${user._id} is subscribed`);
-            next();
+            else{
+                //console.log(`User ${user._id} is not subscribed`);
+                throw `User ${user._id} is not subscribed`;
+            }
         }
-        else{
-            //console.log(`User ${user._id} is not subscribed`);
-            throw `User ${user._id} is not subscribed`;
+        catch(e){
+            console.log(e);
+            res.status(402).send();
         }
-    }
-    catch(e){
-        console.log(e);
-        res.status(402).send();
     }
 }
 

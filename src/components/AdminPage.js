@@ -1,5 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
+
+import {setWalkthrough} from './../actions/walkthrough';
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -152,8 +155,9 @@ class AdminPage extends React.Component {
                 console.log(response);
                 this.setState(() => ({
                     error: '',
-                    success: 'Walkthrough updated succesfully'
+                    success: 'Walkthrough updated succesfully!'
                 }));
+                this.props.setWalkthrough(response.data);
             })
             .catch((e) => {
                 this.setState(() => ({
@@ -237,4 +241,11 @@ class AdminPage extends React.Component {
     }
 }
 
-export default AdminPage;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough))
+
+    };
+};
+
+export default connect(null, mapDispatchToProps)(AdminPage);

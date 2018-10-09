@@ -417,13 +417,15 @@ app.patch("/users/:id", authenticate, (req, res) =>{
     const id = req.params.id;
     const updates = req.body;
 
+    console.log('UPDATES:', updates);
+
     if(updates.hasOwnProperty("isAdmin")){
         delete updates.isAdmin;
     }
 
     if(id === req.user._id.toString()){
         User.findOneAndUpdate({_id: req.user._id}, updates).then((user) => {
-
+            
             if(!user){
                 return res.status(404).send();
             }
@@ -461,6 +463,41 @@ app.get("/users/me/token", authenticate, async (req, res) => {
       res.status(400).send();
     }
   });
+
+
+app.get('/users/me/customer', authenticate, async (req, res) => {
+    console.log('Attempting to get customer');
+
+    const user = req.user;
+
+    try{
+        const customer = await stripe.customers.retrieve(user.customerId);
+
+        res.send(customer);
+    }
+    catch(e){
+        console.log(e);
+        res.status(400).send(e);
+    }
+
+});
+
+app.post('/users/me/card', authenticate, async (req, res) => {
+
+    const user = req.user;
+
+    try{
+        const customer = await stripe.customers.update(user.customerId, {
+            source: req.body.token
+        });
+
+        res.send(customer);
+    }
+    catch(err){
+        console.log(err);
+        res.status(400).send(e);
+    }
+});
 
 app.get("/users/me", authenticate, subscribed, (req, res) => {
     res.send(req.user);

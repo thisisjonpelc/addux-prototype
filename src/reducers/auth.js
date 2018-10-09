@@ -11,7 +11,11 @@ export default (state = {}, action) => {
                 ...state,
                 token: action.token
             }
-            
+        case 'UPDATE_USER':
+            return {
+                ...state,
+                ...action.updates
+            }
         default:
             return state;
     }

@@ -21,7 +21,6 @@
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.3.0",
     "jspdf": "^1.4.1",
-    "live-server": "^1.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "mongodb": "^3.1.4",
@@ -51,7 +50,9 @@
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "serve": "live-server public/",
     "build": "webpack --watch",
-    "dev-server": "webpack-dev-server"
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server",
+    "heroku-postbuild": "yarn run build:prod"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",

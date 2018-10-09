@@ -10,21 +10,43 @@
     padding:0 2rem;
     position:relative;
     cursor:pointer;
+    fill: $gray-medium;
 
     &:hover{
         background-color:$gray-medium;
         color:$white;
-    
-        &__icon{
-            fill:$white;
+        fill:$white;
+
+        &:after,
+        &:before{
+            content:"";
+            display:block;
+            position:absolute;
+            top:102%;
+            width:0;
+            height:0;
+            border-style:solid;
         }
+
+        &:after{
+            left:2.1rem;
+            border-color: $gray-medium transparent transparent transparent;
+            border-width:1.1rem;
+        }
+
+        &:before{
+            left:2rem;
+            border-color:$white transparent transparent transparent;
+            border-width:1.2rem;
+        }
+        
     }
 
 
     &__icon{
         width:3rem;
         height:2rem;
-        fill:$gray-medium;
+        fill:inherit;
     }
 
     &__text{
@@ -46,7 +68,7 @@
 
     &:after{
         left:2.1rem;
-        border-color: #fff transparent transparent transparent;
+        border-color: $white transparent transparent transparent;
         border-width:1.1rem;
     }
 

@@ -66,13 +66,25 @@
         text-transform: uppercase;
         width:26%;
 
+        &:hover{
+            background-color:$gray-darker;
+            color:$white;
+            fill:$white;
+        }
+
         &--alt{
             background-color:$brand-primary;
-            color:white;
-            fill:white;
+            color:$white;
+            fill:$white;
             font-size:1.6rem;
             font-weight:700;
             width:22%;
+
+            &:hover{
+                background-color:$white;
+                color:$gray-dark;
+                fill:$gray-dark;
+            }
 
             @include respond(tab-land) { // width < 1200?
                 font-size:1.4rem;
@@ -88,7 +100,7 @@
          &--alt{
              height:1.6rem;
              width:1.6rem;
-             margin-top:-2px;
+             margin-top:1px;
         }
     }
 

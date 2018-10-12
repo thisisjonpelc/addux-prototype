@@ -67,7 +67,7 @@ class Notes extends React.Component{
         return (
             <div className={`notes ${this.props.notesActive && 'notes--active'}`}>
                 <svg onClick={this.props.changeNotesActive} className='notes__close'>
-                    <use href='img/sprite.svg#icon-close'></use>    
+                    <use xlinkHref='img/sprite.svg#icon-close'></use>    
                 </svg>
                 <RichTextEditor
                     value={this.state.value}

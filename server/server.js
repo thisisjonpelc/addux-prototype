@@ -155,6 +155,7 @@ app.post("/addux", authenticate, subscribed, (req, res) => {
             });
         })
         .catch((e) => {
+            console.log('Error', e);
             res.status(400).send(e);
         });
     })

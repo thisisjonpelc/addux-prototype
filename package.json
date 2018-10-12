@@ -20,6 +20,7 @@
     "bcrypt": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "browserslist": "^4.2.0",
     "css-loader": "^1.0.0",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
@@ -56,10 +57,19 @@
     "build": "webpack --watch",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
-    "heroku-postbuild": "yarn run build:prod"
+    "heroku-postbuild": "yarn run build:prod",
+    "compile:css": "node-sass src/styles/main.scss public/css/style.css",
+    "watch:css": "nodemon -e scss -x \"npm run compile:css\"",
+    "compile:sass": "node-sass src/styles/main.scss public/css/style.comp.css",
+    "prefix:css": "postcss --use autoprefixer -b \"last10 versions\" public/css/style.comp.css -o public/css/style.prefix.css",
+    "compress:css": "node-sass public/css/style.prefix.css public/css/style.css --output-style compressed",
+    "build:css": "yarn run compile:sass prefix:css compres:css"
   },
   "devDependencies": {
+    "autoprefixer": "^9.1.5",
     "cross-env": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "postcss-cli": "^6.0.0",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
   }

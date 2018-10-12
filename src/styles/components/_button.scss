@@ -1,0 +1,42 @@
+.btn{
+
+    color: $white;
+    background-color:$brand-primary;
+    border:1px solid $gray-dark;
+    padding: 1rem;
+    border-radius:.5rem;
+    cursor:pointer;
+    font-size:2rem;
+    outline:none;
+
+    &:hover{
+        background-color:darken($brand-primary, 10%);
+    }
+
+    &:active{
+        background-color:darken($brand-primary, 20%);
+    }
+
+    &--small{
+        font-size:1.6rem;
+        padding:.7rem;
+    }
+
+    &--full-width{
+        width:100%;
+    }
+
+    &--danger{
+        background-color:$brand-danger;
+    
+        &:hover{
+            background-color:darken($brand-danger, 10%);
+        }
+    
+        &:active{
+            background-color:darken($brand-danger, 20%);
+        }
+    }
+
+    
+}

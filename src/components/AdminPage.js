@@ -173,70 +173,72 @@ class AdminPage extends React.Component {
         return (
             <div className={`app-overlay ${this.props.hidden && 'hidden'}`}>
                 <svg onClick={this.props.changeAdminActive} className='app-overlay__close'>
-                    <use href='img/sprite.svg#icon-close'></use>
+                    <use xlinkHref='img/sprite.svg#icon-close'></use>
                 </svg>
-                <form onSubmit={this.onSubmit}>
-                <div>
-                    <label htmlFor='objective_prompt'>Objective Prompt: </label>
-                    <input type='text' id='objective_prompt' value={this.state.objective_prompt} placeholder='Objective Prompt' onChange={this.objectivePromptChange} />
+
+                    <h1 className='app-overlay__heading'></h1>
+                    <form className='form form--600' onSubmit={this.onSubmit}>
+                        <div className='form__form-group'>
+                            <label htmlFor='objective_prompt'>Objective Prompt: </label>
+                            <input className='form__input' type='text' id='objective_prompt' value={this.state.objective_prompt} placeholder='Objective Prompt' onChange={this.objectivePromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='objective_video'>Objective Video: </label>
+                            <input className='form__input' type='text' id='objective_video' value={this.state.objective_video} placeholder='Objective Video' onChange={this.objectiveVideoChange} />            
+                        </div>
+                        <div className='form__form-group'>
+                            <label htmlFor='goals_prompt'>Goals Prompt: </label>
+                            <input className='form__input' type='text' id='goals_prompt' value={this.state.goals_prompt} placeholder='Goals Prompt' onChange={this.goalsPromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='goals_video'>Goals Video: </label>
+                            <input className='form__input' type='text' id='goals_video' value={this.state.goals_video} placeholder='Goals Video' onChange={this.goalsVideoChange} />            
+                        </div>
+                        <div className='form__form-group'>
+                            <label htmlFor='projects_prompt'>Projects Prompt: </label>
+                            <input className='form__input' type='text' id='projects_prompt' value={this.state.projects_prompt} placeholder='Projects Prompt' onChange={this.projectsPromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='projects_video'>Projects Video: </label>
+                            <input className='form__input' type='text' id='projects_video' value={this.state.projects_video} placeholder='Projects Video' onChange={this.projectsVideoChange} />            
+                        </div>
+                        <div className='form__form-group'>
+                            <label htmlFor='timelines_prompt'>Timelines Prompt: </label>
+                            <input className='form__input' type='text' id='timelines_prompt' value={this.state.timelines_prompt} placeholder='Timelines Prompt' onChange={this.timelinesPromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='timelines_video'>Timelines Video: </label>
+                            <input className='form__input' type='text' id='timelines_video' value={this.state.timelines_video} placeholder='Timelines Video' onChange={this.timelinesVideoChange} />            
+                        </div>
+                        <div className='form__form-group'>
+                            <label htmlFor='projectOwner_prompt'>Project Owner Prompt: </label>
+                            <input className='form__input' type='text' id='projectOwner_prompt' value={this.state.projectOwner_prompt} placeholder='Project Owner Prompt' onChange={this.projectOwnerPromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='projectOwner_video'>Project Owner Video: </label>
+                            <input className='form__input' type='text' id='projectOwner_video' value={this.state.projectOwner_video} placeholder='Project Owner Video' onChange={this.projectOwnerVideoChange} />            
+                        </div>
+                        <div className='form__form-group'>
+                            <label htmlFor='resources_prompt'>Resources Prompt: </label>
+                            <input className='form__input' type='text' id='resources_prompt' value={this.state.resources_prompt} placeholder='Resources Prompt' onChange={this.resourcesPromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='resources_video'>Resources Video: </label>
+                            <input className='form__input' type='text' id='resources_video' value={this.state.resources_video} placeholder='Resources Video' onChange={this.resourcesVideoChange} />            
+                        </div>
+                        <div className='form__form-group'>
+                            <label htmlFor='progress_prompt'>Progress Prompt: </label>
+                            <input className='form__input' type='text' id='progress_prompt' value={this.state.progress_prompt} placeholder='Progress Prompt' onChange={this.progressPromptChange} />
+                        </div>
+                        <div className='form__form-group'>    
+                            <label htmlFor='progress_video'>Progress Video: </label>
+                            <input className='form__input' type='text' id='progress_video' value={this.state.progress_video} placeholder='Progress Video' onChange={this.progressVideoChange} />            
+                        </div>
+                        <button className='btn btn-full-width'>Submit new Walkthrough</button>
+                        {this.state.error && <p>{this.state.error}</p>}
+                        {this.state.success && <p>{this.state.success}</p>}
+                    </form>
                 </div>
-                <div>    
-                    <label htmlFor='objective_video'>Objective Video: </label>
-                    <input type='text' id='objective_video' value={this.state.objective_video} placeholder='Objective Video' onChange={this.objectiveVideoChange} />            
-                </div>
-                <div>
-                    <label htmlFor='goals_prompt'>Goals Prompt: </label>
-                    <input type='text' id='goals_prompt' value={this.state.goals_prompt} placeholder='Goals Prompt' onChange={this.goalsPromptChange} />
-                </div>
-                <div>    
-                    <label htmlFor='goals_video'>Goals Video: </label>
-                    <input type='text' id='goals_video' value={this.state.goals_video} placeholder='Goals Video' onChange={this.goalsVideoChange} />            
-                </div>
-                <div>
-                    <label htmlFor='projects_prompt'>Projects Prompt: </label>
-                    <input type='text' id='projects_prompt' value={this.state.projects_prompt} placeholder='Projects Prompt' onChange={this.projectsPromptChange} />
-                </div>
-                <div>    
-                    <label htmlFor='projects_video'>Projects Video: </label>
-                    <input type='text' id='projects_video' value={this.state.projects_video} placeholder='Projects Video' onChange={this.projectsVideoChange} />            
-                </div>
-                <div>
-                    <label htmlFor='timelines_prompt'>Timelines Prompt: </label>
-                    <input type='text' id='timelines_prompt' value={this.state.timelines_prompt} placeholder='Timelines Prompt' onChange={this.timelinesPromptChange} />
-                </div>
-                <div>    
-                    <label htmlFor='timelines_video'>Timelines Video: </label>
-                    <input type='text' id='timelines_video' value={this.state.timelines_video} placeholder='Timelines Video' onChange={this.timelinesVideoChange} />            
-                </div>
-                <div>
-                    <label htmlFor='projectOwner_prompt'>Project Owner Prompt: </label>
-                    <input type='text' id='projectOwner_prompt' value={this.state.projectOwner_prompt} placeholder='Project Owner Prompt' onChange={this.projectOwnerPromptChange} />
-                </div>
-                <div>    
-                    <label htmlFor='projectOwner_video'>Project Owner Video: </label>
-                    <input type='text' id='projectOwner_video' value={this.state.projectOwner_video} placeholder='Project Owner Video' onChange={this.projectOwnerVideoChange} />            
-                </div>
-                <div>
-                    <label htmlFor='resources_prompt'>Resources Prompt: </label>
-                    <input type='text' id='resources_prompt' value={this.state.resources_prompt} placeholder='Resources Prompt' onChange={this.resourcesPromptChange} />
-                </div>
-                <div>    
-                    <label htmlFor='resources_video'>Resources Video: </label>
-                    <input type='text' id='resources_video' value={this.state.resources_video} placeholder='Resources Video' onChange={this.resourcesVideoChange} />            
-                </div>
-                <div>
-                    <label htmlFor='progress_prompt'>Progress Prompt: </label>
-                    <input type='text' id='progress_prompt' value={this.state.progress_prompt} placeholder='Progress Prompt' onChange={this.progressPromptChange} />
-                </div>
-                <div>    
-                    <label htmlFor='progress_video'>Progress Video: </label>
-                    <input type='text' id='progress_video' value={this.state.progress_video} placeholder='Progress Video' onChange={this.progressVideoChange} />            
-                </div>
-                <button>Submit new Walkthrough</button>
-                {this.state.error && <p>{this.state.error}</p>}
-                {this.state.success && <p>{this.state.success}</p>}
-                </form>
-            </div>
         );
     }
 }

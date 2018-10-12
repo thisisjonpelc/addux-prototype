@@ -81,34 +81,34 @@ class Header extends React.Component{
                            (
                                <div onClick={this.props.changeAdminActive} className="app-nav__icon-box">
                                     <svg className="app-nav__icon">
-                                        <use href="img/sprite.svg#icon-cog"></use>
+                                        <use xlinkHref="img/sprite.svg#icon-cog"></use>
                                     </svg>
                                 </div>
                             )
                        }     
                             {!this.props.empty && <div onClick={this.props.changeShareActive} className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
-                                    <use href="img/sprite.svg#icon-share-alt-solid"></use>
+                                    <use xlinkHref="img/sprite.svg#icon-share-alt-solid"></use>
                                 </svg>
                             </div>}
                             <div onClick={this.props.changeUserActive} className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
-                                    <use href="img/sprite.svg#icon-user-solid"></use>
+                                    <use xlinkHref="img/sprite.svg#icon-user-solid"></use>
                                 </svg>
                             </div>
                             {!this.props.empty && <div onClick={this.props.changeNotesActive} className="app-nav__icon-box"> 
                                 <svg className="app-nav__icon">
-                                    <use href="img/sprite.svg#icon-pencil-alt-solid"></use>
+                                    <use xlinkHref="img/sprite.svg#icon-pencil-alt-solid"></use>
                                 </svg>
                             </div>}
                             {!this.props.empty && <div onClick={this.props.changeListActive} className="app-nav__icon-box">
                                 <svg className="app-nav__icon">
-                                    <use href="img/sprite.svg#icon-list-solid"></use>
+                                    <use xlinkHref="img/sprite.svg#icon-list-solid"></use>
                                 </svg>
                             </div> }
                             <div onClick={this.props.showCreateModal} className="app-nav__icon-box app-nav__icon-box--invert">
                                 <svg className="app-nav__icon app-nav__icon-small">
-                                    <use href="img/sprite.svg#icon-plus-solid"></use>
+                                    <use xlinkHref="img/sprite.svg#icon-plus-solid"></use>
                                 </svg>
                             </div>
                         </nav>

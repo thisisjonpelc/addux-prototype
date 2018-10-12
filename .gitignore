@@ -2,3 +2,5 @@ node_modules/
 server/config/config.json
 yarn-error.log
 public/bundle.js
+public/css/style.comp.css
+public/css/style.prefix.css

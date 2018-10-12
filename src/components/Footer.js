@@ -4,7 +4,7 @@ const Footer = (props) => (
     <footer className="footer">
         <div onClick={props.showCreateModal} className="footer__box footer__box--alt">
             <svg className="footer__icon footer__icon--alt">
-                <use href="img/sprite.svg#icon-plus-solid"></use>
+                <use xlinkHref="img/sprite.svg#icon-plus-solid"></use>
             </svg>
             <span className="footer__text--margin">Create a new Roadmap</span>
         </div>
@@ -16,7 +16,7 @@ const Footer = (props) => (
         </div>
         <div className="footer__box">
             <svg className="footer__icon">
-                <use href="img/sprite.svg#icon-video-solid"></use>
+                <use xlinkHref="img/sprite.svg#icon-video-solid"></use>
             </svg>
             <span className="footer__text--light-gray footer__text--margin">Watch</span>&nbsp; Tutorial
         </div>

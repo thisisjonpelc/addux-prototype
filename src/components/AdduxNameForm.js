@@ -11,14 +11,18 @@ class AdduxNameForm extends React.Component{
 
     onNameChange = (e) => {
         const name = e.target.value;
+        console.log(name);
         this.setState({name});
     }
 
     render() {
         return (
-            <form onSubmit={this.props.onSubmit}>
-                <input type='text' value={this.state.name} onChange={this.onNameChange} placeholder='Name Your Addux'/>
-                <button>{this.props.buttonText}</button>
+            <form className='form' onSubmit={this.props.onSubmit}>
+                
+                <div className='form__form-group'>
+                    <input className='form__input' type='text' value={this.state.name} onChange={this.onNameChange} placeholder='Name Your Addux'/>
+                </div>            
+                <button className='btn btn--full-width'>{this.props.buttonText}</button>
             </form>
         );
     }

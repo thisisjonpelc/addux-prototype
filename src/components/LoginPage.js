@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {Link} from 'react-router-dom';
 
-
 import {login, updateToken} from "./../actions/auth";
 
 import {history} from "./../routers/AppRouter";
@@ -69,26 +68,43 @@ class LoginPage extends React.Component{
 
     render(){
         return(
-            <div>
-                {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
-                    <input 
-                        type="email" 
-                        placeholder="Email"
-                        autoFocus
-                        value={this.state.email}
-                        onChange = {this.onEmailChange}
-                    />
-                    <input 
-                        type="password" 
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange = {this.onPasswordChange}
-                    />
-                    <button>Log in!</button>
-                </form>
-                <Link to='/'>Don't have an account?</Link>
-                <Link to='/reset'>Forgot your password?</Link>
+            <div className='login-page'>
+                <div className="bg-video">
+                    <video className="bg-video__content" autoPlay muted loop>
+                        <source src="img/white-board.mp4" type="video/mp4" />
+                        <source src="img/white-board.webm" type="video/webm" />
+                        Your browser is not supported!
+                    </video>
+                </div>
+                <div className='login-page__form'>
+                    <h1 className='login-page__heading'>It's nice to see you again!</h1>
+                    {this.state.error && <p>{this.state.error}</p>}
+                    <form className='form' onSubmit={this.onSubmit}>
+                        <div className='form__form-group'>
+                            <input
+                                className='form__input'
+                                type="email" 
+                                placeholder="Email"
+                                autoFocus
+                                value={this.state.email}
+                                onChange = {this.onEmailChange}
+                            />
+                        </div>
+                        <div className='form__form-group'>
+                            <input
+                                className='form__input' 
+                                type="password" 
+                                placeholder="Password"
+                                value={this.state.password}
+                                onChange = {this.onPasswordChange}
+                            />
+                        </div>
+                        
+                        <button className='btn'>Log in!</button>
+                    </form>
+                    <Link className='app-link' to='/'>Don't have an account?</Link>
+                    <Link className='app-link' to='/reset'>Forgot your password?</Link>
+                </div>
             </div>
         );
     }

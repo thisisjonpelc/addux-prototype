@@ -54,7 +54,7 @@ class SignUpPage extends React.Component{
 
         if(!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName){
             this.setState(() => ({error: "Please complete all required fields!"}));
-        }
+        }   
         else{
             console.log("SENDING POST REQUEST");
             axios.post('/users/', {
@@ -84,43 +84,70 @@ class SignUpPage extends React.Component{
 
     render() {
         return(
-            <div>
-                {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
-                    <input 
-                        type="text"
-                        placeholder="First Name"
-                        value={this.state.firstName}
-                        onChange={this.onFirstNameChange}
-                    />
-                    <input 
-                        type="text"
-                        placeholder="Last Name"
-                        value={this.state.lastName}
-                        onChange={this.onLastNameChange}
-                    />
-                    <input 
-                        type="text"
-                        placeholder="Company(Optional)"
-                        value={this.state.company}
-                        onChange={this.onCompanyChange}
-                    />
-                    <input 
-                        type="email" 
-                        placeholder="Email"
-                        value={this.state.email}
-                        onChange = {this.onEmailChange}
-                    />
-                    <input 
-                        type="password" 
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange = {this.onPasswordChange}
-                    />
-                    <button>Sign up!</button>
-                    
-                </form>
-                <Link to='/login'>Already have an account?</Link>
+
+            <div className='home-page'>
+                <div className="bg-video">
+                    <video className="bg-video__content" autoPlay muted loop>
+                        <source src="img/white-board.mp4" type="video/mp4" />
+                        <source src="img/white-board.webm" type="video/webm" />
+                        Your browser is not supported!
+                    </video>
+                </div>
+                <div className='home-page__form'>
+                    <h1 className='home-page__heading'>Welcome to Addux!</h1>
+                    <h1 className='home-page__sub-heading'>Where we help you map the future of your business!</h1>
+
+                    {this.state.error && <Alert color='danger'>{this.state.error}</Alert>}
+                    <form className='form' onSubmit={this.onSubmit}>
+                        <div className='form__form-group'>
+                        <input 
+                            className='form__input'
+                            type="text"
+                            placeholder="First Name"
+                            value={this.state.firstName}
+                            onChange={this.onFirstNameChange}
+                        />
+                        </div>
+                        <div className='form__form-group'>
+                        <input 
+                            className='form__input'
+                            type="text"
+                            placeholder="Last Name"
+                            value={this.state.lastName}
+                            onChange={this.onLastNameChange}
+                        />
+                        </div>
+                        <div className='form__form-group'>
+                        <input 
+                            className='form__input'
+                            type="text"
+                            placeholder="Company(Optional)"
+                            value={this.state.company}
+                            onChange={this.onCompanyChange}
+                        />
+                        </div>
+                        <div className='form__form-group'>
+                        <input 
+                            className='form__input'
+                            type="email" 
+                            placeholder="Email"
+                            value={this.state.email}
+                            onChange = {this.onEmailChange}
+                        />
+                        </div>
+                        <div className='form__form-group'>
+                        <input 
+                            className='form__input'
+                            type="password" 
+                            placeholder="Password"
+                            value={this.state.password}
+                            onChange = {this.onPasswordChange}
+                        />
+                        </div>
+                        <button className='btn btn--full-width'>Sign up!</button>
+                    </form>
+                    <Link className='app-link' to='/login'>Already have an account?</Link>
+                </div>
             </div>
         );
     };

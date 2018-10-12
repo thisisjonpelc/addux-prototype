@@ -40,11 +40,20 @@ class ColumnHeader extends React.Component{
             <div onClick={this.onHeaderClick} className="column-header">
                 <span className="column-header__text">{labels[this.props.category]}</span>
                 <svg className="column-header__icon">
-                    <use href="/img/sprite.svg#icon-video-solid"></use>
+                    <use xlinkHref="/img/sprite.svg#icon-video-solid"></use>
                 </svg>
             </div>
 
             <Modal
+                    style = {{
+                        content:{
+                            top:'50%',
+                            left:'50%',
+                            transform: 'translate(-50%, -50%)',
+                            width:'70rem',
+                            height:'41rem'
+                        }
+                    }}
                     isOpen={this.state.showVideo}
                     contentLabel="A helpful video guide"
                     onRequestClose={this.handleCloseModal}

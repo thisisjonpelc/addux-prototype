@@ -7,7 +7,13 @@
     background-color:white;
     overflow:auto;
     z-index:200;
-    padding:2rem;
+    padding:3rem;
+
+    &__heading{
+        text-align:center;
+        font-size:3rem;
+        margin-bottom:1.5rem;
+    }
 
     &__close{
         display:block;
@@ -17,6 +23,7 @@
         height:3rem;
         width:3rem;
         fill:$gray-darker;
+        margin-top:-1.5rem;
 
         &:hover{
             fill:$black;

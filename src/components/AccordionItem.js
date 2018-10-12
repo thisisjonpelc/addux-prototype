@@ -79,7 +79,7 @@ class AccordionItem extends React.Component{
                     >
                     <span>{`${labels[this.props.category]} ${this.props.number}`}</span>
                     <svg className='accordion__icon'>
-                        <use href='img/sprite.svg#icon-chevron-down-solid'></use>
+                        <use xlinkHref='img/sprite.svg#icon-chevron-down-solid'></use>
                     </svg>
                 </label>
                 <div className='accordion__text'>

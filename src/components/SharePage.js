@@ -11,7 +11,7 @@ const SharePage = (props) => {
     return (
         <div className={`app-overlay ${props.hidden && 'hidden'}`}>
             <svg onClick={props.changeShareActive} className='app-overlay__close'>
-                <use href='img/sprite.svg#icon-close'></use>    
+                <use xlinkHref='img/sprite.svg#icon-close'></use>    
             </svg>
             <div><p>Use this link to share a copy of this addux without comments: {shareURL}</p></div>
             <CopyToClipboard text={shareURL}

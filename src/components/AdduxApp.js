@@ -104,13 +104,14 @@ class AdduxApp extends React.Component{
 
     createNewModal = (e) => {
         e.preventDefault();
-        console.log(e.target.children[0].value);
+        const name = e.target.children[0].children[0].value;
+        
         console.log("CREATING NEW MODAL");
 
         axios.post(
             `/addux`,
             {
-                name: e.target.children[0].value
+                name
             },
             {
                 headers: {
@@ -214,6 +215,15 @@ class AdduxApp extends React.Component{
                     {this.props.isAdmin && <AdminPage hidden={!this.state.adminActive} changeAdminActive={this.changeAdminActive} walkthrough={this.props.walkthrough} token={this.props.token}/>}
                 
                     <Modal
+                        style = {{
+                            content:{
+                                top:'50%',
+                                left:'50%',
+                                transform: 'translate(-50%, -50%)',
+                                maxWidth:'30rem',
+                                height:'16rem'
+                            }
+                        }}
                         isOpen={this.state.createModal}
                         contentLabel="Name Your New Addux"
                         onRequestClose={this.handleCloseModal}

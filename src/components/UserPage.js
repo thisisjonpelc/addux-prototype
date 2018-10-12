@@ -152,48 +152,56 @@ class UserPage extends React.Component {
         return (         
             <div className={`app-overlay ${this.props.hidden && 'hidden'}`}>
                 <svg onClick={this.closePage} className='app-overlay__close'>
-                    <use href='img/sprite.svg#icon-close'></use>    
+                    <use xlinkHref='img/sprite.svg#icon-close'></use>    
                 </svg> 
-                
-                <div>
-                    <h1>User Info</h1>
-                    {this.state.formError && <p>{this.state.formError}</p>}
-                    {this.state.formStatus && <p>{this.state.formStatus}</p>}
-                    <form onSubmit={this.onUserInfoSubmit}>
-                        <div>
-                            <label htmlFor='firstName'>First Name</label>
-                            <input type='text' id='firstName' value={this.state.firstName} onChange={this.firstNameChange} />
-                        </div>
-                        <div>
-                            <label htmlFor='lastName'>Last Name</label>
-                            <input type='text' id='lastName' value={this.state.lastName} onChange={this.lastNameChange} />
-                        </div>
-                        <div>
-                            <label htmlFor='company'>Company</label>
-                            <input type='text' id='company' placeholder='Optional' value={this.state.company} onChange={this.companyChange} />
-                        </div>
-                        <div>
-                            <label htmlFor='email'>Email</label>
-                            <input type='email' id='email' value={this.state.email} onChange={this.emailChange} />
-                        </div>
-                        <div>
-                            <label htmlFor='password'>Password</label>
-                            <input type='password' id='password' placeholder='Enter New Password' value={this.state.password} onChange={this.passwordChange} />
-                        </div>
-                        <button>Update User Info</button>
-                    </form>
+                <div className='user-panel'>
+                    <div className='user-panel__info'>
+                        <h1 className='app-overlay__heading'>User Info</h1>
+                        {this.state.formError && <p>{this.state.formError}</p>}
+                        {this.state.formStatus && <p>{this.state.formStatus}</p>}
+                        <form className='form' onSubmit={this.onUserInfoSubmit}>
+                            <div className='form__form-group'>
+                                <label htmlFor='firstName'>First Name</label>
+                                <input className='form__input' type='text' id='firstName' value={this.state.firstName} onChange={this.firstNameChange} />
+                            </div>
+                            <div className='form__form-group'>
+                                <label htmlFor='lastName'>Last Name</label>
+                                <input className='form__input' type='text' id='lastName' value={this.state.lastName} onChange={this.lastNameChange} />
+                            </div>
+                            <div className='form__form-group'>
+                                <label htmlFor='company'>Company</label>
+                                <input className='form__input' type='text' id='company' placeholder='Optional' value={this.state.company} onChange={this.companyChange} />
+                            </div>
+                            <div className='form__form-group'>
+                                <label htmlFor='email'>Email</label>
+                                <input className='form__input' type='email' id='email' value={this.state.email} onChange={this.emailChange} />
+                            </div>
+                            <div className='form__form-group'>
+                                <label htmlFor='password'>Password</label>
+                                <input className='form__input' type='password' id='password' placeholder='Enter New Password' value={this.state.password} onChange={this.passwordChange} />
+                            </div>
+                            <button className='btn btn--full-width'>Update User Info</button>
+                        </form>
+                    </div>
+                    <div className='user-panel__subscription'>
+                        <h1 className='app-overlay__heading'>Subscription Info</h1>
+                    </div>
+                    <div className='user-panel__payment'>
+                        <h1 className='app-overlay__heading'>Payment Info</h1>
+                        {(this.props.auth.isAdmin ? 
+                            (<p>This is an Admin account.  There is no payment or subscription information to display</p>)
+                            :
+                            (<div>
+                                {this.state.stripeData==='WAITING' && <p>Waiting for payment info</p>}
+                                {this.state.stripeData==='RECEIVED' && <StripePanel customer={this.state.customer} token={this.props.auth.token} updateCustomer={this.updateCustomer}/>}
+                                {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
+                            </div>)
+                        )}
+                    </div>
                 </div>
+                
 
-                {(this.props.auth.isAdmin ? 
-                    (<p>This is an Admin account.  There is no payment or subscription information to display</p>)
-                    :
-                    (<div>
-                        <h1>Subscription Info</h1>
-                        {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
-                        {this.state.stripeData==='RECEIVED' && <StripePanel customer={this.state.customer} token={this.props.auth.token} updateCustomer={this.updateCustomer}/>}
-                        {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
-                    </div>)
-                )}
+                
             </div>
         );
     }

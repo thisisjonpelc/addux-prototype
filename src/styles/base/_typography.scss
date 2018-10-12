@@ -3,3 +3,17 @@ body{
     color:$gray-darker;
     line-height:1.2;
 }
+
+.bold{
+    font-weight:700;
+}
+
+.app-link{
+    font-size:1.6rem;
+    color:$gray-dark;
+    text-decoration:none;
+
+    &:hover{
+        text-decoration:underline;
+    }
+}

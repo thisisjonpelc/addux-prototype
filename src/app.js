@@ -1,13 +1,12 @@
 console.log("App is running!");
 
-import './styles/main.scss';
+//import './styles/main.scss';
 //import './utils/utils';
 
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 
-import AdduxApp from "./components/AdduxApp";
 import AppRouter from "./routers/AppRouter";
 import configureStore from "./store/configureStore";
 

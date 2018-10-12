@@ -62,9 +62,8 @@ class CardPanel extends React.Component{
     render(){
         return (
             <div className='card-panel'>
-                <h1>Payment Info</h1>
-                <p>Current Card: {`${this.props.card.brand} ending in ${this.props.card.last4}`}</p>
-                <button onClick={this.showNewCardModal}>Change Card</button>
+                <p className='card-panel__text'><span className='bold'>Current Card:</span> {`${this.props.card.brand} ending in ${this.props.card.last4}`}</p>
+                <button className='btn btn--small card-panel__button btn--danger' onClick={this.showNewCardModal}>Change Card</button>
 
                 <Modal
                         style = {{
@@ -75,8 +74,8 @@ class CardPanel extends React.Component{
                                 top:'50%',
                                 left:'50%',
                                 transform: 'translate(-50%, -50%)',
-                                width:'30rem',
-                                height:'10rem'
+                                maxWidth:'30rem',
+                                height:'16rem'
                             }
                         }}
                         isOpen={this.state.showNewCardModal}
@@ -84,10 +83,12 @@ class CardPanel extends React.Component{
                         onRequestClose={this.handleCloseModal}
                         shouldCloseOnOverlayClick={true}
                     >
-                    {this.state.error && <p>{this.state.error}</p>}
-                    {this.state.status && <p>{this.state.status}</p>}
-                    <CardElement />
-                    <button onClick={this.onCardSubmit}>Update Your Credit Card</button>
+                    <div className='card-element'>
+                        <CardElement />
+                    </div>
+                    <button className='btn btn--full-width' onClick={this.onCardSubmit}>Update Your Credit Card</button>
+                    {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
+                    {this.state.status && <p className='alert alert--success'>{this.state.status}</p>}
                 </Modal>
             </div>
         );

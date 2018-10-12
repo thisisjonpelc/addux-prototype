@@ -1,0 +1,21 @@
+.login-page{
+    height:100vh;
+    width:100%;
+    display:flex;
+    align-items: center;
+
+    &__heading{
+        font-size:3.9rem;
+        margin-bottom:1rem;
+    }
+
+    &__form{
+        max-width:40rem;
+        margin-left:5rem;
+        padding:3rem;
+        background-color: $white;
+        background-color: rgba($white, .8);
+        border-radius:.7rem;
+        flex-grow:1;
+    }
+}

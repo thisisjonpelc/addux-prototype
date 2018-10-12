@@ -30,7 +30,7 @@ const AdduxList = (props) => {
 
         <div className={`addux-list ${props.listActive && 'addux-list--active'}`}>
             <svg onClick={props.changeListActive} className='addux-list__close'>
-                <use href='img/sprite.svg#icon-close'></use>    
+                <use xlinkHref='img/sprite.svg#icon-close'></use>    
             </svg>
 
             {props.empty ? 

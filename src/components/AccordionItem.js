@@ -69,10 +69,8 @@ class AccordionItem extends React.Component{
     render() {
         return (
             <div className='accordion__item'>
-                <input id={`${this.props.category}-${this.props.number}`} 
-                       onChange={this.onCheckChange} 
-                       type='checkbox' 
-                       checked={this.props.open}
+                <input id={`${this.props.category}-${this.props.number}`}  
+                       type='checkbox'
                 />
                 <label className='accordion__label' 
                        htmlFor={`${this.props.category}-${this.props.number}`}

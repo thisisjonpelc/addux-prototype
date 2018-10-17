@@ -8,12 +8,12 @@ const Footer = (props) => (
             </svg>
             <span className="footer__text--margin">Create a new Roadmap</span>
         </div>
-        <div className="footer__box">
+        <a href='https://www.cypressresources.com/getstarted' target='_blank' className="footer__box">
             <span className="footer__text--light-gray">Schedule</span>&nbsp; a Workshop
-        </div>
-        <div className="footer__box">
+        </a>
+        <a href='mailto:help@cypressresources.com' className="footer__box">
             <span className="footer__text--light-gray">Get</span>&nbsp; Help
-        </div>
+        </a>
         <div className="footer__box">
             <svg className="footer__icon">
                 <use xlinkHref="img/sprite.svg#icon-video-solid"></use>

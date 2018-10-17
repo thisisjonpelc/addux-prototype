@@ -59,7 +59,25 @@ class ColumnHeader extends React.Component{
                     onRequestClose={this.handleCloseModal}
                     shouldCloseOnOverlayClick={true}
                 >
-                <iframe src={`https://player.vimeo.com/video/${videoId}`} width="640" height="360" frameBorder="0" webkitallowfullscreen='true' mozallowfullscreen='true' allowFullScreen></iframe>           
+                <div style={{
+                        padding:'56.25% 0 0 0',
+                        positon:'relative'
+                }}>
+                    <iframe src="https://player.vimeo.com/video/293412302?title=0&byline=0&portrait=0" 
+                            style={{
+                                position: 'absolute',
+                                top:0,
+                                left:0,
+                                width:'100%',
+                                height:'100%'
+                            }}
+                            frameBorder="0" 
+                            webkitallowfullscreen='true' 
+                            mozallowfullscreen='true' 
+                            allowFullScreen={true}>
+                    </iframe>
+                </div>
+                
             </Modal>
             </div>
         );

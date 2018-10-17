@@ -36,7 +36,12 @@ const AdduxList = (props) => {
             {props.empty ? 
                 <h1> You don't have any Adduxes! </h1>
                 :
-            AdduxItems}
+                (
+                    <div className='addux-list__list'>
+                        {AdduxItems}        
+                    </div>
+                )
+            }
 
         </div>
 

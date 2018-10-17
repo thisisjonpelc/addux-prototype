@@ -45,14 +45,15 @@
     display:flex;
 
     border-top: .3rem solid $brand-primary;
+    text-decoration:none;
     
     @include respond(tab-port) { // width < 1200?
         display:none;
     }
 
 
-    div:not(:last-child){
-        border-right: .3rem solid $brand-primary;
+    div:last-child{
+        border-right: none;
     }
 
     &__box{
@@ -65,6 +66,10 @@
         justify-content: center;
         text-transform: uppercase;
         width:26%;
+        text-decoration:none;
+        border-right: .3rem solid $brand-primary;
+        color:$gray-darker;
+        
 
         &:hover{
             background-color:$gray-darker;

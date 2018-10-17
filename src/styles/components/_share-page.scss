@@ -1,0 +1,38 @@
+.share-page{
+    width:50vw;
+
+
+
+    &__box{
+        font-size:2rem;
+        width:40%;
+        display:inline-block;
+        word-wrap: break-word;
+        padding: 2rem 3rem;
+        border:1px solid $gray-darker;
+        border-radius:.5rem;
+        margin:0 5%;    
+    }
+
+    &__text{
+        margin-bottom:1rem;
+
+        &>input{
+            width:100%;
+            margin-top:1rem;
+            font-size:1.6rem;
+        }
+    }
+
+    &__link{
+        border: 1px solid $black;
+    }
+
+    &__alert{
+        visibility: hidden;
+
+        &--reveal{
+            visibility:visible;
+        }
+    }
+}

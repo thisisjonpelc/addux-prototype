@@ -94,7 +94,8 @@ class SignUpPage extends React.Component{
                     </video>
                 </div>
                 <div className='home-page__form'>
-                    <h1 className='home-page__heading'>Welcome to Addux!</h1>
+                    
+                    <h1 className='home-page__heading'>Welcome to <img src='img/addux-logo.png'/>!</h1>
                     <h1 className='home-page__sub-heading'>Where we help you map the future of your business!</h1>
 
                     {this.state.error && <Alert color='danger'>{this.state.error}</Alert>}

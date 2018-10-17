@@ -30,7 +30,7 @@ class ColumnContent extends React.Component{
 
                 {accordionSize[this.props.category] > 1 
                     ? 
-                    (<Accordion activeAddux={this.props.activeAddux} category={this.props.category} readOnly={this.props.readOnly} />) 
+                    (<Accordion onCheckChange={this.props.onCheckChange} openFields={this.props.openFields} activeAddux={this.props.activeAddux} category={this.props.category} readOnly={this.props.readOnly} />) 
                     : 
                     (<ObjectiveTextArea 
                         key={`${this.props.activeAddux._id}-obj`} 

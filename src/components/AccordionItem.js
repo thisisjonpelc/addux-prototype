@@ -20,7 +20,6 @@ class AccordionItem extends React.Component{
     }
 
     onCheckChange = (e) => {
-
         this.props.changeOpenItem(Number(e.target.id.slice(-1)));
     }
 
@@ -67,6 +66,9 @@ class AccordionItem extends React.Component{
     }
 
     render() {
+        console.log('rendering!');
+        console.log(`${this.props.category}-${this.props.number} is open?`);
+        //console.log(this.props.open);
         return (
             <div className='accordion__item'>
                 <input id={`${this.props.category}-${this.props.number}`}  

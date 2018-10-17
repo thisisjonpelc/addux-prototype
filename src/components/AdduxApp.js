@@ -16,6 +16,7 @@ import SharePage from './SharePage';
 import AdminPage from './AdminPage';
 import UserPage from './UserPage';
 import AdduxNameForm from './AdduxNameForm';
+import AppOverlay from './AppOverlay';
 
 import {history} from './../routers/AppRouter';
 
@@ -85,6 +86,7 @@ class AdduxApp extends React.Component{
     }
 
     handleCloseModal = () => {
+        console.log('Close modal!');
         this.setState({createModal:false, editModal:false})
     }
 
@@ -197,6 +199,7 @@ class AdduxApp extends React.Component{
                     <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>
                     <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
+                    {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
                     <Header 
                         showCreateModal={this.showCreateModal} 
                         changeListActive={this.changeListActive} 
@@ -209,29 +212,39 @@ class AdduxApp extends React.Component{
                     />
                     <Columns empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
                     <Footer showCreateModal={this.showCreateModal}/>
-                    {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
-                    {!this.props.empty && <SharePage hidden={!this.state.shareActive} changeShareActive={this.changeShareActive} activeAddux={this.props.activeAddux}/>}
-                    <UserPage hidden={!this.state.userActive} changeUserActive={this.changeUserActive} />
-                    {this.props.isAdmin && <AdminPage hidden={!this.state.adminActive} changeAdminActive={this.changeAdminActive} walkthrough={this.props.walkthrough} token={this.props.token}/>}
+                    
                 
-                    <Modal
-                        style = {{
-                            content:{
-                                top:'50%',
-                                left:'50%',
-                                transform: 'translate(-50%, -50%)',
-                                maxWidth:'30rem',
-                                height:'16rem'
-                            }
-                        }}
+                    <AppOverlay 
                         isOpen={this.state.createModal}
-                        contentLabel="Name Your New Addux"
-                        onRequestClose={this.handleCloseModal}
-                        shouldCloseOnOverlayClick={true}
+                        onRequestClose={this.handleCloseModal}    
                     >
                         <AdduxNameForm buttonText='Create new Addux' onSubmit={this.createNewModal}/>
-                    </Modal>
+                    </AppOverlay>
 
+                    <AppOverlay
+                        isOpen={this.state.userActive}
+                        onRequestClose={this.changeUserActive}
+                    >
+                        <UserPage />
+                    </AppOverlay>
+
+                    {!this.props.empty 
+                        &&
+                    <AppOverlay
+                        isOpen={this.state.shareActive}
+                        onRequestClose={this.changeShareActive}
+                    >
+                        <SharePage activeAddux={this.props.activeAddux} />
+                    </AppOverlay>}
+
+                    {this.props.isAdmin 
+                        &&
+                    <AppOverlay
+                        isOpen={this.state.adminActive}
+                        onRequestClose={this.changeAdminActive}
+                    >
+                        <AdminPage walkthrough={this.props.walkthrough} token={this.props.token} />
+                    </AppOverlay>}
                 </div>
             );
         }
@@ -242,6 +255,29 @@ class AdduxApp extends React.Component{
         }
     }
 }
+
+// <Modal
+//                         style = {{
+//                             content:{
+//                                 top:'50%',
+//                                 left:'50%',
+//                                 transform: 'translate(-50%, -50%)',
+//                                 maxWidth:'30rem',
+//                                 height:'16rem'
+//                             }
+//                         }}
+//                         isOpen={this.state.createModal}
+//                         contentLabel="Name Your New Addux"
+//                         onRequestClose={this.handleCloseModal}
+//                         shouldCloseOnOverlayClick={true}
+//                     >
+//                         <AdduxNameForm buttonText='Create new Addux' onSubmit={this.createNewModal}/>
+//                     </Modal>
+
+// {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
+//                     {!this.props.empty && <SharePage hidden={!this.state.shareActive} changeShareActive={this.changeShareActive} activeAddux={this.props.activeAddux}/>}
+//                     <UserPage hidden={!this.state.userActive} changeUserActive={this.changeUserActive} />
+//                     {this.props.isAdmin && <AdminPage hidden={!this.state.adminActive} changeAdminActive={this.changeAdminActive} walkthrough={this.props.walkthrough} token={this.props.token}/>}
 
 const mapStateToProps = (state) => {
     return {

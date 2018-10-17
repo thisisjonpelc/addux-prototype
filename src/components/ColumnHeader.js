@@ -3,6 +3,10 @@ import {connect} from "react-redux";
 import Modal from "react-modal";
 import YouTube from "react-youtube";
 import Vimeo from 'react-vimeo';
+import $ from 'jquery';
+
+import AppOverlay from './AppOverlay';
+import VimeoVideo from './VimeoVideo';
 
 import {labels} from "../constants/constants";
 
@@ -26,6 +30,18 @@ class ColumnHeader extends React.Component{
 
     handleCloseModal = () => {
         console.log("CLOSING MODAL");
+        const videoId = this.props.walkthrough[`${this.props.category}_video`];
+
+        var $frame = $(`iframe#${videoId}`);
+
+        // saves the current iframe source
+        var vidsrc = $frame.attr('src');
+
+        // sets the source to nothing, stopping the video
+        $frame.attr('src',''); 
+
+        // sets it back to the correct link so that it reloads immediately on the next window open
+        $frame.attr('src', vidsrc);
 
         this.setState({
             showVideo:false
@@ -37,48 +53,22 @@ class ColumnHeader extends React.Component{
 
         return (
             <div>
-            <div onClick={this.onHeaderClick} className="column-header">
-                <span className="column-header__text">{labels[this.props.category]}</span>
-                <svg className="column-header__icon">
-                    <use xlinkHref="/img/sprite.svg#icon-video-solid"></use>
-                </svg>
-            </div>
-
-            <Modal
-                    style = {{
-                        content:{
-                            top:'50%',
-                            left:'50%',
-                            transform: 'translate(-50%, -50%)',
-                            width:'70rem',
-                            height:'41rem'
-                        }
-                    }}
-                    isOpen={this.state.showVideo}
-                    contentLabel="A helpful video guide"
-                    onRequestClose={this.handleCloseModal}
-                    shouldCloseOnOverlayClick={true}
-                >
-                <div style={{
-                        padding:'56.25% 0 0 0',
-                        positon:'relative'
-                }}>
-                    <iframe src="https://player.vimeo.com/video/293412302?title=0&byline=0&portrait=0" 
-                            style={{
-                                position: 'absolute',
-                                top:0,
-                                left:0,
-                                width:'100%',
-                                height:'100%'
-                            }}
-                            frameBorder="0" 
-                            webkitallowfullscreen='true' 
-                            mozallowfullscreen='true' 
-                            allowFullScreen={true}>
-                    </iframe>
+                <div onClick={this.onHeaderClick} className="column-header">
+                    <span className="column-header__text">{labels[this.props.category]}</span>
+                    <svg className="column-header__icon">
+                        <use xlinkHref="/img/sprite.svg#icon-video-solid"></use>
+                    </svg>
                 </div>
-                
-            </Modal>
+
+                <AppOverlay
+                    isOpen={this.state.showVideo}
+                    onRequestClose={this.handleCloseModal}
+                >
+
+                    <VimeoVideo id={videoId} />
+
+                    
+                </AppOverlay>
             </div>
         );
     }

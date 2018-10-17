@@ -17,13 +17,15 @@ class AdduxNameForm extends React.Component{
 
     render() {
         return (
-            <form className='form' onSubmit={this.props.onSubmit}>
-                
-                <div className='form__form-group'>
-                    <input className='form__input' type='text' value={this.state.name} onChange={this.onNameChange} placeholder='Name Your Addux'/>
-                </div>            
-                <button className='btn btn--full-width'>{this.props.buttonText}</button>
-            </form>
+            <div>
+                <form className='form' onSubmit={this.props.onSubmit}>
+                    
+                    <div className='form__form-group'>
+                        <input className='form__input' type='text' value={this.state.name} onChange={this.onNameChange} placeholder='Name Your Addux'/>
+                    </div>            
+                    <button className='btn btn--full-width'>{this.props.buttonText}</button>
+                </form>
+            </div>
         );
     }
 }

@@ -150,13 +150,10 @@ class UserPage extends React.Component {
 
     render() {
         return (         
-            <div className={`app-overlay ${this.props.hidden && 'hidden'}`}>
-                <svg onClick={this.closePage} className='app-overlay__close'>
-                    <use xlinkHref='img/sprite.svg#icon-close'></use>    
-                </svg> 
+            
                 <div className='user-panel'>
                     <div className='user-panel__info'>
-                        <h1 className='app-overlay__heading'>User Info</h1>
+                        <h1 className='primary-heading'>User Info</h1>
                         {this.state.formError && <p>{this.state.formError}</p>}
                         {this.state.formStatus && <p>{this.state.formStatus}</p>}
                         <form className='form' onSubmit={this.onUserInfoSubmit}>
@@ -184,10 +181,10 @@ class UserPage extends React.Component {
                         </form>
                     </div>
                     <div className='user-panel__subscription'>
-                        <h1 className='app-overlay__heading'>Subscription Info</h1>
+                        <h1 className='primary-heading'>Subscription Info</h1>
                     </div>
                     <div className='user-panel__payment'>
-                        <h1 className='app-overlay__heading'>Payment Info</h1>
+                        <h1 className='primary-heading'>Payment Info</h1>
                         {(this.props.auth.isAdmin ? 
                             (<p>This is an Admin account.  There is no payment or subscription information to display</p>)
                             :
@@ -199,10 +196,6 @@ class UserPage extends React.Component {
                         )}
                     </div>
                 </div>
-                
-
-                
-            </div>
         );
     }
 }

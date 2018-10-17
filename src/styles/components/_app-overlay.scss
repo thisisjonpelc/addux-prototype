@@ -1,32 +1,78 @@
 .app-overlay{
-    position: absolute;
+    position:fixed;
     top:0px;
     left:0px;
     height:100vh;
     width:100%;
-    background-color:white;
-    overflow:auto;
-    z-index:200;
-    padding:3rem;
+    background-color: rgba($white, .75);
+    z-index:101;
+    display:flex;
+    align-items:center;
+    justify-content: center;
 
-    &__heading{
-        text-align:center;
-        font-size:3rem;
-        margin-bottom:1.5rem;
+    
+
+
+    &__content{
+        background-color:$white;    
+        padding-top:1rem;
+        border:1px solid $black;
+        display:flex;
+        flex-direction: column;
+        max-height:100vh;
+
+        &>div:last-of-type{
+            padding:0rem 2rem 2rem 2rem;
+            overflow:auto;
+        }
     }
 
     &__close{
         display:block;
         cursor: pointer;
-        position:fixed;
-        right:4rem;
         height:3rem;
         width:3rem;
         fill:$gray-darker;
-        margin-top:-1.5rem;
+        margin-bottom:1rem;
+        align-self:flex-end;
+        margin-right:1rem;
+        flex-shrink:0;
 
         &:hover{
             fill:$black;
         }
     }
 }
+
+// .app-overlay{
+//     position: absolute;
+//     top:0px;
+//     left:0px;
+//     height:100vh;
+//     width:100%;
+//     background-color:white;
+//     overflow:auto;
+//     z-index:200;
+//     padding:3rem;
+
+//     &__heading{
+//         text-align:center;
+//         font-size:3rem;
+//         margin-bottom:1.5rem;
+//     }
+
+//     &__close{
+//         display:block;
+//         cursor: pointer;
+//         position:fixed;
+//         right:4rem;
+//         height:3rem;
+//         width:3rem;
+//         fill:$gray-darker;
+//         margin-top:-1.5rem;
+
+//         &:hover{
+//             fill:$black;
+//         }
+//     }
+// }

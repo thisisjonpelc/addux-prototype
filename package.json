@@ -23,6 +23,7 @@
     "browserslist": "^4.2.0",
     "css-loader": "^1.0.0",
     "express": "^4.16.3",
+    "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.3.0",
     "jspdf": "^1.4.1",

@@ -1,6 +1,6 @@
 .share-page{
     width:50vw;
-
+    text-align:center;
 
 
     &__box{
@@ -11,7 +11,9 @@
         padding: 2rem 3rem;
         border:1px solid $gray-darker;
         border-radius:.5rem;
-        margin:0 5%;    
+        margin:0 5%;
+        text-align:left;    
+        margin-bottom:2rem;
     }
 
     &__text{

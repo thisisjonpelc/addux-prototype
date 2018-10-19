@@ -6,6 +6,8 @@ console.log("App is running!");
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
+import html2canvas from 'html2canvas';
+
 
 import AppRouter from "./routers/AppRouter";
 import configureStore from "./store/configureStore";
@@ -21,20 +23,3 @@ const jsx = (
 );
 
 ReactDOM.render(jsx, document.getElementById('app'));
-
-//const doc = new jsPDF();
-//doc.fromHTML('<h1 style="color:green;">Hello world!</h1>', 10, 10)  
-
-//const result = doc.output('bloburl');
-
-//doc.save('test.pdf');
-
-//console.log(result);
-
-//window.open(result);
-
-//console.log(result);
-
-//doc.save('test.pdf');
-
-

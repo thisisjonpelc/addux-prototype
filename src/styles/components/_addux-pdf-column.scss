@@ -1,0 +1,39 @@
+.pdf-column{
+    width:14.2%;
+
+    display:flex;
+    flex-direction:column;
+
+    &__header{
+        width:100%;
+        font-size:12px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-align:center;
+    }
+
+    &__boxes{
+        border-left:1px solid $black;
+        border-right:1px solid $black;
+        border-radius:10px;
+        flex-grow:1;
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 .1in;
+    }
+
+    &__box{
+        border:1px solid $black;
+        font-family: "Roboto", sans-serif;
+        padding:5px;
+        font-size:12px;
+        height:50px;
+        margin-bottom:10px;
+        width:100%;
+
+        &:last-of-type{
+            margin-bottom:0px;
+        }
+    }
+}

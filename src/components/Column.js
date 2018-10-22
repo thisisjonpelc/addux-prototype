@@ -5,7 +5,7 @@ import ColumnContent from "./ColumnContent";
 
 const Column = ({category, readOnly, showComments, activeAddux, walkthrough, openFields, onCheckChange}) => (
     <div className="column">
-        <ColumnHeader category={category} walkthrough={walkthrough}/>
+        <ColumnHeader category={category} walkthrough={walkthrough} showVideos={!readOnly}/>
         <ColumnContent onCheckChange={onCheckChange} openFields={openFields} category={category} readOnly={readOnly} showComments={showComments} walkthrough={walkthrough} activeAddux={activeAddux}/>
     </div>
 );

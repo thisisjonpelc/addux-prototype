@@ -66,8 +66,8 @@ class AccordionItem extends React.Component{
     }
 
     render() {
-        console.log('rendering!');
-        console.log(`${this.props.category}-${this.props.number} is open?`);
+        //console.log('rendering!');
+        //console.log(`${this.props.category}-${this.props.number} is open?`);
         //console.log(this.props.open);
         return (
             <div className='accordion__item'>

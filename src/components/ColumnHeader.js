@@ -23,9 +23,12 @@ class ColumnHeader extends React.Component{
 
     onHeaderClick = () => {
         console.log("CLICKED!");
-        this.setState({
-            showVideo:true
-        });
+
+        if(this.props.showVideos){
+            this.setState({
+                showVideo:true
+            });
+        }
     }
 
     handleCloseModal = () => {
@@ -60,15 +63,12 @@ class ColumnHeader extends React.Component{
                     </svg>
                 </div>
 
-                <AppOverlay
+                {this.props.showVideos && (<AppOverlay
                     isOpen={this.state.showVideo}
                     onRequestClose={this.handleCloseModal}
                 >
-
                     <VimeoVideo id={videoId} />
-
-                    
-                </AppOverlay>
+                </AppOverlay>)}
             </div>
         );
     }

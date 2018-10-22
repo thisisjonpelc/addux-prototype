@@ -196,8 +196,8 @@ class AdduxApp extends React.Component{
         else if(this.state.dataStatus === "RECIEVED"){
             return (
                 <div className="app">
-                    <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>
-                    <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
+                    {!this.props.empty && <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>}
+                    {!this.props.empty && <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>}                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
                     {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
                     <Header 
@@ -210,7 +210,7 @@ class AdduxApp extends React.Component{
                         empty={this.props.empty} 
                         token={this.props.token}
                     />
-                    <Columns empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
+                    <Columns showCreateModal={this.showCreateModal} empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
                     <Footer showCreateModal={this.showCreateModal}/>
                     
                 

@@ -1,6 +1,7 @@
 import React from "react";
 
 import Column from "./Column";
+import EmptyPage from './EmptyPage';
 
 class Columns extends React.Component{
   constructor(props){
@@ -37,7 +38,7 @@ class Columns extends React.Component{
       this.props.empty ? 
           (
             <main className='main-content'>  
-              <h1>You have no Adduxes!</h1>
+              <EmptyPage showCreateModal={this.props.showCreateModal}/>
             </main>
           )
           :

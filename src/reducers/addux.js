@@ -2,6 +2,8 @@ const adduxReducerDefaultState = {};
 
 const adduxReducer = (state = adduxReducerDefaultState, action) => {
     
+    let newState = {};
+
     switch(action.type){
 
         case "INITIALIZE_APP":
@@ -9,7 +11,7 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
             console.log("GOT NEW ADDUXES!");    
             console.log(action);
 
-            let newState = {}
+            newState = {}
         
             action.adduxes.forEach(function(element) {
                 newState[element._id] = element;
@@ -63,7 +65,39 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
            newState[action.addux._id] = action.addux;
 
            return newState;
+        case 'DELETE_ADDUX':
+           console.log('Deleting addux: ', action.id);
+           newState = {};
+           id = action.id;
+           let newActive = '';
 
+           for(let key in state){
+                if(key !== id & key!=='active'){
+                    console.log(key, ' is not being deleted');
+                    newState[key] = state[key];
+                    
+                    if(!newActive){
+                        console.log(key, ' is the potential new active addux');
+                        newActive = key;
+                    }
+                }
+           }
+
+           if(!(Object.keys(newState).length === 0 && newState.constructor === Object)){
+                console.log('Adduxes do remain');
+                if(state.active === id){
+                    console.log('The active addux was the one deleted.  Setting new active addux to: ', newActive);
+                    newState.active = newActive;
+                }
+                else{
+                    newState.active = state.active;
+                }
+           }
+
+           console.log('The old state was:', state);
+           console.log('The new state is:', newState);
+
+           return newState;
         default:
             return state;
     }

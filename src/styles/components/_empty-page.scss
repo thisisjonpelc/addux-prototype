@@ -1,0 +1,25 @@
+.empty-page{
+    width:100%;
+    background-image: url('../img/addux.png');
+    background-size: contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    position:relative;
+
+    &__box{
+
+        &>p{
+            font-size:1.6rem;
+            margin-bottom:1rem;
+        }
+
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        background-color:white;
+        text-align:center;
+        padding:3rem;
+        border:1px solid $black;
+    }
+}

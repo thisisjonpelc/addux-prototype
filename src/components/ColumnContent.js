@@ -32,13 +32,16 @@ class ColumnContent extends React.Component{
                     ? 
                     (<Accordion onCheckChange={this.props.onCheckChange} openFields={this.props.openFields} activeAddux={this.props.activeAddux} category={this.props.category} readOnly={this.props.readOnly} />) 
                     : 
-                    (<ObjectiveTextArea 
-                        key={`${this.props.activeAddux._id}-obj`} 
-                        initialText={this.state.text} 
-                        category={this.props.category}
-                        activeAddux={this.props.activeAddux} 
-                        id={this.props.activeAddux._id} 
-                        readOnly={this.props.readOnly}/>)
+                    (<div className='objective-block'>
+                        <p className='objective-block__label'>Objective</p>
+                        <ObjectiveTextArea 
+                            key={`${this.props.activeAddux._id}-obj`} 
+                            initialText={this.state.text} 
+                            category={this.props.category}
+                            activeAddux={this.props.activeAddux} 
+                            id={this.props.activeAddux._id} 
+                            readOnly={this.props.readOnly}/>
+                    </div>)
                 }
                 {
                     this.props.showComments 

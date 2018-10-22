@@ -41,3 +41,10 @@ export const addAddux = (addux) => {
         addux
     }
 };
+
+export const deleteAddux = (id) => {
+    return {
+        type: 'DELETE_ADDUX',
+        id
+    }
+}

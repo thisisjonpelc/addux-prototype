@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas-render-offscreen';
 import jsPDF from 'jspdf';
 
 class SharePage extends React.Component{
@@ -195,7 +195,14 @@ class SharePage extends React.Component{
         addux.appendChild(footerLogo);
 
 
+        // const style = addux.style;
+        // style.position = 'relative';
+        // style.top = window.innerHeight+'px';
+        // style.left=0;
+
         document.getElementsByTagName('body')[0].append(addux);
+
+        const name = this.props.activeAddux.name;
 
         html2canvas(addux).then(function(canvas) {
 
@@ -206,7 +213,9 @@ class SharePage extends React.Component{
             const pdf = new jsPDF({orientation: 'landscape', format:'letter'});
             pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);
             
-            pdf.save('addux.pdf');
+            //window.open(canvas.toDataURL());
+
+            pdf.save(`${name}.pdf`);
         })
         .catch((e) => {
             console.log(e);

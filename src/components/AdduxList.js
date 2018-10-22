@@ -19,7 +19,7 @@ const AdduxList = (props) => {
 
         if(key !== 'active'){
             AdduxItems.push(
-                <AdduxListItem key={key} active={props.addux.active === key} {...props.addux[key]} onClick={() => {if(props.addux.active !== key){props.setActive(key)}}}/>
+                <AdduxListItem key={key} id={key} token={props.token} active={props.addux.active === key} {...props.addux[key]} onClick={() => {if(props.addux.active !== key){props.setActive(key)}}}/>
             );
         }
     }
@@ -51,7 +51,8 @@ const AdduxList = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        addux:state.addux
+        addux:state.addux,
+        token:state.auth.token
     };
 }
 

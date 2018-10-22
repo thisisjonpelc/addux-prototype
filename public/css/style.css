@@ -119,11 +119,6 @@ body {
   font-family: "Georgia", serif;
   line-height: 1.6;
   padding: 1rem; }
-  .addux-textarea--single {
-    border-top: 1px solid #e6e6e6;
-    margin: 1.5rem 1.8rem;
-    width: calc(100% - 3.6rem);
-    height: 5rem; }
 
 .app-nav {
   display: flex;
@@ -481,17 +476,27 @@ body {
   font-size: 1.6rem;
   background-color: #505050;
   color: #FFFFFF;
-  cursor: pointer; }
+  cursor: pointer;
+  display: flex;
+  align-items: center; }
+  .addux-list-item__name {
+    margin-left: 2rem; }
   .addux-list-item__delete {
-    visibility: hidden; }
+    height: 4rem;
+    width: 4rem;
+    fill: #505050;
+    margin-left: auto;
+    padding: 1rem; }
+    .addux-list-item__delete:hover {
+      background-color: #F8D6D9;
+      border-top: 1px solid #505050;
+      border-bottom: 1px solid #505050; }
   .addux-list-item--active {
     color: #505050;
     background-color: #FFFFFF; }
   .addux-list-item:hover {
     background-color: #cccccc;
     color: #505050; }
-    .addux-list-item:hover .addux-list-item__delete {
-      visibility: visible; }
 
 .vimeo-video {
   width: 50vw; }
@@ -527,10 +532,10 @@ body {
   width: 11in;
   height: 8.5in;
   position: fixed;
-  top: -8.5in;
   display: flex;
   flex-direction: column;
-  padding: .3in; }
+  padding: .3in;
+  z-index: -3000; }
   .addux-pdf__logo {
     width: 20%;
     margin-bottom: .3in;
@@ -578,6 +583,39 @@ body {
     width: 100%; }
     .pdf-column__box:last-of-type {
       margin-bottom: 0px; }
+
+.empty-page {
+  width: 100%;
+  background-image: url("../img/addux.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative; }
+  .empty-page__box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    text-align: center;
+    padding: 3rem;
+    border: 1px solid #000000; }
+    .empty-page__box > p {
+      font-size: 1.6rem;
+      margin-bottom: 1rem; }
+
+.objective-block {
+  margin: 3rem 0 1.5rem 0;
+  padding: 0 1.8rem; }
+  .objective-block .objective-block__label {
+    background-color: #7798A6;
+    font-size: 1.4rem;
+    height: 2.5rem;
+    color: white;
+    padding: 0 2rem;
+    border: 1px solid #e6e6e6;
+    display: flex;
+    align-items: center; }
 
 .app {
   height: 100vh;

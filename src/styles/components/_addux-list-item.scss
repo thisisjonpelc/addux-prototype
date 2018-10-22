@@ -10,9 +10,25 @@
     background-color:$gray-dark;
     color:$white;
     cursor: pointer;
+    display:flex;
+    align-items:center;
+
+    &__name{
+        margin-left:2rem;
+    }
 
     &__delete{
-        visibility: hidden;
+        height:4rem;
+        width:4rem;
+        fill: $gray-dark;
+        margin-left:auto;
+        padding:1rem;
+    
+        &:hover{
+            background-color:#F8D6D9;
+            border-top:1px solid $gray-dark;
+            border-bottom:1px solid $gray-dark;
+        }
     }
 
     
@@ -25,9 +41,5 @@
     &:hover{
         background-color:$gray-light;
         color: $gray-dark;
-        
-        .addux-list-item__delete{
-            visibility: visible;
-        }
     }
 }

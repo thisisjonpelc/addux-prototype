@@ -1,5 +1,5 @@
 .share-page{
-    width:50vw;
+    max-width:100rem;
     text-align:center;
 
 
@@ -14,6 +14,17 @@
         margin:0 5%;
         text-align:left;    
         margin-bottom:2rem;
+
+        @include respond(tab-port) {
+            width:45%;
+            margin: 0 2.5%;
+            margin-bottom:2rem;
+        }
+
+        @include respond(phone) {
+            width:80%;
+            margin-bottom:2rem;
+        }
     }
 
     &__text{

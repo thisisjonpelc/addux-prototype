@@ -345,7 +345,8 @@ body {
   z-index: 101;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  padding: 0 1rem; }
   .app-overlay__content {
     background-color: #FFFFFF;
     padding-top: 1rem;
@@ -503,7 +504,7 @@ body {
   width: 50vw; }
 
 .share-page {
-  width: 50vw;
+  max-width: 100rem;
   text-align: center; }
   .share-page__box {
     font-size: 2rem;
@@ -516,6 +517,15 @@ body {
     margin: 0 5%;
     text-align: left;
     margin-bottom: 2rem; }
+    @media only screen and (max-width: 56.25em) {
+      .share-page__box {
+        width: 45%;
+        margin: 0 2.5%;
+        margin-bottom: 2rem; } }
+    @media only screen and (max-width: 37.5em) {
+      .share-page__box {
+        width: 80%;
+        margin-bottom: 2rem; } }
   .share-page__text {
     margin-bottom: 1rem; }
     .share-page__text > input {

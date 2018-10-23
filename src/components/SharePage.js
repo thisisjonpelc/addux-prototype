@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import html2canvas from 'html2canvas-render-offscreen';
+//import html2canvas from 'html2canvas-render-offscreen';
+import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import html2pdf from 'html2pdf.js';
 
 class SharePage extends React.Component{
     constructor(props){
@@ -204,7 +206,45 @@ class SharePage extends React.Component{
 
         const name = this.props.activeAddux.name;
 
-        html2canvas(addux).then(function(canvas) {
+        const toPrint = document.getElementById('pdf');
+        console.log(toPrint);
+
+        //html2pdf(document.getElementsByClassName('accordion')[0]);
+
+        //html2pdf(toPrint);
+
+        //const pdf = new jsPDF({orientation: 'landscape', format:'letter'});
+        //pdf.fromHTML(addux);
+
+
+        // const h = addux.ownerDocument.defaultView.innerHeight;
+        // addux.ownerDocument.defaultView.innerHeight = addux.offsetHeight;
+        // console.log('HEIGHT', addux.ownerDocument.defaultView.innerHeight);
+        // html2canvas(addux)
+        // .then(function(canvas) {
+        //     addux.ownerDocument.defaultView.innerHeight = h;
+            
+        //     console.log(canvas);
+
+        //     const pdfNode = document.getElementById('pdf');
+        //     pdfNode.parentNode.removeChild(pdfNode);
+
+        //     console.log('GOT IT!');
+        //     const pdf = new jsPDF({orientation: 'landscape', format:'letter'});
+        //     pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);
+            
+        //     //window.open(canvas.toDataURL());
+
+        //     pdf.save(`${name}.pdf`);
+        // })
+        // .catch((e) => {
+        //     console.log(e);
+        // });
+
+
+        html2canvas(addux, {windowWidth:3000, windowHeight:3000, width:3000, height:3000, scale:1}).then(function(canvas) {
+
+            console.log(canvas);
 
             const pdfNode = document.getElementById('pdf');
             pdfNode.parentNode.removeChild(pdfNode);
@@ -217,9 +257,7 @@ class SharePage extends React.Component{
 
             pdf.save(`${name}.pdf`);
         })
-        .catch((e) => {
-            console.log(e);
-        });
+
     }
 
     render(){

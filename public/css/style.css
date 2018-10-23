@@ -13,7 +13,8 @@ html {
       font-size: 56.25%; } }
 
 body {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  overflow: hidden; }
 
 .hidden {
   display: none !important; }
@@ -532,10 +533,10 @@ body {
   width: 11in;
   height: 8.5in;
   position: fixed;
+  top: -8.5in;
   display: flex;
   flex-direction: column;
-  padding: .3in;
-  z-index: -3000; }
+  padding: .3in; }
   .addux-pdf__logo {
     width: 20%;
     margin-bottom: .3in;

@@ -571,8 +571,8 @@ body {
   flex-direction: column; }
   .pdf-column__header {
     width: 100%;
-    font-size: 12px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    font-family: 'Garamond', 'EB Garamond', serif;
     text-align: center; }
   .pdf-column__boxes {
     border-left: 1px solid #000000;
@@ -588,10 +588,13 @@ body {
     border: 1px solid #000000;
     font-family: "Roboto", sans-serif;
     padding: 5px;
-    font-size: 12px;
+    font-size: 8pt;
     height: 50px;
     margin-bottom: 10px;
-    width: 100%; }
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
     .pdf-column__box:last-of-type {
       margin-bottom: 0px; }
 

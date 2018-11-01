@@ -392,8 +392,9 @@ app.post("/users", async (req, res) => {
         const token = await user.generateAuthToken();
 
         //TODO: Remove User's tokens and password before sending back
+        const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company']);
 
-        res.header("x-auth", token).send(user);
+        res.header("x-auth", token).send(cleanUser);
     }
     catch(e){
         console.log('Error: ', e);
@@ -405,19 +406,48 @@ app.post("/users", async (req, res) => {
 app.post("/users/login", async (req, res) => {
 
     console.log('POST /users/login');
+    //console.log(req);
 
     try{
       const body = _.pick(req.body, ["email", "password"]);
-      const user = await User.findByCredentials(body.email, body.password);
-      const token = await user.generateAuthToken();
+      let user;
+      let token;
+      let cleanUser;
+
+      if(!body.email || !body.password){
+        console.log('No email or password attempting to login through token');
+        const loginToken = req.header('x-auth');
+        console.log('Login Token: ', loginToken);
+        user = await User.findByToken(loginToken);
+
+        //console.log('USER: ', user);
+
+        if(!user){
+            console.log('No user found');
+            res.status(404).send();
+        }
+        else{
+            token = await user.generateAuthToken(loginToken);
+        
+            cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company'])
+        
+            res.header('x-auth', token).send(cleanUser);
+        }
+
+      }
+      else{
+        console.log('Logging in with credentials');
+        user = await User.findByCredentials(body.email, body.password);
+        token = await user.generateAuthToken();
       
-      //TODO: Remove User's tokens and password before sending back
-
-
-      res.header("x-auth", token).send(user);
+        cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company'])
+        
+        res.header('x-auth', token).send(cleanUser);
+     }
     }
     catch(e){
       console.log('Error: ', e);
+      console.log(e);
       res.status(400).send(e);
     }
 });

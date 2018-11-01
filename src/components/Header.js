@@ -14,7 +14,7 @@ class Header extends React.Component{
 
         Modal.setAppElement('#app');
 
-        console.log(props);
+        //console.log(props);
 
         this.state = {
             createModal : false,

@@ -8,9 +8,6 @@ class AdminPage extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
-        console.log(props.walkthrough);
-
         this.state={
             objective_prompt: props.walkthrough.objective_prompt,
             objective_video: props.walkthrough.objective_video,

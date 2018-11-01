@@ -32,7 +32,7 @@ class Accordion extends React.Component{
         
 
         for(let i = 1; i<accordionSize[this.props.category]+1; i++){
-            console.log(`${this.props.activeAddux._id}-${i}-${this.props.openFields[i-1]}`);
+            //console.log(`${this.props.activeAddux._id}-${i}-${this.props.openFields[i-1]}`);
             result[i] = <AccordionItem 
                             key={`${this.props.activeAddux._id}-${i}-${this.props.openFields[i-1]}`} 
                             category={this.props.category} 

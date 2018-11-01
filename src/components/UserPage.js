@@ -137,7 +137,6 @@ class UserPage extends React.Component {
             }
         )
         .then((response) => {
-            console.log(response.data);
             this.setState(() => ({
                 stripeData:'RECEIVED',
                 customer: response.data

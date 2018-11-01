@@ -69,11 +69,24 @@ var UserSchema = new mongoose.Schema({
 });
 
 UserSchema.methods.generateAuthToken = function(oldToken) {
+    console.log('Creating new auth token');
+
     var user = this;
     var access = 'auth';
 
     if(oldToken){
-        user.removeToken(oldToken);
+        console.log('There is an old token');
+        console.log('User Tokens: ', user.tokens);
+        user.tokens = user.tokens.filter((token) => {
+            if(token.token === oldToken){
+                return false;
+            }
+            else{
+                return true;
+            }
+        });
+        console.log('User Tokens after removal of old token: ', user.tokens);
+        //user.removeToken(oldToken);
     }
 
     user.removeExpiredTokens();

@@ -7,10 +7,7 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
     switch(action.type){
 
         case "INITIALIZE_APP":
-        case "SET_ADDUXES":    
-            console.log("GOT NEW ADDUXES!");    
-            console.log(action);
-
+        case "SET_ADDUXES":
             newState = {}
         
             action.adduxes.forEach(function(element) {

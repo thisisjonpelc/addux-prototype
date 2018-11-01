@@ -32,7 +32,7 @@ class Columns extends React.Component{
 
   render(){
 
-    console.log('STATE IS: ', this.state);
+    //console.log('STATE IS: ', this.state);
 
     return (
       this.props.empty ? 

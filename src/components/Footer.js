@@ -8,10 +8,10 @@ const Footer = (props) => (
             </svg>
             <span className="footer__text--margin">Create a new Roadmap</span>
         </div>
-        <a href='https://www.cypressresources.com/getstarted' target='_blank' className="footer__box">
+        <a href='https://www.adduxonline.com/private-workshop' target='_blank' className="footer__box">
             <span className="footer__text--light-gray">Schedule</span>&nbsp; a Workshop
         </a>
-        <a href='mailto:help@cypressresources.com' className="footer__box">
+        <a href='mailto:success@cypressresources.com' className="footer__box">
             <span className="footer__text--light-gray">Get</span>&nbsp; Help
         </a>
         <div className="footer__box">

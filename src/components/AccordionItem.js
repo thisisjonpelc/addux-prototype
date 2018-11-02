@@ -20,7 +20,11 @@ class AccordionItem extends React.Component{
     }
 
     onCheckChange = (e) => {
-        this.props.changeOpenItem(Number(e.target.id.slice(-1)));
+        console.log(e.target);
+        console.log(e.target.id);
+        if(this.props.linked){
+             this.props.onCheckChange(Number(e.target.id.slice(-1)), e.target);
+        }
     }
 
     saveText = debounce(1000, (text) => {
@@ -71,9 +75,27 @@ class AccordionItem extends React.Component{
         //console.log(this.props.open);
         return (
             <div className='accordion__item'>
-                <input id={`${this.props.category}-${this.props.number}`}  
-                       type='checkbox'
-                />
+                {
+                    this.props.linked 
+                    ?
+                    (
+                        <input 
+                            id={`${this.props.category}-${this.props.number}`}  
+                            type='checkbox'
+                            onChange={this.onCheckChange}
+                            //checked={this.props.openFields[this.props.number-1]}
+                        />
+                    )
+                    :
+                    (
+                        <input 
+                            id={`${this.props.category}-${this.props.number}`}  
+                            type='checkbox'
+                        />
+                    )
+                }
+
+                
                 <label className='accordion__label' 
                        htmlFor={`${this.props.category}-${this.props.number}`}
                     >

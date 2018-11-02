@@ -140,7 +140,8 @@ const mapStateToProps = (state) => {
 
     return {
         activeAddux: state.addux[state.addux.active],
-        isAdmin: state.auth.isAdmin
+        isAdmin: state.auth.isAdmin,
+        token: state.auth.token
     }    
 };
 

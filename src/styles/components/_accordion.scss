@@ -44,7 +44,11 @@
     &__text{
         height:0px;
         overflow:hidden;
-        transition: height 0.3s ease-in-out
+        transition: height 0.3s ease-in-out;
+
+        &--show{
+            height:5rem;
+        }
     }
 
     &__icon{

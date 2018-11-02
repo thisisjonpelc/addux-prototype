@@ -294,13 +294,13 @@ class SharePage extends React.Component{
 }
 
 
-// const mapStateToProps = (state) => {
-//     return {
-//         activeAddux : state.addux[state.addux.active]
-//     }
-// };
+const mapStateToProps = (state) => {
+    return {
+        activeAddux : state.addux[state.addux.active]
+    }
+};
 
 
-//export default connect(mapStateToProps)(SharePage);
+export default connect(mapStateToProps)(SharePage);
 
-export default SharePage;
+//export default SharePage;

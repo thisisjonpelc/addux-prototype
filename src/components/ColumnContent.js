@@ -30,7 +30,14 @@ class ColumnContent extends React.Component{
 
                 {accordionSize[this.props.category] > 1 
                     ? 
-                    (<Accordion onCheckChange={this.props.onCheckChange} openFields={this.props.openFields} activeAddux={this.props.activeAddux} category={this.props.category} readOnly={this.props.readOnly} />) 
+                    (<Accordion 
+                        linked={this.props.linked}
+                        onCheckChange={this.props.onCheckChange} 
+                        openFields={this.props.openFields} 
+                        activeAddux={this.props.activeAddux} 
+                        category={this.props.category} 
+                        readOnly={this.props.readOnly} 
+                    />) 
                     : 
                     (<div className='objective-block'>
                         <p className='objective-block__label'>Objective</p>

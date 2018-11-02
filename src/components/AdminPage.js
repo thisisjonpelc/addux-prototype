@@ -8,6 +8,8 @@ class AdminPage extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props);
+
         this.state={
             objective_prompt: props.walkthrough.objective_prompt,
             objective_video: props.walkthrough.objective_video,
@@ -236,11 +238,16 @@ class AdminPage extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        walkthrough: state.walkthrough
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough))
-
     };
 };
 
-export default connect(null, mapDispatchToProps)(AdminPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);

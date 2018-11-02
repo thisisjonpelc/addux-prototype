@@ -200,6 +200,7 @@ class AdduxApp extends React.Component{
                     {!this.props.empty && <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>}                    
                     <AdduxList listActive={this.state.listActive} changeListActive={this.changeListActive} empty={this.props.empty}/>
                     {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
+                    
                     <Header 
                         showCreateModal={this.showCreateModal} 
                         changeListActive={this.changeListActive} 
@@ -210,9 +211,17 @@ class AdduxApp extends React.Component{
                         empty={this.props.empty} 
                         token={this.props.token}
                     />
-                    <Columns showCreateModal={this.showCreateModal} empty={this.props.empty} readOnly={false} showComments={true} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-                    <Footer showCreateModal={this.showCreateModal}/>
                     
+                    <Columns 
+                        showCreateModal={this.showCreateModal} 
+                        empty={this.props.empty} 
+                        readOnly={false} 
+                        showComments={true} 
+                        activeAddux={this.props.activeAddux} 
+                        walkthrough={this.props.walkthrough}
+                    />
+                    
+                    <Footer showCreateModal={this.showCreateModal}/>
                 
                     <AppOverlay 
                         isOpen={this.state.createModal}
@@ -234,7 +243,7 @@ class AdduxApp extends React.Component{
                         isOpen={this.state.shareActive}
                         onRequestClose={this.changeShareActive}
                     >
-                        <SharePage activeAddux={this.props.activeAddux} />
+                        <SharePage key={this.props.activeAddux._id}/>
                     </AppOverlay>}
 
                     {this.props.isAdmin 
@@ -243,7 +252,7 @@ class AdduxApp extends React.Component{
                         isOpen={this.state.adminActive}
                         onRequestClose={this.changeAdminActive}
                     >
-                        <AdminPage walkthrough={this.props.walkthrough} token={this.props.token} />
+                        <AdminPage token={this.props.token} />
                     </AppOverlay>}
                 </div>
             );
@@ -285,7 +294,7 @@ const mapStateToProps = (state) => {
         //dataStatus: state.data.status,
         empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
         activeAddux: state.addux[state.addux.active],
-        walkthrough: state.walkthrough,
+        //walkthrough: state.walkthrough,
         isAdmin: state.auth.isAdmin
         //subscribed: state.subscription.subscribed
     }

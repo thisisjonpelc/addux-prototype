@@ -72,6 +72,8 @@ body {
     height: 0px;
     overflow: hidden;
     transition: height 0.3s ease-in-out; }
+    .accordion__text--show {
+      height: 5rem; }
   .accordion__icon {
     margin-left: auto;
     height: 2rem;

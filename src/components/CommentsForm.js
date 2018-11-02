@@ -15,7 +15,7 @@ class CommentsForm extends React.Component{
 
         super(props);
 
-        //console.log(props);
+        console.log(props);
         //console.log('--------------------------------');
         //console.log(props.comment);
         //console.log(props.comment.text);

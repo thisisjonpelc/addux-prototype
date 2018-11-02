@@ -136,8 +136,8 @@ class AdduxApp extends React.Component{
                 console.log("FAILED TO CREATE NEW ADDUX");
                 console.log(e);
             }
-        })
-    }
+        });
+    };
 
     componentDidMount(){
         console.log(this.state.dataStatus);
@@ -265,47 +265,16 @@ class AdduxApp extends React.Component{
     }
 }
 
-// <Modal
-//                         style = {{
-//                             content:{
-//                                 top:'50%',
-//                                 left:'50%',
-//                                 transform: 'translate(-50%, -50%)',
-//                                 maxWidth:'30rem',
-//                                 height:'16rem'
-//                             }
-//                         }}
-//                         isOpen={this.state.createModal}
-//                         contentLabel="Name Your New Addux"
-//                         onRequestClose={this.handleCloseModal}
-//                         shouldCloseOnOverlayClick={true}
-//                     >
-//                         <AdduxNameForm buttonText='Create new Addux' onSubmit={this.createNewModal}/>
-//                     </Modal>
-
-// {!this.props.empty && <Notes key={`${this.props.activeAddux._id}-notes`} changeNotesActive={this.changeNotesActive} notesActive={this.state.notesActive} token={this.props.token} activeAddux={this.props.activeAddux}/>}
-//                     {!this.props.empty && <SharePage hidden={!this.state.shareActive} changeShareActive={this.changeShareActive} activeAddux={this.props.activeAddux}/>}
-//                     <UserPage hidden={!this.state.userActive} changeUserActive={this.changeUserActive} />
-//                     {this.props.isAdmin && <AdminPage hidden={!this.state.adminActive} changeAdminActive={this.changeAdminActive} walkthrough={this.props.walkthrough} token={this.props.token}/>}
-
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
-        //dataStatus: state.data.status,
         empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
         activeAddux: state.addux[state.addux.active],
-        //walkthrough: state.walkthrough,
         isAdmin: state.auth.isAdmin
-        //subscribed: state.subscription.subscribed
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    // dataReceived: () => dispatch(dataReceived()),
-    // dataError: () => dispatch(dataError()),
-    // setAdduxes: (adduxes) => dispatch(setAdduxes(adduxes)),
-    // setActive: (id) => dispatch(setActive(id)),
-    // setWalkthrough: (walkthrough) => dispatch(setWalkthrough(walkthrough)),
     initializeApp: (adduxes, walkthrough) => dispatch(initializeApp(adduxes, walkthrough)),
     unsubscribe: () => dispatch(unsubscribe()),
     addAddux: (addux) => dispatch(addAddux(addux))

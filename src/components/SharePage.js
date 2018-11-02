@@ -12,11 +12,18 @@ class SharePage extends React.Component{
 
         this.state ={
             noCommentsCopied: false,
-            withCommentsCopies: false
+            withCommentsCopies: false,
+            creatingPdf:false
         }
     }
 
     onPdfClick = () => {
+
+        this.setState(() => ({creatingPdf:true}));
+
+        const complete = () => {
+            this.setState(() => ({creatingPdf: false}));
+        }
 
         //ADDUX HTML
         const addux = document.createElement('div');
@@ -209,39 +216,6 @@ class SharePage extends React.Component{
         const toPrint = document.getElementById('pdf');
         console.log(toPrint);
 
-        //html2pdf(document.getElementsByClassName('accordion')[0]);
-
-        //html2pdf(toPrint);
-
-        //const pdf = new jsPDF({orientation: 'landscape', format:'letter'});
-        //pdf.fromHTML(addux);
-
-
-        // const h = addux.ownerDocument.defaultView.innerHeight;
-        // addux.ownerDocument.defaultView.innerHeight = addux.offsetHeight;
-        // console.log('HEIGHT', addux.ownerDocument.defaultView.innerHeight);
-        // html2canvas(addux)
-        // .then(function(canvas) {
-        //     addux.ownerDocument.defaultView.innerHeight = h;
-            
-        //     console.log(canvas);
-
-        //     const pdfNode = document.getElementById('pdf');
-        //     pdfNode.parentNode.removeChild(pdfNode);
-
-        //     console.log('GOT IT!');
-        //     const pdf = new jsPDF({orientation: 'landscape', format:'letter'});
-        //     pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);
-            
-        //     //window.open(canvas.toDataURL());
-
-        //     pdf.save(`${name}.pdf`);
-        // })
-        // .catch((e) => {
-        //     console.log(e);
-        // });
-
-
         html2canvas(addux, {windowWidth:3000, windowHeight:3000, width:3000, height:3000, scale:1}).then(function(canvas) {
 
             console.log(canvas);
@@ -253,9 +227,10 @@ class SharePage extends React.Component{
             const pdf = new jsPDF({orientation: 'landscape', format:'letter'});
             pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);
             
-            //window.open(canvas.toDataURL());
-
             pdf.save(`${name}.pdf`);
+
+            complete();
+
         })
 
     }
@@ -287,7 +262,7 @@ class SharePage extends React.Component{
                     <p className={`alert alert--success share-page__alert ${this.state.withCommentsCopied ? 'share-page__alert--reveal' : ''}`}>Link Copied to Clipboard!</p>
                 </div>
 
-                <button className='btn share-page__pdf-buton' onClick={this.onPdfClick}>Download as PDF</button>
+                <button className='btn btn--width-200 share-page__pdf-buton' onClick={this.onPdfClick} disabled={this.state.creatingPdf}>{this.state.creatingPdf ? (<img className='btn__loading' src='img/loading.gif' />) : ('Download as PDF')}</button>
             </div>
         );
     }

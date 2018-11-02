@@ -412,11 +412,19 @@ body {
     background-color: #5d7f8d; }
   .btn:active {
     background-color: #48636f; }
+  .btn:disabled {
+    cursor: default;
+    background-color: #7798A6; }
   .btn--small {
     font-size: 1.6rem;
     padding: .7rem; }
   .btn--full-width {
     width: 100%; }
+  .btn--width-200 {
+    width: 20rem; }
+  .btn__loading {
+    height: auto;
+    width: 2rem; }
   .btn--danger {
     background-color: #a1a456; }
     .btn--danger:hover {

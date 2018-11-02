@@ -19,6 +19,12 @@
         background-color:darken($brand-primary, 20%);
     }
 
+    &:disabled{
+        cursor:default;
+
+        background-color:$brand-primary;
+    }
+
     &--small{
         font-size:1.6rem;
         padding:.7rem;
@@ -26,6 +32,15 @@
 
     &--full-width{
         width:100%;
+    }
+
+    &--width-200{
+        width:20rem
+    }
+
+    &__loading{
+        height:auto;
+        width:2rem;
     }
 
     &--danger{

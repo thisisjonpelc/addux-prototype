@@ -13,8 +13,7 @@ html {
       font-size: 56.25%; } }
 
 body {
-  box-sizing: border-box;
-  overflow: hidden; }
+  box-sizing: border-box; }
 
 .hidden {
   display: none !important; }
@@ -570,6 +569,8 @@ body {
     margin-left: auto;
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     font-size: 12px; }
+  .addux-pdf--page {
+    position: static; }
 
 .html2canvas-container {
   width: 3000px !important;

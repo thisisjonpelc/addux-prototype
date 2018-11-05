@@ -13,6 +13,7 @@ import ResetRequestPage from './../components/ResetRequestPage';
 import ResetPasswordPage from './../components/ResetPasswordPage';
 import ShareAddux from './../components/ShareAddux';
 import LoadingPage from './../components/LoadingPage';
+import TestPage from './../components/TestPage';
 
 import {login} from './../actions/auth';
 
@@ -28,7 +29,7 @@ class AppRouter extends React.Component {
         console.log(props);
 
         this.state = {
-            tokenExists: (typeof localStorage !== 'undefined') && (localStorage.getItem('AUTH_TOKEN') !== null),
+            tokenExists: false,//(typeof localStorage !== 'undefined') && (localStorage.getItem('AUTH_TOKEN') !== null),
             attemptedLogin: false
         }
     }
@@ -107,6 +108,7 @@ class AppRouter extends React.Component {
                             <Route path="/" component={AdduxWrapper} exact={true} />
                             <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
                             <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
+                            <Route path='/testpage' component={TestPage} />
                             <PrivateRoute path="/subscribe" component={SubscribePage} />
                             <PublicRoute path="/login" component={LoginPage} />
                             <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />

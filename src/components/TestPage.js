@@ -105,6 +105,9 @@ const TestPage = () => {
                     </div>
                 </div>
             </div>
+            <div className='addux-pdf__footer'>
+                A Product of Cypress Resources
+            </div>
         </div>
     );    
 };

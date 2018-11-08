@@ -227,7 +227,12 @@ class AdduxApp extends React.Component{
                         isOpen={this.state.createModal}
                         onRequestClose={this.handleCloseModal}    
                     >
-                        <AdduxNameForm buttonText='Create new Addux' onSubmit={this.createNewModal}/>
+                        <AdduxNameForm 
+                            buttonText='Create new Addux' 
+                            onSubmit={this.createNewModal}
+                            closeModal={this.handleCloseModal}
+                            token={this.props.token}
+                        />
                     </AppOverlay>
 
                     <AppOverlay

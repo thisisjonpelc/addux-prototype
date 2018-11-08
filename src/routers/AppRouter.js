@@ -93,6 +93,8 @@ class AppRouter extends React.Component {
 
     render(){
 
+        console.log('Router props: ', this.props);
+
         console.log('Token exists?', this.state.tokenExists);
 
         if(this.state.tokenExists && !this.state.attemptedLogin){

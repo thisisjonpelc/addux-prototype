@@ -270,7 +270,8 @@ const mapStateToProps = (state) => {
         token: state.auth.token,
         empty: Object.keys(state.addux).length === 0 && state.addux.constructor === Object,
         activeAddux: state.addux[state.addux.active],
-        isAdmin: state.auth.isAdmin
+        isAdmin: state.auth.isAdmin,
+        walkthrough: state.walkthrough
     }
 };
 

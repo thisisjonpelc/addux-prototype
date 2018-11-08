@@ -29,7 +29,7 @@ class AppRouter extends React.Component {
         console.log(props);
 
         this.state = {
-            tokenExists: false,//(typeof localStorage !== 'undefined') && (localStorage.getItem('AUTH_TOKEN') !== null),
+            tokenExists: (typeof localStorage !== 'undefined') && (localStorage.getItem('AUTH_TOKEN') !== null),
             attemptedLogin: false
         }
     }

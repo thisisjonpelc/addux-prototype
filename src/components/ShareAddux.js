@@ -22,7 +22,7 @@ class ShareAddux extends React.Component{
 
     componentDidMount() {
         
-        //console.log("HELLO!");
+        console.log('Share Page Mounted!');
 
         Promise.all(
             [
@@ -76,12 +76,22 @@ class ShareAddux extends React.Component{
             )
         }
         else{
+
+            console.log('Sharing data has been retrieved');
+            console.log(this.state);
+
             return(
                 <div className="app">
                     <ScrollArrow direction={'left'} onArrowClick={this.scrollLeft}/>
                     <ScrollArrow direction={'right'} onArrowClick={this.scrollRight}/>                    
                     <HeaderSharing activeAddux={this.state.activeAddux}/>
-                    <Columns empty={false} readOnly={true} showComments={this.props.showComments} activeAddux={this.state.activeAddux} walkthrough={this.state.walkthrough}/>
+                    <Columns 
+                        empty={false} 
+                        readOnly={true} 
+                        showComments={this.props.showComments} 
+                        activeAddux={this.state.activeAddux} 
+                        walkthrough={this.state.walkthrough}
+                    />
                 </div>
             )
         }

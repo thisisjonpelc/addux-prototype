@@ -50,33 +50,11 @@ class Columns extends React.Component{
       
     }
 
-    //console.log('Accordions:', accordions);
-
-    // this.setState((prevState) => {
-      
-    //   const newOpenFields = prevState.openFields;
-
-    //   newOpenFields[num-1] = !newOpenFields[num-1];
-
-    //   console.log(newOpenFields);
-
-    //   return {
-    //     openFields: newOpenFields
-    //   }
-    // });
   }
 
   render(){
 
-    //console.log('STATE IS: ', this.state);
-
-    // <Column category='objective' onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-    // <Column category='goals' onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-    // <Column category='projects' linked={true} onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-    // <Column category='timelines' linked={true} onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-    // <Column category='projectOwner' linked={true} onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-    // <Column category='resources' linked={true} onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
-    // <Column category='progress' linked={true} onCheckChange={this.onCheckChange} openFields={this.state.openFields} readOnly={this.props.readOnly} showComments={this.props.showComments} activeAddux={this.props.activeAddux} walkthrough={this.props.walkthrough}/>
+    console.log(this.props);
 
     return (
       this.props.empty ? 
@@ -360,4 +338,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Columns);
+export default Columns;

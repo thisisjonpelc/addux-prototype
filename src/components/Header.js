@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import AdduxNameForm from "./AdduxNameForm";
 import {addAddux, setActive} from "./../actions/addux";
+import {logout} from './../actions/auth';
 
 class Header extends React.Component{
     
@@ -32,6 +33,11 @@ class Header extends React.Component{
 
     handleCloseModal = () => {
         this.setState({createModal:false, editModal:false})
+    }
+
+    onLogoutClick = () => {
+        console.log('Logout click!');
+        this.props.logout();
     }
 
     createNewModal = (e) => {
@@ -96,6 +102,11 @@ class Header extends React.Component{
                                     <use xlinkHref="img/sprite.svg#icon-user-solid"></use>
                                 </svg>
                             </div>
+                            <div onClick={this.onLogoutClick} className="app-nav__icon-box">
+                                <svg className="app-nav__icon">
+                                    <use xlinkHref="img/sprite.svg#icon-sign-out"></use>
+                                </svg>
+                            </div>
                             {!this.props.empty && <div onClick={this.props.changeNotesActive} className="app-nav__icon-box"> 
                                 <svg className="app-nav__icon">
                                     <use xlinkHref="img/sprite.svg#icon-pencil-alt-solid"></use>
@@ -149,6 +160,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addAddux: (addux) => dispatch(addAddux(addux)),
         setActive: (id) => dispatch(setActive(id)),
+        logout: () => dispatch(logout())
     }
 };
 

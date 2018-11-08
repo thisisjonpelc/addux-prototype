@@ -4,9 +4,6 @@ import axios from 'axios';
 
 import AdduxApp from "./AdduxApp";
 import SignUpPage from "./SignUpPage";
-import LoadingPage from './LoadingPage';
-
-import {login} from './../actions/auth';
 
 const AdduxWrapper = (props) => {
         return props.isAuthenticated ? (<AdduxApp />) : (<SignUpPage />);

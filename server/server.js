@@ -377,6 +377,7 @@ app.post('/users/subscribe', authenticate, async (req, res) => {
 app.post("/users", async (req, res) => {
     
     console.log('POST /users');
+    let addux;
 
     try{
         var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
@@ -385,13 +386,37 @@ app.post("/users", async (req, res) => {
 
         await user.save();
         const customer = await stripe.customers.create({
-            description: `Customer for id ${user._id}; ${user.firstName} ${user.lastName}`,
+            description: `${user.firstName} ${user.lastName}`,
             email: user.email
         });
         
         user.customerId = customer.id;
         
         const token = await user.generateAuthToken();
+
+        addux = new Addux({
+            name: 'My first Addux',
+            _creator:user._id,
+        });
+    
+        const comments = [];
+    
+        for(let i = 0; i < 7; i++){
+            //let comment = new Comment();
+            comments.push({text:""});
+        }
+
+        const insertedComments = await Comment.insertMany(comments);
+
+        addux.objective_comments = insertedComments[0]._id;
+        addux.goals_comments = insertedComments[1]._id;
+        addux.projects_comments = insertedComments[2]._id;
+        addux.timelines_comments = insertedComments[3]._id;
+        addux.projectOwner_comments = insertedComments[4]._id;
+        addux.resources_comments = insertedComments[5]._id;
+        addux.progress_comments = insertedComments[6]._id;
+
+        addux.save()
 
         //TODO: Remove User's tokens and password before sending back
         const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company']);
@@ -401,6 +426,7 @@ app.post("/users", async (req, res) => {
     catch(e){
         console.log('Error: ', e);
         await user.remove();
+        await addux.remove();
         res.status(400).send(e);
     }
 });

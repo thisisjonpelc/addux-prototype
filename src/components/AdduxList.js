@@ -12,10 +12,7 @@ const AdduxList = (props) => {
 
     for(let key in props.addux){
 
-        //console.log(props.addux.active);
-        //console.log(key);
 
-        //() => {console.log("CLICKED!"); ;
 
         if(key !== 'active'){
             AdduxItems.push(
@@ -23,8 +20,6 @@ const AdduxList = (props) => {
             );
         }
     }
-
-    //console.log(AdduxItems);
 
     return(
 

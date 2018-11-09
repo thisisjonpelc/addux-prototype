@@ -1,8 +1,3 @@
-console.log("App is running!");
-
-//import './styles/main.scss';
-//import './utils/utils';
-
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";

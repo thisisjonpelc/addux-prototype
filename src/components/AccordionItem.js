@@ -20,21 +20,16 @@ class AccordionItem extends React.Component{
     }
 
     onCheckChange = (e) => {
-        console.log(e.target);
-        console.log(e.target.id);
         if(this.props.linked){
              this.props.onCheckChange(Number(e.target.id.slice(-1)), e.target);
         }
     }
 
     saveText = debounce(1000, (text) => {
-        console.log('SAVING INPUT');
 
         const updates = {};
 
         updates[`${this.props.category}_${this.props.number}`] = text;
-
-        console.log(updates);
 
         axios.patch(
             `/addux/${this.props.activeAddux._id}`,
@@ -46,8 +41,6 @@ class AccordionItem extends React.Component{
             }
         )
         .then((response) => {
-            console.log("INPUT SAVED");
-            console.log(response);
             this.props.editAddux(this.props.activeAddux._id, updates);
         })
         .catch((e) => {
@@ -56,23 +49,17 @@ class AccordionItem extends React.Component{
                 history.push('/subscribe');
             }
             else{
-                console.log("COULDN'T SAVE INPUT");
-                console.log(e);
             }
         });
     });
 
     onTextChange = (e) => {
-            console.log("TEXT CHANGED");
             const text = e.target.value;
             this.setState(() => ({text}));
             this.saveText(text);
     }
 
     render() {
-        //console.log('rendering!');
-        //console.log(`${this.props.category}-${this.props.number} is open?`);
-        //console.log(this.props.open);
         return (
             <div className='accordion__item'>
                 {

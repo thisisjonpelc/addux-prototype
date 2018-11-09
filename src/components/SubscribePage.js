@@ -23,8 +23,6 @@ class SubscribePage extends React.Component{
 
     componentDidMount(){
 
-        console.log('Subscribe Page has Mounted');
-
         if(this.props.subscribed === null){
             axios({
                 method:'get',
@@ -33,19 +31,15 @@ class SubscribePage extends React.Component{
                     'x-auth': this.props.token
                 }
             })
-            .then((user) => {
-                console.log('User is subscribed');
-                
+            .then((user) => {                
                 this.props.subscribe();
             })
             .catch((e) => {
                 if(e.response.status === 402){
-                    console.log('User is not subscribed');
                     this.props.unsubscribe();
                 }
                 else{
-                    console.log('User could not be found');
-                    console.log(e);
+
                 }
             });
         }

@@ -48,15 +48,12 @@ class SignUpPage extends React.Component{
 
     onSubmit = (e) => {
 
-        console.log("SUBMITTED SIGN UP!");
-
         e.preventDefault();
 
         if(!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName){
             this.setState(() => ({error: "Please complete all required fields!"}));
         }   
         else{
-            console.log("SENDING POST REQUEST");
             axios.post('/users/', {
                 email:this.state.email,
                 password:this.state.password,
@@ -65,18 +62,13 @@ class SignUpPage extends React.Component{
                 company:this.state.company
             })
             .then((response) => {
-                console.log("SIGN UP SUCCESS!");
-                console.log(response);
                 this.props.login({
                     ...response.data,
                     token: response.headers['x-auth']
                 });
                 //history.push("/");
             })
-            .catch((error) => {
-                console.log("LOGIN FAIL!");
-                console.log(error);
-                
+            .catch((error) => {                
                 this.setState(() => ({error: "Could not register user"}));
             });
         }

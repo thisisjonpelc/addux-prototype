@@ -19,7 +19,6 @@ class CardPanel extends React.Component{
     }
 
     showNewCardForm = () => {
-        console.log('Showing Modal');
         this.setState((prevState) => ({showNewCardForm: !prevState.showNewCardForm}));
     }
 
@@ -45,17 +44,17 @@ class CardPanel extends React.Component{
                     }
                 })
                 .then((response) => {
-                    console.log(response);
+
                     this.setState(() => ({
                         error: '',
                         status: 'Your card was succesfully updated'
                     }))
                     this.props.updateCustomer(response.data);
-                    console.log('yep');
+
                 })
                 .catch((err) => {
                     this.setState(() => ({error: 'Unable to update your card at this time', status: ''}))
-                    console.log(err);
+
                 });
             }
         })

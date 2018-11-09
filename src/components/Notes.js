@@ -33,13 +33,10 @@ class Notes extends React.Component{
             }
         )
         .then((response) => {
-            console.log('Notes Saved');
-            console.log(response);
             this.props.editAddux(this.props.activeAddux._id, updates);
         })
         .catch((e) => {
-            console.log('Could not save notes');
-            console.log(e);
+
         });
 
     });
@@ -47,19 +44,16 @@ class Notes extends React.Component{
     onChange = (value) => {
         const html = value.toString('html');
 
-        //console.log(html, '?', this.state.html);
 
         const htmlChanged = this.state.html !== html;
 
         this.setState({value, html});
 
         if(htmlChanged){
-            console.log('HTML has changed');
             this.saveNotes(html)
         }
 
        // this.setState({value});
-        console.log(value.toString('html'));
         //this.saveNotes(value.toString('html'));        
     }
 

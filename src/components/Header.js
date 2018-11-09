@@ -15,8 +15,6 @@ class Header extends React.Component{
 
         Modal.setAppElement('#app');
 
-        //console.log(props);
-
         this.state = {
             createModal : false,
             editModal: false
@@ -36,14 +34,11 @@ class Header extends React.Component{
     }
 
     onLogoutClick = () => {
-        console.log('Logout click!');
         this.props.logout();
     }
 
     createNewModal = (e) => {
         e.preventDefault();
-        console.log(e.target.children[0].value);
-        console.log("CREATING NEW MODAL");
 
         axios.post(
             `/addux`,
@@ -56,21 +51,16 @@ class Header extends React.Component{
                 }
             })
         .then((response) => {
-            console.log("CREATED A NEW ADDUX");
-            console.log(response.data);
             this.handleCloseModal();
             this.props.addAddux(response.data.addux);
             //this.props.setActive(response.data.addux._id);
         })
         .catch((e) => {
-            console.log("FAILED TO CREATE NEW ADDUX");
-            console.log(e);
         })
     }
 
     editActiveModal = (e) => {
         e.preventDefault();
-        console.log("EDITING NEW MODAL");
     }
 
     render(){

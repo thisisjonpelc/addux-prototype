@@ -20,8 +20,6 @@ class CardForm extends React.Component{
         const subDropdown = e.target.children[0];
         const planValue = subDropdown[subDropdown.selectedIndex].value;
 
-        console.log('submitting card');
-
         this.props.stripe.createToken()
         .then((response) => {
             
@@ -40,12 +38,10 @@ class CardForm extends React.Component{
                     }
                 })
                 .then((response) => {
-                    console.log(response);
                     history.push('/');
                 })
                 .catch((err) => {
                     this.setState(() => ({error: 'Unable to subscribe you at this time'}))
-                    console.log(err);
                 })
             }
         });

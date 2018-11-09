@@ -8,19 +8,14 @@ class Accordion extends React.Component{
     constructor(props){
         super(props);
 
-        console.log(props);
-
         this.state = {
             open: -1
         }
     }
 
     changeOpenItem = (num) => {
-        //console.log("CHANGING OPEN ITEM");
 
         const newOpen = num === this.state.open ? -1 : num;
-
-        //console.log("NEW OPEN: ", newOpen);
 
         this.setState({
             open:newOpen
@@ -32,7 +27,6 @@ class Accordion extends React.Component{
         let result = []        
 
         for(let i = 1; i<this.props.size+1; i++){
-            //console.log(`${this.props.activeAddux._id}-${i}-${this.props.openFields[i-1]}`);
             result[i] = <AccordionItem 
                             linked={this.props.linked}
                             key={`${this.props.activeAddux._id}-${i}-${this.props.openFields[i-1]}`} 

@@ -20,7 +20,6 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
 
             return newState;
         case "SET_ACTIVE":
-            console.log("SETTING A NEW ACTIVE ADDUX");
             return {
                 ...state,
                 active: action.id
@@ -48,7 +47,7 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
                 newState[action.adduxId][action.commentId].text=action.text;
            }
            else{
-               console.log('STATE IS EMPTY!');
+
            }
 
            return newState;
@@ -63,36 +62,29 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
 
            return newState;
         case 'DELETE_ADDUX':
-           console.log('Deleting addux: ', action.id);
+
            newState = {};
            id = action.id;
            let newActive = '';
 
            for(let key in state){
                 if(key !== id & key!=='active'){
-                    console.log(key, ' is not being deleted');
                     newState[key] = state[key];
                     
                     if(!newActive){
-                        console.log(key, ' is the potential new active addux');
                         newActive = key;
                     }
                 }
            }
 
            if(!(Object.keys(newState).length === 0 && newState.constructor === Object)){
-                console.log('Adduxes do remain');
                 if(state.active === id){
-                    console.log('The active addux was the one deleted.  Setting new active addux to: ', newActive);
                     newState.active = newActive;
                 }
                 else{
                     newState.active = state.active;
                 }
            }
-
-           console.log('The old state was:', state);
-           console.log('The new state is:', newState);
 
            return newState;
         default:

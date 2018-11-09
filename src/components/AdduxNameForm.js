@@ -24,14 +24,12 @@ class AdduxNameForm extends React.Component{
         e.preventDefault();
 
         if(!this.state.name){
-            console.log('NAME IS BLANK!');
             this.setState({
                 error: 'Your addux must have a name!'
             });
         }
         else{
 
-            console.log("CREATING NEW MODAL");
             this.setState({
                 error:'',
                 creating:true
@@ -48,8 +46,6 @@ class AdduxNameForm extends React.Component{
                     }
                 })
             .then((response) => {
-                console.log("CREATED A NEW ADDUX");
-                console.log(response.data);
                 this.props.closeModal();
                 this.setState({
                     creating:false
@@ -59,15 +55,12 @@ class AdduxNameForm extends React.Component{
             })
             .catch((err) => {
 
-                console.log(err);
 
                 if(err.response.status === 402){
                     this.props.unsubscribe();
                     history.push('/subscribe');
                 }
                 else{
-                    console.log("FAILED TO CREATE NEW ADDUX");
-                    console.log(err);
                     this.setState({
                         error:'Sorry! Unable to create new Addux at this time.',
                         creating:false

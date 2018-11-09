@@ -214,16 +214,12 @@ class SharePage extends React.Component{
         const name = this.props.activeAddux.name;
 
         const toPrint = document.getElementById('pdf');
-        console.log(toPrint);
 
         html2canvas(addux, {windowWidth:3000, windowHeight:3000, width:3000, height:3000, scale:1}).then(function(canvas) {
-
-            console.log(canvas);
 
             const pdfNode = document.getElementById('pdf');
             pdfNode.parentNode.removeChild(pdfNode);
 
-            console.log('GOT IT!');
             const pdf = new jsPDF({orientation: 'landscape', format:'tabloid'});
             pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);
             

@@ -32,22 +32,17 @@ class LoginPage extends React.Component{
 
     onSubmit = (e) => {
 
-        console.log("SUBMITTED LOGIN!");
-
         e.preventDefault();
 
         if(!this.state.email || !this.state.password){
             this.setState(() => ({error: "Please enter your email and password!"}));
         }
         else{
-            console.log("SENDING POST REQUEST");
             axios.post('/users/login', {
                 email:this.state.email,
                 password:this.state.password
             })
             .then((response) => {
-                console.log("LOGIN SUCCESS!");
-                console.log(response);
                 this.props.login(
                     {
                         ...response.data,
@@ -57,8 +52,6 @@ class LoginPage extends React.Component{
                 history.push("/");
             })
             .catch((error) => {
-                console.log("LOGIN FAIL!");
-                console.log(error);
                 
                 this.setState(() => ({error: "Could not find a user with those credentials"}));
             

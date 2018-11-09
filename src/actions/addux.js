@@ -1,7 +1,4 @@
 export const setAdduxes = (adduxes) => {
-    
-    console.log("IN ACTION GENERATOR");
-    console.log(adduxes)
 
     return {
         type:"SET_ADDUXES",
@@ -25,8 +22,6 @@ export const editAddux = (activeAddux, updates) => {
 };
 
 export const editComments = (adduxId, commentId, text) => {
-    console.log(text);
-    
     return {
         type: "EDIT_COMMENT",
         adduxId,

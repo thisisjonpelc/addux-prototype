@@ -8,8 +8,6 @@ class AdminPage extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
-
         this.state={
             objective_prompt: props.walkthrough.objective_prompt,
             objective_video: props.walkthrough.objective_video,
@@ -124,9 +122,7 @@ class AdminPage extends React.Component {
                 error: 'All fields are required'
             }));
         }
-        else{
-            console.log('Submitted!');
-        
+        else{        
             axios({
                 method: 'post',
                 url: '/walkthrough',
@@ -151,7 +147,6 @@ class AdminPage extends React.Component {
                 }
             })
             .then((response) => {
-                console.log(response);
                 this.setState(() => ({
                     error: '',
                     success: 'Walkthrough updated succesfully!'

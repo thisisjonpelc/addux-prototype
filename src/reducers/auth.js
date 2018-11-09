@@ -1,7 +1,6 @@
 export default (state = {}, action) => {
     switch(action.type) {
         case "LOGIN":
-            console.log("RECIEVED A LOGIN ACTION!");
             return action.user;
         case "LOGOUT":
             return {};

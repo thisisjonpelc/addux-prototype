@@ -22,8 +22,6 @@ class ColumnHeader extends React.Component{
     }
 
     onHeaderClick = () => {
-        console.log("CLICKED!");
-
         if(this.props.showVideos){
             this.setState({
                 showVideo:true
@@ -32,7 +30,6 @@ class ColumnHeader extends React.Component{
     }
 
     handleCloseModal = () => {
-        console.log("CLOSING MODAL");
         const videoId = this.props.walkthrough[`${this.props.category}_video`];
 
         var $frame = $(`iframe#${videoId}`);

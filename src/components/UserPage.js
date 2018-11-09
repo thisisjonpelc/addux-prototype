@@ -10,9 +10,6 @@ class UserPage extends React.Component {
     constructor(props) {
         super(props);
 
-        //console.log(props);
-        //console.log(props.walkthrough);
-
         this.state={
             stripeData: 'WAITING',
             formError: '',
@@ -75,8 +72,6 @@ class UserPage extends React.Component {
     onUserInfoSubmit = (e) => {
         e.preventDefault();
 
-        console.log('Submiting User Info');
-
         const updates = {};
         
         if(this.state.email && this.state.firstName && this.state.lastName){
@@ -93,8 +88,6 @@ class UserPage extends React.Component {
                 updates.password = this.state.password;
             }
 
-            console.log('updates:', updates);
-
             axios.patch(
                 `/users/${this.props.auth._id}`,
                 updates,
@@ -105,7 +98,6 @@ class UserPage extends React.Component {
                 }
             )
             .then((response) => {
-                console.log(response);
                 this.setState(() => ({
                     formError: '',
                     formStatus: 'User updated succesfully!'
@@ -143,7 +135,7 @@ class UserPage extends React.Component {
             }));
         })
         .catch((e) => {
-            console.log(e);
+
         })
     }
 

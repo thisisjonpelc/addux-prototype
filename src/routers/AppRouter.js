@@ -26,8 +26,6 @@ class AppRouter extends React.Component {
     constructor(props){
         super(props);
 
-        console.log(props);
-
         this.state = {
             tokenExists: (typeof localStorage !== 'undefined') && (localStorage.getItem('AUTH_TOKEN') !== null),
             attemptedLogin: false
@@ -40,8 +38,6 @@ class AppRouter extends React.Component {
             try{
                 const token = localStorage.getItem('AUTH_TOKEN');
 
-                console.log('Found token:', token);
-
                 axios.post('/users/login',
                 {},
                 {
@@ -51,8 +47,6 @@ class AppRouter extends React.Component {
                 }
                 ).
                 then((response) => {
-                    console.log("LOGIN SUCCESS!");
-                    console.log(response);
                     this.props.login(
                         {
                             ...response.data,
@@ -67,13 +61,11 @@ class AppRouter extends React.Component {
                     history.push("/");
                 })
                 .catch((err) => {
-                    console.log("LOGIN FAIL!");
-                    console.log(err);
                     try{
                         localStorage.removeItem('AUTH_TOKEN');
                     }
                     catch(error){
-                        console.log('Could not remove expired token');
+
                     }
                     this.setState(() => {
                         return {
@@ -83,19 +75,15 @@ class AppRouter extends React.Component {
                 });
             }
             catch(err){
-                console.log('Could not retrieve token.', err);
+
             }
          }
          else{
-             console.log('No token stored locally');
-         }
+
+        }
     }
 
     render(){
-
-        console.log('Router props: ', this.props);
-
-        console.log('Token exists?', this.state.tokenExists);
 
         if(this.state.tokenExists && !this.state.attemptedLogin){
                 return (

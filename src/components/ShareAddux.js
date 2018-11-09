@@ -10,8 +10,6 @@ import Columns from './Columns';
 class ShareAddux extends React.Component{
     constructor(props){
         super(props);
-
-        console.log(props);
     
         this.state = {
             retrievedData : false,
@@ -22,8 +20,6 @@ class ShareAddux extends React.Component{
 
     componentDidMount() {
         
-        console.log('Share Page Mounted!');
-
         Promise.all(
             [
                 axios({
@@ -36,10 +32,8 @@ class ShareAddux extends React.Component{
                 })
             ])
         .then((responses) => {
-            console.log(responses);
             const adduxResponse = responses[0];
             const walkthroughResponse = responses[1];
-            console.log(adduxResponse.data.addux);
 
             this.setState(() => {
                 return {
@@ -50,20 +44,16 @@ class ShareAddux extends React.Component{
             });
         })
         .catch((e) => {
-            console.log(e);
+
         });
     }
 
     scrollLeft = () => {
-        console.log('SCROLL LEFT');
-
         const mainContent = $('.main-content');
         mainContent.animate({scrollLeft: mainContent.scrollLeft() - 250}, 500);
     }
 
     scrollRight = () => {
-        console.log('SCROLL RIGHT');
-
         const mainContent = $('.main-content');
         mainContent.animate({scrollLeft: mainContent.scrollLeft() + 250}, 500);
     }
@@ -76,9 +66,6 @@ class ShareAddux extends React.Component{
             )
         }
         else{
-
-            console.log('Sharing data has been retrieved');
-            console.log(this.state);
 
             return(
                 <div className="app">

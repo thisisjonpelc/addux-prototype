@@ -18,8 +18,6 @@ class ColumnContent extends React.Component{
     }
 
     render() {
-        //console.log("RENDERING COLUMN CONTENT!");
-        //console.log(this.props.showComments);
         const prompt = this.props.walkthrough[`${this.props.category}_prompt`];
         
         return (

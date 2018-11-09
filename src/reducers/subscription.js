@@ -3,9 +3,7 @@ const subscriptionReducerDefaultState = {
 };
 
 export default (state = subscriptionReducerDefaultState, action) => {
-    
-    console.log(action);
-    
+        
     switch(action.type) {
         case "INITIALIZE_APP":
         case 'SUBSCRIBE':

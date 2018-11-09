@@ -12,17 +12,12 @@ class Columns extends React.Component{
   constructor(props){
     super(props);
 
-    console.log(props);
-
     this.state = {
       openFields : [true, false, false, false, false, false, false, false, false]
     }
   }
 
   onCheckChange = (num, target) => {
-    console.log('IN ON CHECK CHANGE');
-    console.log('num is:', num);
-    console.log(target);
 
     const accordions = document.querySelectorAll('.accordion');
     let checkbox;
@@ -33,16 +28,13 @@ class Columns extends React.Component{
 
       if(checkbox !== target){
         if(checkbox.checked === true){
-          console.log('Input box is checked');
           checkbox.checked=false;
         }
         else{
-          console.log('Input box is not checked');
           checkbox.checked=true;
         }
       }
       else{
-        console.log(accordions[i].childNodes[num-1].childNodes[2].firstChild)
         if(checkbox.checked === true){
           accordions[i].childNodes[num-1].childNodes[2].firstChild.focus();
         }
@@ -53,8 +45,6 @@ class Columns extends React.Component{
   }
 
   render(){
-
-    console.log(this.props);
 
     return (
       this.props.empty ? 

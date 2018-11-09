@@ -10,23 +10,17 @@ const AdduxListItem = (props) => {
         e.stopPropagation();
 
         if(confirm(`Are you sure you want to delete ${props.name}?`)){
-            console.log('WANT TO DELETE ' + props.id);
             axios.delete(`/addux/${props.id}`,
                 {headers: {'x-auth': props.token}})
             .then((response) => {
-                console.log('Deleted Addux!');
-                console.log(response);
                 props.deleteAddux(props.id);
             })
             .catch((err) => {
-                console.log('Failed to delete addux');
-                console.log(err);
             });
             
 
         }
         else{
-            console.log('JUST KIDDING!');
         }
     }
 

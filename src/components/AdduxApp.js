@@ -44,16 +44,12 @@ class AdduxApp extends React.Component{
     }
 
     changeListActive = () => {
-
-        console.log("CHANGING LIST STATUS");
-
         this.setState((prevState) => ({
            listActive: !prevState.listActive 
         }));
     }
 
     changeShareActive = () => {
-        console.log('Changing Share Status');
         this.setState((prevState) => ({
             shareActive: !prevState.shareActive
         }));
@@ -66,16 +62,12 @@ class AdduxApp extends React.Component{
     }
 
     changeNotesActive = () => {
-
-        console.log("CHANGING NOTE STATUS");
-
         this.setState((prevState) => ({
            notesActive: !prevState.notesActive 
         }));
     }
 
     changeUserActive = () => {
-        console.log('Changing User active');
         this.setState((prevState) => ({
             userActive: !prevState.userActive
         }));
@@ -86,20 +78,15 @@ class AdduxApp extends React.Component{
     }
 
     handleCloseModal = () => {
-        console.log('Close modal!');
         this.setState({createModal:false, editModal:false})
     }
 
     scrollLeft = () => {
-        console.log('SCROLL LEFT');
-
         const mainContent = $('.main-content');
         mainContent.animate({scrollLeft: mainContent.scrollLeft() - 250}, 500);
     }
 
     scrollRight = () => {
-        console.log('SCROLL RIGHT');
-
         const mainContent = $('.main-content');
         mainContent.animate({scrollLeft: mainContent.scrollLeft() + 250}, 500);
     }
@@ -108,8 +95,6 @@ class AdduxApp extends React.Component{
         e.preventDefault();
         const name = e.target.children[0].children[0].value;
         
-        console.log("CREATING NEW MODAL");
-
         axios.post(
             `/addux`,
             {
@@ -121,8 +106,6 @@ class AdduxApp extends React.Component{
                 }
             })
         .then((response) => {
-            console.log("CREATED A NEW ADDUX");
-            console.log(response.data);
             this.handleCloseModal();
             this.props.addAddux(response.data.addux);
             //this.props.setActive(response.data.addux._id);
@@ -133,15 +116,11 @@ class AdduxApp extends React.Component{
                 history.push('/subscribe');
             }
             else{
-                console.log("FAILED TO CREATE NEW ADDUX");
-                console.log(e);
             }
         });
     };
 
     componentDidMount(){
-        console.log(this.state.dataStatus);
-
         Promise.all(
             [
                 axios({
@@ -157,7 +136,6 @@ class AdduxApp extends React.Component{
                 })
             ])
         .then((responses) => {
-            console.log(responses);
             const adduxResponse = responses[0];
             const walkthroughResponse = responses[1];
             
@@ -169,7 +147,6 @@ class AdduxApp extends React.Component{
             });
         })
         .catch((e) => {
-            console.log(e);
             if(e.response.status === 402){
                 this.props.unsubscribe();
                 history.push('/subscribe');
@@ -181,7 +158,6 @@ class AdduxApp extends React.Component{
                         dataStatus: 'ERROR'
                     }
                 });
-                console.log(e);
             }
         });
     }

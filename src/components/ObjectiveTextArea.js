@@ -26,16 +26,10 @@ class ObjectiveTextArea extends React.Component{
     }
 
     saveText = debounce(1000, (text) => {
-        console.log('SAVING INPUT');
-        //console.log(this.props.comment);
-        //console.log(this.props.comment._id);
-        //console.log(`/comments/${this.props.comment._id.toHexString()}`);
 
         const updates = {};
 
         updates[`${this.props.category}`] = text;
-
-        console.log(updates);
 
         axios.patch(
             `/addux/${this.props.id}`,
@@ -47,8 +41,6 @@ class ObjectiveTextArea extends React.Component{
             }
         )
         .then((response) => {
-            console.log("INPUT SAVED");
-            console.log(response);
 
             this.props.editAddux(this.props.activeAddux._id, updates);
 
@@ -59,8 +51,7 @@ class ObjectiveTextArea extends React.Component{
                 history.push('/subscribe');
             }
             else{
-                console.log("COULDN'T SAVE INPUT");
-                console.log(e);
+                
             }
         });
     });

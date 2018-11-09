@@ -3,10 +3,8 @@ import React from 'react';
 
 const AppOverlay = (props) => {
 
-    //console.log(props);
 
     const preventClose = (e) => {
-        console.log('CLICKED CONTENT!');
         e.stopPropagation();
     }
 

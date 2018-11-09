@@ -295,7 +295,8 @@ body {
   top: 50%;
   transform: translateY(-50%);
   width: 4.2rem;
-  border: 1px solid #cccccc; }
+  border: 1px solid #cccccc;
+  cursor: pointer; }
   .scroll-button__icon {
     height: 3rem;
     fill: #9DA145;

@@ -13,6 +13,7 @@ const nodemailer = require('nodemailer');
 const {mongoose} = require('./db/mongoose');
 const {authenticate} = require('./middleware/authenticate');
 const {subscribed} = require('./middleware/subscribed');
+const redirect = require('./middleware/ssl-redirect');
 const {User} = require('./models/user');
 const {Addux} = require('./models/addux');
 const {Comment} = require('./models/comment');
@@ -22,6 +23,7 @@ const app = express();
 const publicPath = path.join(__dirname, '..', 'public');
 const port = process.env.PORT;
 
+app.use(redirect());
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 

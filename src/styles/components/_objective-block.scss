@@ -1,6 +1,12 @@
 .objective-block{
     margin:3rem 0 1.5rem 0;
     padding: 0 1.8rem;
+    overflow:auto;
+
+    @include respond(tab-port){
+        overflow:visible;
+    }
+
 
     .objective-block__label{
         background-color: #7798A6;

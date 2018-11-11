@@ -11,7 +11,7 @@ const Footer = (props) => (
         <a href='https://www.adduxonline.com/private-workshop' target='_blank' className="footer__box">
             <span className="footer__text--light-gray">Schedule</span>&nbsp; a Workshop
         </a>
-        <a href='mailto:success@cypressresources.com' className="footer__box">
+        <a href='mailto:contact@adduxonline.com' className="footer__box">
             <span className="footer__text--light-gray">Get</span>&nbsp; Help
         </a>
         <div className="footer__box">

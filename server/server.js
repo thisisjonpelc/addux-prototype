@@ -29,12 +29,12 @@ app.use(express.static(publicPath));
 
 const transporter = nodemailer.createTransport(
     {
-        host:'secure46.webhostinghub.com',
-        port:465,
-        secure:true,
+        host:'smtp.office365.com',
+        port:587,
+        secure:false,
         auth: {
-            user:'jon@thisisjonpelc.com',
-            pass: process.env.EMAIL_PASSWORD
+            user:'contact@adduxonline.com',
+            pass: 'Ao@Crome42'
         }
     }
 );
@@ -47,6 +47,11 @@ transporter.verify(function(error, success) {
     }
  });
 
+ app.get('/stripe-test'), (req, res) => {
+     console.log('IN STRIPE TEST');
+
+     res.send('In Stripe test!');
+ }
 
 app.get("/walkthrough", (req, res) => {
 
@@ -295,7 +300,7 @@ app.post('/users/reset', async (req, res) => {
             messageText = `Hi ${user.firstName}!  A password reset was requested for your Addux account.  Please visit https://${req.headers.host}/reset/${passwordReset} to create a new password. This link will expire in 4 hours`;
 
             const message = {
-                from: 'jon@thisisjonpelc.com',
+                from: 'contact@adduxonline.com',
                 to: user.email,
                 subject: 'Addux Password Reset',
                 message: messageText,
@@ -304,9 +309,11 @@ app.post('/users/reset', async (req, res) => {
 
             transporter.sendMail(message, (err, info) => {
                 if(err){
+                    console.log('Could not send email!');
                     res.status(400).send(err);
                 }
                 else{
+                    console.log('Message sent!');
                     res.send(info);
                 }
             });

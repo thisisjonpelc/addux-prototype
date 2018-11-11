@@ -15,6 +15,8 @@ import ShareAddux from './../components/ShareAddux';
 import LoadingPage from './../components/LoadingPage';
 import TestPage from './../components/TestPage';
 
+import ProtectedRouter from './ProtectedRouter';
+
 import {login} from './../actions/auth';
 
 import PublicRoute from "./PublicRoute";
@@ -22,100 +24,20 @@ import PrivateRoute from './PrivateRoute';
 
 export const history = createHistory();
 
-class AppRouter extends React.Component {
-    constructor(props){
-        super(props);
+const AppRouter = () => {
 
-        this.state = {
-            tokenExists: (typeof localStorage !== 'undefined') && (localStorage.getItem('AUTH_TOKEN') !== null),
-            attemptedLogin: false
-        }
-    }
-    
-     componentDidMount(){
-         if(this.state.tokenExists){
+    return (
+        <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
+            <Router history={history}>
+                <Switch>
+                    <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
+                    <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
+                    <Route path='/' component={ProtectedRouter} />
+                </Switch>
+            </Router>
+        </StripeProvider>
+    );
 
-            try{
-                const token = localStorage.getItem('AUTH_TOKEN');
-
-                axios.post('/users/login',
-                {},
-                {
-                    headers: {
-                        'x-auth': token
-                    }
-                }
-                ).
-                then((response) => {
-                    this.props.login(
-                        {
-                            ...response.data,
-                            token: response.headers['x-auth']
-                        }
-                    );
-                    this.setState(() => {
-                        return {
-                            attemptedLogin: true
-                        }
-                    });
-                    history.push("/");
-                })
-                .catch((err) => {
-                    try{
-                        localStorage.removeItem('AUTH_TOKEN');
-                    }
-                    catch(error){
-
-                    }
-                    this.setState(() => {
-                        return {
-                            attemptedLogin:true
-                        }
-                    });
-                });
-            }
-            catch(err){
-
-            }
-         }
-         else{
-
-        }
-    }
-
-    render(){
-
-        if(this.state.tokenExists && !this.state.attemptedLogin){
-                return (
-                    <LoadingPage />
-                );
-        }
-        else{
-            return (
-                <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
-                    <Router history={history}>
-                        <Switch>
-                            <Route path="/" component={AdduxWrapper} exact={true} />
-                            <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
-                            <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
-                            <Route path='/testpage' component={TestPage} />
-                            <PrivateRoute path="/subscribe" component={SubscribePage} />
-                            <PublicRoute path="/login" component={LoginPage} />
-                            <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
-                            <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
-                            <Redirect to="/" />
-                        </Switch>
-                    </Router>
-                </StripeProvider>
-            );
-        }
-    }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        login: (user) => dispatch(login(user))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(AppRouter);
+export default AppRouter;

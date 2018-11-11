@@ -34,7 +34,7 @@ const transporter = nodemailer.createTransport(
         secure:false,
         auth: {
             user:'contact@adduxonline.com',
-            pass: 'Ao@Crome42'
+            pass: process.env.EMAIL_PASSWORD
         }
     }
 );
@@ -46,12 +46,6 @@ transporter.verify(function(error, success) {
          console.log('Server is ready to take our email messages!');
     }
  });
-
- app.get('/stripe-test'), (req, res) => {
-     console.log('IN STRIPE TEST');
-
-     res.send('In Stripe test!');
- }
 
 app.get("/walkthrough", (req, res) => {
 

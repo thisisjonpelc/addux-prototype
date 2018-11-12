@@ -5,15 +5,13 @@ import createHistory from 'history/createBrowserHistory';
 import {StripeProvider} from 'react-stripe-elements';
 import axios from 'axios';
 
-import AdduxApp from "../components/AdduxApp";
 import AdduxWrapper from "../components/AdduxWrapper";
 import LoginPage from "../components/LoginPage";
 import SubscribePage from './../components/SubscribePage';
 import ResetRequestPage from './../components/ResetRequestPage';
 import ResetPasswordPage from './../components/ResetPasswordPage';
-import ShareAddux from './../components/ShareAddux';
 import LoadingPage from './../components/LoadingPage';
-import TestPage from './../components/TestPage';
+import ShareAddux from './../components/ShareAddux';
 
 import {login} from './../actions/auth';
 
@@ -33,59 +31,66 @@ class ProtectedRouter extends React.Component {
     }
     
      componentDidMount(){
-         if(this.state.tokenExists){
 
-            try{
-                const token = localStorage.getItem('AUTH_TOKEN');
+        if(window.location.href.indexOf('share') === -1 && window.location.href.indexOf('comment') === -1){
 
-                axios.post('/users/login',
-                {},
-                {
-                    headers: {
-                        'x-auth': token
+            if(this.state.tokenExists){
+
+                try{
+                    const token = localStorage.getItem('AUTH_TOKEN');
+    
+                    axios.post('/users/login',
+                    {},
+                    {
+                        headers: {
+                            'x-auth': token
+                        }
                     }
+                    ).
+                    then((response) => {
+                        this.props.login(
+                            {
+                                ...response.data,
+                                token: response.headers['x-auth']
+                            }
+                        );
+                        this.setState(() => {
+                            return {
+                                attemptedLogin: true
+                            }
+                        });
+                        history.push("/");
+                    })
+                    .catch((err) => {
+                        try{
+                            localStorage.removeItem('AUTH_TOKEN');
+                        }
+                        catch(error){
+    
+                        }
+                        this.setState(() => {
+                            return {
+                                attemptedLogin:true
+                            }
+                        });
+                    });
                 }
-                ).
-                then((response) => {
-                    this.props.login(
-                        {
-                            ...response.data,
-                            token: response.headers['x-auth']
-                        }
-                    );
-                    this.setState(() => {
-                        return {
-                            attemptedLogin: true
-                        }
-                    });
-                    history.push("/");
-                })
-                .catch((err) => {
-                    try{
-                        localStorage.removeItem('AUTH_TOKEN');
-                    }
-                    catch(error){
-
-                    }
-                    this.setState(() => {
-                        return {
-                            attemptedLogin:true
-                        }
-                    });
-                });
-            }
-            catch(err){
-
-            }
-         }
-         else{
-
+                catch(err){
+    
+                }
+             }
+        }
+        else{
+            console.log('Attepting to show share screen');
         }
     }
 
     render(){
 
-        if(this.state.tokenExists && !this.state.attemptedLogin){
+        console.log(window.location.href);
+        console.log(window.location.href.indexOf('share'));
+
+        if(this.state.tokenExists && !this.state.attemptedLogin && window.location.href.indexOf('share') === -1 && window.location.href.indexOf('comment') === -1){
                 return (
                     <LoadingPage />
                 );
@@ -96,6 +101,8 @@ class ProtectedRouter extends React.Component {
                     <Router history={history}>
                         <Switch>
                             <Route path="/" component={AdduxWrapper} exact={true} />
+                            <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
+                            <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
                             <PrivateRoute path="/subscribe" component={SubscribePage} />
                             <PublicRoute path="/login" component={LoginPage} />
                             <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />

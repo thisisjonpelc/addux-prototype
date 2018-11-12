@@ -18,7 +18,7 @@ import UserPage from './UserPage';
 import AdduxNameForm from './AdduxNameForm';
 import AppOverlay from './AppOverlay';
 
-import {history} from './../routers/AppRouter';
+import {history} from './../routers/ProtectedRouter';
 
 
 import {dataReceived, dataError} from '../actions/data';
@@ -39,7 +39,8 @@ class AdduxApp extends React.Component{
             adminActive: false,
             notesActive: false,
             userActive: false,
-            createModal: false
+            createModal: false,
+            redirectToSubscribePage: false
         }
     }
 
@@ -146,8 +147,9 @@ class AdduxApp extends React.Component{
                 }
             });
         })
-        .catch((e) => {
-            if(e.response.status === 402){
+        .catch((err) => {
+            console.log(err.response);
+            if(err.response.status === 402){
                 this.props.unsubscribe();
                 history.push('/subscribe');
             }
@@ -164,9 +166,16 @@ class AdduxApp extends React.Component{
 
     render(){
 
+        // if(this.state.redirectToSubscribePage){
+        //     console.log('Redirecting to Subscribe Page');
+        //     return (
+        //         <Redirect to='/subscribe' />
+        //     );
+        // }
+
         if(this.state.dataStatus === "WAITING"){
             return (
-                <LoadingPage />
+                <LoadingPage testId='MainAppPage'/>
             )
         }
         else if(this.state.dataStatus === "RECIEVED"){

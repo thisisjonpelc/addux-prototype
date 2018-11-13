@@ -18,6 +18,10 @@ export default (state = subscriptionReducerDefaultState, action) => {
             return{
                 subscribed: false
             }
+        case 'LOGOUT':
+            return {
+                subscribed: null
+            }
         default:
             return state;
     }

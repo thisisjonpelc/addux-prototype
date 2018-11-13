@@ -5,6 +5,8 @@ const walkthroughReducer = (state = walkthroughReducer, action) => {
         case "INITIALIZE_APP":
         case "SET_WALKTHROUGH":
             return action.walkthrough;
+        case 'LOGOUT':
+            return {};
         default:
             return state;
     }

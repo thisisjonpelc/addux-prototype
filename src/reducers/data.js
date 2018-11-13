@@ -13,6 +13,7 @@ export default (state = dataReducerDefaultState, action) => {
             return{
                 status: "ERROR"
             }
+        case 'LOGOUT':
         case "DATA_RESET":
             return{
                 status: "WAITING"

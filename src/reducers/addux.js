@@ -87,6 +87,8 @@ const adduxReducer = (state = adduxReducerDefaultState, action) => {
            }
 
            return newState;
+        case 'LOGOUT':
+           return {};
         default:
             return state;
     }

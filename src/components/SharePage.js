@@ -230,7 +230,7 @@ class SharePage extends React.Component{
         html2canvas(addux, {windowWidth:3000, windowHeight:3000, width:3000, height:3000, scale:1}).then(function(canvas) {
 
             const pdfNode = document.getElementById('pdf');
-            //pdfNode.parentNode.removeChild(pdfNode);
+            pdfNode.parentNode.removeChild(pdfNode);
 
             const pdf = new jsPDF({orientation: 'landscape', format:'tabloid'});
             pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);

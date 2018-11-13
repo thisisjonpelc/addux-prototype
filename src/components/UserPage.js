@@ -4,7 +4,9 @@ import axios from 'axios';
 
 import StripePanel from './StripePanel';
 
-import {updateUser} from './../actions/auth';
+import {history} from './../routers/AppRouter';
+
+import {updateUser, logout} from './../actions/auth';
 
 class UserPage extends React.Component {
     constructor(props) {
@@ -105,10 +107,18 @@ class UserPage extends React.Component {
                 this.props.updateUser(updates);
             })
             .catch((e) => {
-                this.setState(() => ({
-                    formStatus: '',
-                    formError: e.message
-                }));
+
+                if(e.response.status === 401){
+                    console.log('Token has expired');
+                    this.props.logout();
+                    history.push('/login');
+                }
+                else{
+                    this.setState(() => ({
+                        formStatus: '',
+                        formError: e.message
+                    }));
+                }
             });
 
         }
@@ -196,7 +206,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    updateUser: (updates) => dispatch(updateUser(updates))
+    updateUser: (updates) => dispatch(updateUser(updates)),
+    logout: () => dispatch(logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

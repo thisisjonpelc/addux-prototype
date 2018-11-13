@@ -4,7 +4,11 @@ import RichTextEditor from 'react-rte';
 import {debounce} from 'throttle-debounce';
 import axios from 'axios';
 
+import {history} from './../routers/AppRouter';
+
 import {editAddux} from './../actions/addux';
+import {unsubscribe} from './../actions/subscription';
+import {logout} from './../actions/auth';
 
 class Notes extends React.Component{
 
@@ -36,7 +40,18 @@ class Notes extends React.Component{
             this.props.editAddux(this.props.activeAddux._id, updates);
         })
         .catch((e) => {
-
+            if(e.response.status === 402){
+                this.props.unsubscribe();
+                history.push('/subscribe');
+            }
+            else if(e.response.status === 401){
+                console.log('User is not authorized');
+                this.props.logout();
+                history.push('/login');
+            }
+            else{
+                console.log('Could not save to database!');
+            }
         });
 
     });
@@ -75,7 +90,9 @@ class Notes extends React.Component{
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        editAddux: (activeAddux, updates) => dispatch(editAddux(activeAddux, updates))
+        editAddux: (activeAddux, updates) => dispatch(editAddux(activeAddux, updates)),
+        unsubscribe: () => dispatch(unsubscribe()),
+        logout: () => dispatch(logout())
     }
     
 }

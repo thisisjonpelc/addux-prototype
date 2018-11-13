@@ -2,7 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+import {history} from './../routers/AppRouter';
+
 import {deleteAddux} from './../actions/addux';
+import {unsubscribe} from './../actions/subscription';
+import {logout} from './../actions/auth';
 
 const AdduxListItem = (props) => {
     
@@ -16,6 +20,18 @@ const AdduxListItem = (props) => {
                 props.deleteAddux(props.id);
             })
             .catch((err) => {
+                if(err.response.status === 402){
+                    props.unsubscribe();
+                    history.push('/subscribe');
+                }
+                else if(err.response.status === 401){
+                    console.log('User is not authorized');
+                    props.logout();
+                    history.push('/login');
+                }
+                else{
+                    console.log('Could not delete addux');
+                }
             });
             
 
@@ -42,7 +58,9 @@ const AdduxListItem = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteAddux: (id) => dispatch(deleteAddux(id))
+        deleteAddux: (id) => dispatch(deleteAddux(id)),
+        unsubscribe: () => dispatch(unsubscribe()),
+        logout: () => dispatch(logout())
     }
 }
 

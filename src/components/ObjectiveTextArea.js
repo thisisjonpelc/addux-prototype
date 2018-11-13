@@ -8,6 +8,7 @@ import {history} from './../routers/AppRouter';
 
 import {editAddux} from './../actions/addux';
 import {unsubscribe} from './../actions/subscription';
+import {logout} from './../actions/auth';
 
 class ObjectiveTextArea extends React.Component{
 
@@ -50,8 +51,13 @@ class ObjectiveTextArea extends React.Component{
                 this.props.unsubscribe();
                 history.push('/subscribe');
             }
+            else if(e.response.status === 401){
+                console.log('User is not authorized');
+                this.props.logout();
+                history.push('/login');
+            }
             else{
-                
+                console.log('Could not save to database!');
             }
         });
     });
@@ -73,7 +79,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         editAddux: (activeAddux, updates) => dispatch(editAddux(activeAddux, updates)),
-        unsubscribe: () => dispatch(unsubscribe())
+        unsubscribe: () => dispatch(unsubscribe()),
+        logout: () => dispatch(logout())
     }
 }
 

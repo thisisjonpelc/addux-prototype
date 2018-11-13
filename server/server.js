@@ -252,7 +252,7 @@ app.patch("/addux/:id", authenticate, subscribed, (req, res) => {
 
 });
 
-app.delete("/addux/:id", authenticate, (req, res) => {
+app.delete("/addux/:id", authenticate, subscribed, (req, res) => {
     
     console.log('DELETE /addux/' + req.params.id);
 

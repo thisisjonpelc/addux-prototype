@@ -18,8 +18,7 @@ import UserPage from './UserPage';
 import AdduxNameForm from './AdduxNameForm';
 import AppOverlay from './AppOverlay';
 
-import {history} from './../routers/ProtectedRouter';
-
+import {history} from './../routers/AppRouter';
 
 import {dataReceived, dataError} from '../actions/data';
 import {setAdduxes, setActive, addAddux} from '../actions/addux';
@@ -152,6 +151,9 @@ class AdduxApp extends React.Component{
             if(err.response.status === 402){
                 this.props.unsubscribe();
                 history.push('/subscribe');
+            }
+            else if(err.response.status === 401){
+                console.log('Authorization Failed');
             }
             else{
                 //this.props.dataError();

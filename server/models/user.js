@@ -76,7 +76,7 @@ UserSchema.methods.generateAuthToken = function(oldToken) {
 
     if(oldToken){
         console.log('There is an old token');
-        console.log('User Tokens: ', user.tokens);
+        //console.log('User Tokens: ', user.tokens);
         user.tokens = user.tokens.filter((token) => {
             if(token.token === oldToken){
                 return false;

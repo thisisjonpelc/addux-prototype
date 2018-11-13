@@ -1,3 +1,15 @@
 .vimeo-video{
     width:50vw;
+
+    @include respond(tab-land){
+        width:60vw;
+    }
+
+    @include respond(tab-port){
+        width:70vw;
+    }
+
+    @include respond(phone){
+        width:80vw;
+    }
 }

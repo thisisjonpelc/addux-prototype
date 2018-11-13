@@ -66,8 +66,9 @@ class ProtectedRouter extends React.Component {
                             localStorage.removeItem('AUTH_TOKEN');
                         }
                         catch(error){
-    
+                            console.log('Unable to remove local token');    
                         }
+
                         this.setState(() => {
                             return {
                                 attemptedLogin:true

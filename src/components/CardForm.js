@@ -39,6 +39,7 @@ class CardForm extends React.Component{
                 })
                 .then((response) => {
                     history.push('/');
+                    this.setState(() => ({error: ''}));
                 })
                 .catch((err) => {
                     this.setState(() => ({error: 'Unable to subscribe you at this time'}))

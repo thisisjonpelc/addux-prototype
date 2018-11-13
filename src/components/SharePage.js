@@ -35,6 +35,17 @@ class SharePage extends React.Component{
         adduxLogo.className='addux-pdf__logo';
         adduxLogo.src = 'img/addux-logo.png';
 
+        //ADDUX TITLE
+        const adduxTitle = document.createElement('h1');
+        adduxTitle.className='addux-pdf__title';
+        adduxTitle.appendChild(document.createTextNode(this.props.activeAddux.name));
+
+        //PDF HEADER
+        const adduxHeader = document.createElement('div');
+        adduxHeader.className='addux-pdf__header';
+        adduxHeader.appendChild(adduxLogo);
+        adduxHeader.appendChild(adduxTitle);
+
         //WRAPPER DIV FOR COLUMNS
         const adduxColumns = document.createElement('div');
         adduxColumns.className='addux-pdf__columns';
@@ -92,14 +103,14 @@ class SharePage extends React.Component{
 
         //OBJECTIVE BOXES
         const objectiveBox = document.createElement('p');
-        objectiveBox.className='pdf-column__box';
+        objectiveBox.className='pdf-column__box pdf-column__box--objective';
         objectiveBox.appendChild(document.createTextNode(this.props.activeAddux.objective));
         objectiveBoxes.appendChild(objectiveBox);
 
         let goalsBox;
         for(let i = 0; i < 3; i++){
             goalsBox = document.createElement('p');
-            goalsBox.className='pdf-column__box';
+            goalsBox.className='pdf-column__box pdf-column__box--goals';
             goalsBox.appendChild(document.createTextNode(this.props.activeAddux[`goals_${i+1}`]));
             goalsBoxes.appendChild(goalsBox);
         }
@@ -195,11 +206,12 @@ class SharePage extends React.Component{
         adduxColumns.appendChild(progressColumn);
 
         //FOOTER LOGO
-        const footerLogo = document.createElement('div');
+        const footerLogo = document.createElement('img');
         footerLogo.className = 'addux-pdf__footer';
-        footerLogo.appendChild(document.createTextNode('A product of Cypress Resources'));
+        footerLogo.src = 'img/cypress-product.png';
+        //footerLogo.appendChild(document.createTextNode('A product of Cypress Resources'));
 
-        addux.appendChild(adduxLogo);
+        addux.appendChild(adduxHeader);
         addux.appendChild(adduxColumns);
         addux.appendChild(footerLogo);
 
@@ -218,7 +230,7 @@ class SharePage extends React.Component{
         html2canvas(addux, {windowWidth:3000, windowHeight:3000, width:3000, height:3000, scale:1}).then(function(canvas) {
 
             const pdfNode = document.getElementById('pdf');
-            pdfNode.parentNode.removeChild(pdfNode);
+            //pdfNode.parentNode.removeChild(pdfNode);
 
             const pdf = new jsPDF({orientation: 'landscape', format:'tabloid'});
             pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);

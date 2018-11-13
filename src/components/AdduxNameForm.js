@@ -2,7 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+import {history} from './../routers/AppRouter';
+
 import {addAddux} from './../actions/addux';
+import {unsubscribe} from './../actions/subscription';
+import {logout} from './../actions/auth';
 
 class AdduxNameForm extends React.Component{
     constructor(props){
@@ -60,6 +64,11 @@ class AdduxNameForm extends React.Component{
                     this.props.unsubscribe();
                     history.push('/subscribe');
                 }
+                else if(err.response.status === 401){
+                    console.log('Token has expired');
+                    this.props.logout();
+                    history.push('/login');
+                }
                 else{
                     this.setState({
                         error:'Sorry! Unable to create new Addux at this time.',
@@ -87,7 +96,9 @@ class AdduxNameForm extends React.Component{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addAddux: (addux) => dispatch(addAddux(addux))
+        addAddux: (addux) => dispatch(addAddux(addux)),
+        unsubscribe: () => dispatch(unsubscribe()),
+        logout: () => dispatch(logout())
     }
 }
 

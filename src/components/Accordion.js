@@ -36,7 +36,7 @@ class Accordion extends React.Component{
                             onCheckChange={this.props.onCheckChange} 
                             onLabelClick={this.onLabelClick} 
                             readOnly={this.props.readOnly}
-                            activeAddux={this.props.activeAddux}/>
+                            />
         }
 
         return (

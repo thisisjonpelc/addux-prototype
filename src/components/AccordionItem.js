@@ -115,9 +115,12 @@ class AccordionItem extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+
+    console.log(this);
+    
     return {
         token: state.auth.token,
-        //activeAddux: state.addux[state.addux.active]
+        activeAddux: state.addux[state.addux.active]
     }
 } 
 

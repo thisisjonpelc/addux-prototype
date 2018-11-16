@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 
 import StripePanel from './StripePanel';
+import SubscriptionPanel from './SubscriptionPanel';
 
 import {history} from './../routers/AppRouter';
 
@@ -128,6 +129,51 @@ class UserPage extends React.Component {
 
     }
 
+    onCancelClick = () => {
+        axios.delete(
+            '/users/subscribe',
+            {
+                headers:{
+                    'x-auth': this.props.auth.token
+                }
+            }
+        )
+        .then((response) => {
+            console.log(response);
+
+            this.setState(() => ({
+                customer:response.data
+            }));
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    onPlanClick = (plan) => {
+        axios.patch(
+            '/users/subscribe',
+            {
+                plan: plan
+            },
+            {
+                headers:{
+                    'x-auth': this.props.auth.token
+                }
+            }
+        )
+        .then((response) => {
+            console.log(response);
+
+            this.setState(() => ({
+                customer:response.data
+            }));
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
     componentDidMount() {
 
         axios.get(
@@ -183,11 +229,20 @@ class UserPage extends React.Component {
                     </div>
                     <div className='user-panel__subscription'>
                         <h1 className='primary-heading'>Subscription Info</h1>
+                        {(this.props.auth.isAdmin ? 
+                            (<p>This is an Admin account.  There is no subscription information to display</p>)
+                            :
+                            (<div>
+                                {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
+                                {this.state.stripeData==='RECEIVED' && <SubscriptionPanel onPlanClick={this.onPlanClick} onCancelClick={this.onCancelClick} customer={this.state.customer} token={this.props.auth.token}/>}
+                                {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
+                            </div>)
+                        )}
                     </div>
                     <div className='user-panel__payment'>
                         <h1 className='primary-heading'>Payment Info</h1>
                         {(this.props.auth.isAdmin ? 
-                            (<p>This is an Admin account.  There is no payment or subscription information to display</p>)
+                            (<p>This is an Admin account.  There is no payment information to display</p>)
                             :
                             (<div>
                                 {this.state.stripeData==='WAITING' && <p>Waiting for payment info</p>}

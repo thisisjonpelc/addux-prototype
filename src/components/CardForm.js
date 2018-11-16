@@ -58,7 +58,7 @@ class CardForm extends React.Component{
                 <form onSubmit={this.onCardSubmit}>
                     <select name='plans'>
                         <option value="MONTHLY">Monthly plan</option>
-                        <option value="YEARLY">Yearly plan</option>
+                        <option value="ANNUAL">Yearly plan</option>
                     </select>
                     <CardElement />
                     <button>Submit</button>

@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport(
         port:587,
         secure:false,
         auth: {
-            user:'contact@adduxonline.com',
+            user:process.env.EMAIL_USERNAME,
             pass: process.env.EMAIL_PASSWORD
         }
     }
@@ -294,7 +294,7 @@ app.post('/users/reset', async (req, res) => {
             messageText = `Hi ${user.firstName}!  A password reset was requested for your Addux account.  Please visit https://${req.headers.host}/reset/${passwordReset} to create a new password. This link will expire in 4 hours`;
 
             const message = {
-                from: 'contact@adduxonline.com',
+                from: process.env.EMAIL_USERNAME,
                 to: user.email,
                 subject: 'Addux Password Reset',
                 message: messageText,
@@ -375,6 +375,98 @@ app.post('/users/subscribe', authenticate, async (req, res) => {
     }
 });
 
+app.patch('/users/subscribe', authenticate, subscribed, async(req, res) => {
+
+    const user = req.user;
+
+    console.log('Plan to change to: ', req.body.plan);
+
+    try{
+        const customer = await stripe.customers.retrieve(
+            user.customerId
+        );
+
+        const subscription = await stripe.subscriptions.retrieve(customer.subscriptions.data[0].id);
+        
+        const trial_end = subscription.trial_end ? subscription.trial_end : subscription.current_period_end;
+        const bonusPlan = subscription.items.data[0].plan.id === process.env.MONTHLY_BONUS_PLAN_ID || subscription.items.data[0].plan.id === process.env.ANNUAL_BONUS_PLAN_ID;
+
+        let newPlan;
+
+        if(bonusPlan){
+            newPlan = `${req.body.plan}_BONUS_PLAN_ID`; 
+        }
+        else{
+            newPlan = `${req.body.plan}_PLAN_ID`;
+        }
+
+        await stripe.subscriptions.update(
+            subscription.id,
+            {
+                trial_end: trial_end,
+                prorate:false,
+                cancel_at_period_end: false,
+                items: [{
+                    id:subscription.items.data[0].id,
+                    plan: process.env[newPlan]
+                }]
+            }
+        );
+
+        const result = await stripe.customers.retrieve(
+            user.customerId
+        );
+
+        res.send(result);
+    }
+    catch(error){
+        console.log('Error:', error);
+        res.status(400).send(e);
+    }
+
+});
+
+app.delete('/users/subscribe', authenticate, subscribed, async(req, res) => {
+
+    console.log('Setting subscription to cancel');
+
+    const user = req.user;
+
+    try{
+        const customer = await stripe.customers.retrieve(
+            user.customerId
+        );
+
+        console.log(customer);
+
+        const subscription = customer.subscriptions.data[0];
+        
+        console.log(subscription);
+
+        if(!subscription.cancel_at_period_end){
+            console.log('The sub wasn\'t set to cancel');
+            await stripe.subscriptions.update(
+                subscription.id,
+                {
+                    cancel_at_period_end:true
+                }
+            );
+
+            const result = await stripe.customers.retrieve(
+                user.customerId
+            )
+
+            res.send(result);
+        }
+        
+    }
+    catch(error){
+        console.log('Error:', error);
+        res.status(400).send(e);
+    }
+    
+});
+
 app.post("/users", async (req, res) => {
     
     console.log('POST /users');
@@ -417,7 +509,7 @@ app.post("/users", async (req, res) => {
         addux.resources_comments = insertedComments[5]._id;
         addux.progress_comments = insertedComments[6]._id;
 
-        addux.save()
+        addux.save();
 
         //TODO: Remove User's tokens and password before sending back
         const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company']);

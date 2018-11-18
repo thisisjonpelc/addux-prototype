@@ -69,12 +69,15 @@
         text-decoration:none;
         border-right: .3rem solid $brand-primary;
         color:$gray-darker;
-        
 
         &:hover{
-            background-color:$gray-darker;
-            color:$white;
+            background-color:$brand-primary;
+            color:$white !important;
             fill:$white;
+
+            &>.footer__text--light-gray{
+                color:$white;
+            } 
         }
 
         &--alt{

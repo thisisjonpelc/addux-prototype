@@ -17,6 +17,19 @@ class Columns extends React.Component{
     }
   }
 
+  onGoalsCheckChange = (num, target) => {
+
+    console.log('Goals were changed!');
+
+    const accordion = document.querySelector('.accordion');
+
+    const checkbox = accordion.childNodes[num - 1].firstChild;
+
+    if(checkbox === target & checkbox.checked === true){
+      accordion.childNodes[num - 1].childNodes[2].firstChild.focus();
+    }
+  }
+
   onCheckChange = (num, target) => {
 
     const accordions = document.querySelectorAll('.accordion');
@@ -110,7 +123,7 @@ class Columns extends React.Component{
                       <Accordion 
                           size={3}
                           linked={this.props.linked}
-                          onCheckChange={this.props.onCheckChange} 
+                          onCheckChange={this.onGoalsCheckChange} 
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'goals'} 

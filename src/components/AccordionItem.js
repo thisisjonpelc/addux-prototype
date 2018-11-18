@@ -21,7 +21,7 @@ class AccordionItem extends React.Component{
     }
 
     onCheckChange = (e) => {
-        if(this.props.linked){
+        if(true){
              this.props.onCheckChange(Number(e.target.id.slice(-1)), e.target);
         }
     }
@@ -87,6 +87,7 @@ class AccordionItem extends React.Component{
                         <input 
                             id={`${this.props.category}-${this.props.number}`}  
                             type='checkbox'
+                            onChange={this.onCheckChange}
                         />
                     )
                 }
@@ -116,7 +117,7 @@ class AccordionItem extends React.Component{
 
 const mapStateToProps = (state) => {
 
-    console.log(this);
+    //console.log(this);
     
     return {
         token: state.auth.token,

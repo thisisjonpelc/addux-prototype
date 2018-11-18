@@ -92,11 +92,6 @@ class Header extends React.Component{
                                     <use xlinkHref="img/sprite.svg#icon-user-solid"></use>
                                 </svg>
                             </div>
-                            <div onClick={this.onLogoutClick} className="app-nav__icon-box">
-                                <svg className="app-nav__icon">
-                                    <use xlinkHref="img/sprite.svg#icon-sign-out"></use>
-                                </svg>
-                            </div>
                             {!this.props.empty && <div onClick={this.props.changeNotesActive} className="app-nav__icon-box"> 
                                 <svg className="app-nav__icon">
                                     <use xlinkHref="img/sprite.svg#icon-pencil-alt-solid"></use>
@@ -115,11 +110,20 @@ class Header extends React.Component{
                         </nav>
 
                         {!this.props.empty &&
-                            <div onClick={this.showEditModal} className="info-box">
+                            <div className="info-box">
                                 <h1 className="info-box__title">{this.props.activeAddux.name}</h1>
-                                <div className="info-box__progress-bar"></div>
                             </div>
                         }
+
+                        <div onClick={this.onLogoutClick} className='logout-button'>
+                            <svg className="logout-button__icon">
+                                <use xlinkHref="img/sprite.svg#icon-sign-out"></use>
+                            </svg>
+                            <p className='logout-button__text'>
+                                Logout
+                            </p>
+                        </div>
+                        
                 </header>
 
                 <Modal

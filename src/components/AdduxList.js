@@ -16,7 +16,7 @@ const AdduxList = (props) => {
 
         if(key !== 'active'){
             AdduxItems.push(
-                <AdduxListItem key={key} id={key} token={props.token} active={props.addux.active === key} {...props.addux[key]} onClick={() => {if(props.addux.active !== key){props.setActive(key)}}}/>
+                <AdduxListItem key={key} id={key} token={props.token} changeListActive={props.changeListActive} active={props.addux.active === key} {...props.addux[key]} onClick={() => {if(props.addux.active !== key){props.setActive(key); props.changeListActive();}}}/>
             );
         }
     }
@@ -29,7 +29,7 @@ const AdduxList = (props) => {
             </svg>
 
             {props.empty ? 
-                <h1> You don't have any Adduxes! </h1>
+                <h1> You don't have an addux </h1>
                 :
                 (
                     <div className='addux-list__list'>

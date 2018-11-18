@@ -224,7 +224,7 @@ class AdminPage extends React.Component {
                             <label htmlFor='progress_video'>Progress Video Id: </label>
                             <input className='form__input' type='text' id='progress_video' value={this.state.progress_video} placeholder='Progress Video' onChange={this.progressVideoChange} />            
                         </div>
-                        <button className='btn btn-full-width'>Submit new Walkthrough</button>
+                        <button className='btn btn--full-width'>Submit new Walkthrough</button>
                         {this.state.error && <p>{this.state.error}</p>}
                         {this.state.success && <p>{this.state.success}</p>}
                     </form>

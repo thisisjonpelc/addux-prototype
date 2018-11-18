@@ -34,6 +34,11 @@ body {
   font-size: 3rem;
   margin-bottom: 1.5rem; }
 
+.secondary-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem; }
+
 .app-link {
   font-size: 1.6rem;
   color: #505050;
@@ -263,11 +268,11 @@ body {
   flex: 1 1 auto; }
   @media only screen and (max-width: 43.75em) {
     .info-box {
-      width: 80%;
-      text-align: center; } }
+      width: 100%;
+      text-align: center;
+      order: 1; } }
   .info-box__title {
-    margin-bottom: 1rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 300; }
   .info-box__progress-bar {
     width: 100%;
@@ -373,7 +378,7 @@ body {
       fill: #000000; }
 
 .form {
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   margin: 0 auto;
   margin-bottom: 1rem; }
   .form__form-group {
@@ -385,10 +390,10 @@ body {
     display: inline-block;
     width: 100%;
     border-radius: .4rem;
-    padding: 1.2rem 1.6rem;
+    padding: 1rem 1.2rem;
     border: 1px solid #505050;
     outline: none;
-    font-size: 1.6rem; }
+    font-size: 1.2rem; }
     .form__input:focus {
       border-color: transparent;
       box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6); }
@@ -408,7 +413,7 @@ body {
   padding: 1rem;
   border-radius: .5rem;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.6rem;
   outline: none;
   display: inline-block;
   text-align: center; }
@@ -686,6 +691,28 @@ body {
     height: auto;
     width: 5rem; }
 
+.logout-button {
+  border: 1px solid #7798A6;
+  cursor: pointer;
+  display: flex;
+  margin-left: auto;
+  margin-right: 5rem;
+  padding: .5rem 1rem; }
+  @media only screen and (max-width: 43.75em) {
+    .logout-button {
+      margin: 0;
+      margin-bottom: 1rem; } }
+  .logout-button:hover {
+    background-color: #7798A6;
+    color: #FFFFFF;
+    fill: #FFFFFF; }
+  .logout-button__icon {
+    height: 2rem;
+    width: 2rem; }
+  .logout-button__text {
+    margin-left: 1rem;
+    font-size: 1.6rem; }
+
 .app {
   height: 100vh;
   display: flex;
@@ -733,9 +760,11 @@ body {
     border-right: 0.3rem solid #7798A6;
     color: #333333; }
     .footer__box:hover {
-      background-color: #333333;
-      color: #FFFFFF;
+      background-color: #7798A6;
+      color: #FFFFFF !important;
       fill: #FFFFFF; }
+      .footer__box:hover > .footer__text--light-gray {
+        color: #FFFFFF; }
     .footer__box--alt {
       background-color: #7798A6;
       color: #FFFFFF;

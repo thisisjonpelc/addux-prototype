@@ -2,12 +2,9 @@ import React from "react";
 
 const Footer = (props) => (
     <footer className="footer">
-        <div onClick={props.showCreateModal} className="footer__box footer__box--alt">
-            <svg className="footer__icon footer__icon--alt">
-                <use xlinkHref="img/sprite.svg#icon-plus-solid"></use>
-            </svg>
-            <span className="footer__text--margin">Create a new Roadmap</span>
-        </div>
+        <a href='https://www.kajabi.com' target='_blank' className="footer__box">
+            <span className="footer__text--light-gray">Access</span>&nbsp; Course
+        </a>
         <a href='https://www.adduxonline.com/private-workshop' target='_blank' className="footer__box">
             <span className="footer__text--light-gray">Schedule</span>&nbsp; a Workshop
         </a>

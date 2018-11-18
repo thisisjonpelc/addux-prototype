@@ -71,7 +71,7 @@ class AdduxNameForm extends React.Component{
                 }
                 else{
                     this.setState({
-                        error:'Sorry! Unable to create new Addux at this time.',
+                        error:'Sorry! Unable to create new addux at this time.',
                         creating:false
                     });
                 }

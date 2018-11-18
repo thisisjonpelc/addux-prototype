@@ -228,7 +228,7 @@ class UserPage extends React.Component {
                         </form>
                     </div>
                     <div className='user-panel__subscription'>
-                        <h1 className='primary-heading'>Subscription Info</h1>
+                        <h2 className='secondary-heading'>Subscription Info</h2>
                         {(this.props.auth.isAdmin ? 
                             (<p>This is an Admin account.  There is no subscription information to display</p>)
                             :
@@ -240,7 +240,7 @@ class UserPage extends React.Component {
                         )}
                     </div>
                     <div className='user-panel__payment'>
-                        <h1 className='primary-heading'>Payment Info</h1>
+                        <h2 className='secondary-heading'>Payment Info</h2>
                         {(this.props.auth.isAdmin ? 
                             (<p>This is an Admin account.  There is no payment information to display</p>)
                             :

@@ -233,7 +233,7 @@ class SharePage extends React.Component{
             pdfNode.parentNode.removeChild(pdfNode);
 
             const pdf = new jsPDF({orientation: 'landscape', format:'tabloid'});
-            pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0);
+            pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 0, 0);
             
             pdf.save(`${name}.pdf`);
 

@@ -474,6 +474,7 @@ app.post("/users", async (req, res) => {
 
     try{
         var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
+        body.masterUser = true;
         var user = new User(body);
         user.lastLogin = moment().unix();
 
@@ -488,7 +489,7 @@ app.post("/users", async (req, res) => {
         const token = await user.generateAuthToken();
 
         addux = new Addux({
-            name: 'My first Addux',
+            name: 'My first addux',
             _creator:user._id,
         });
     

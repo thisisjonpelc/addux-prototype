@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
+import $ from 'jquery';
 
 import Column from "./Column";
 import EmptyPage from './EmptyPage';
@@ -55,6 +56,26 @@ class Columns extends React.Component{
       
     }
 
+  }
+
+  onScroll = (e) => {
+    // console.log('Scrolling!');
+    // console.log(e.target);
+
+    // // const accordions = $('.accordions');
+
+    // // accordions.scroll(function() {
+    // //   accordions.scrollTop($(this).scrollTop());
+    // // });
+
+    // const accordions = document.getElementsByClassName('accordion');
+    // console.log(accordions);
+
+    // for(let i = 1; i < accordions.length; i++){
+    //   if(e.target !== accordions[i]){
+    //     accordions[i].scrollTop = e.target.scrollTop;
+    //   }
+    // }
   }
 
   render(){
@@ -164,7 +185,8 @@ class Columns extends React.Component{
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'projects'} 
-                          readOnly={this.props.readOnly} 
+                          readOnly={this.props.readOnly}
+                          onScroll={this.onScroll} 
                       />
 
                       {
@@ -201,7 +223,8 @@ class Columns extends React.Component{
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'timelines'} 
-                          readOnly={this.props.readOnly} 
+                          readOnly={this.props.readOnly}
+                          onScroll={this.onScroll}
                       />
 
                       {
@@ -238,7 +261,8 @@ class Columns extends React.Component{
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'projectOwner'} 
-                          readOnly={this.props.readOnly} 
+                          readOnly={this.props.readOnly}
+                          onScroll={this.onScroll} 
                       />
 
                       {
@@ -275,7 +299,8 @@ class Columns extends React.Component{
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'resources'} 
-                          readOnly={this.props.readOnly} 
+                          readOnly={this.props.readOnly}
+                          onScroll={this.onScroll} 
                       />
 
                       {
@@ -312,7 +337,8 @@ class Columns extends React.Component{
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'progress'} 
-                          readOnly={this.props.readOnly} 
+                          readOnly={this.props.readOnly}
+                          onScroll={this.onScroll} 
                       />
 
                       {

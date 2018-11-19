@@ -99,7 +99,7 @@ class ProtectedRouter extends React.Component {
         }
         else{
             return (
-                <StripeProvider apiKey='pk_test_qgZDzGYlsNzbuloTnIPK3KEc'>
+                <StripeProvider apiKey='pk_live_XdEnT31AcX7OJP8LwWT7Gnot'>
                     <Router history={history}>
                         <Switch>
                             <Route path="/" component={AdduxWrapper} exact={true} />

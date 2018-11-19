@@ -40,7 +40,7 @@ class Accordion extends React.Component{
         }
 
         return (
-            <div className="accordion">
+            <div onScroll={(e) => {this.props.onScroll(e)}} className="accordion">
                 {result}
             </div>
         );

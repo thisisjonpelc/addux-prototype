@@ -53,6 +53,11 @@ var UserSchema = new mongoose.Schema({
             required: true
         }
     }],
+    masterUser:{
+        type:Boolean,
+        required:true,
+        default:false
+    },
     isAdmin:{
         type:Boolean,
         required: true,

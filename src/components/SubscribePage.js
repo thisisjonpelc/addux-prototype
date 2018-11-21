@@ -35,7 +35,7 @@ class SubscribePage extends React.Component{
                 method:'get',
                 url:'/users/me',
                 headers: {
-                    'x-auth': this.props.token
+                    'x-auth': this.props.auth.token
                 }
             })
             .then((user) => {
@@ -59,8 +59,8 @@ class SubscribePage extends React.Component{
 
     render() {
 
-        console.log('Rendering Subscription Page');
-        console.log(this.props.subscribed);
+        //console.log('Rendering Subscription Page');
+        //console.log(this.props.subscribed);
 
         if(this.props.subscribed !== null){
 
@@ -68,11 +68,19 @@ class SubscribePage extends React.Component{
                 return <Redirect to='/' />;
             }
             else{
-                return (
-                            <Elements>
-                                <CardForm token={this.props.token}/>
-                            </Elements>
-                );
+
+                if(this.props.auth.masterUser){
+                    return (
+                        <Elements>
+                            <CardForm token={this.props.token}/>
+                        </Elements>
+                    );
+                }
+                else{
+                    return (
+                        <p>The subscription associated with your account has ended.</p>
+                    );
+                }
             }
         }
         else{
@@ -84,7 +92,7 @@ class SubscribePage extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        token: state.auth.token,
+        auth: state.auth,
         subscribed: state.subscription.subscribed
     };
 }

@@ -18,6 +18,7 @@ import {login} from './../actions/auth';
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from './PrivateRoute';
+import SignUpPage from "../components/SignUpPage";
 
 export const history = createHistory();
 
@@ -107,6 +108,7 @@ class ProtectedRouter extends React.Component {
                             <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
                             <Route path='/testpage' component={TestPage} />
                             <PrivateRoute path="/subscribe" component={SubscribePage} />
+                            <PublicRoute path='/signup/:plan' component={SignUpPage} />
                             <PublicRoute path="/login" component={LoginPage} />
                             <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
                             <PublicRoute path='/reset/:token' component={ResetPasswordPage} />

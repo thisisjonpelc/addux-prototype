@@ -513,7 +513,7 @@ app.post("/users", async (req, res) => {
         addux.save();
 
         //TODO: Remove User's tokens and password before sending back
-        const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company']);
+        const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser']);
 
         res.header("x-auth", token).send(cleanUser);
     }
@@ -523,6 +523,55 @@ app.post("/users", async (req, res) => {
         await addux.remove();
         res.status(400).send(e);
     }
+});
+
+app.post('/users/subordinate', async (req, res) => {
+    
+    try{
+        const body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company', 'customerId']);
+        const user = new User(body);
+        user.lastLogin = moment().unix();
+
+        await user.save();
+
+        const token = user.generateAuthToken();
+
+        const addux = new Addux({
+            name: 'My first addux',
+            _creator:user._id,
+        });
+
+        const comments = [];
+
+        for(let i = 0; i < 7; i++){
+            //let comment = new Comment();
+            comments.push({text:""});
+        }
+
+        const insertedComments = await Comment.insertMany(comments);
+
+        addux.objective_comments = insertedComments[0]._id;
+        addux.goals_comments = insertedComments[1]._id;
+        addux.projects_comments = insertedComments[2]._id;
+        addux.timelines_comments = insertedComments[3]._id;
+        addux.projectOwner_comments = insertedComments[4]._id;
+        addux.resources_comments = insertedComments[5]._id;
+        addux.progress_comments = insertedComments[6]._id;
+
+        addux.save();
+
+        //TODO: Remove User's tokens and password before sending back
+        const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser']);
+
+        res.header("x-auth", token).send(cleanUser);
+    }
+    catch(error){
+        console.log('Error: ', error);
+        await user.remove();
+        await addux.remove();
+        res.status(400).send(error);
+    }
+
 });
 
 app.post("/users/login", async (req, res) => {
@@ -551,7 +600,7 @@ app.post("/users/login", async (req, res) => {
         else{
             token = await user.generateAuthToken(loginToken);
         
-            cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company'])
+            cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser'])
         
             res.header('x-auth', token).send(cleanUser);
         }
@@ -562,7 +611,7 @@ app.post("/users/login", async (req, res) => {
         user = await User.findByCredentials(body.email, body.password);
         token = await user.generateAuthToken();
       
-        cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company'])
+        cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser'])
         
         res.header('x-auth', token).send(cleanUser);
      }

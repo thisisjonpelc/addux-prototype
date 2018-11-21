@@ -227,30 +227,38 @@ class UserPage extends React.Component {
                             <button className='btn btn--full-width'>Update User Info</button>
                         </form>
                     </div>
-                    <div className='user-panel__subscription'>
-                        <h2 className='secondary-heading'>Subscription Info</h2>
-                        {(this.props.auth.isAdmin ? 
-                            (<p>This is an Admin account.  There is no subscription information to display</p>)
-                            :
-                            (<div>
-                                {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
-                                {this.state.stripeData==='RECEIVED' && <SubscriptionPanel onPlanClick={this.onPlanClick} onCancelClick={this.onCancelClick} customer={this.state.customer} token={this.props.auth.token}/>}
-                                {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
-                            </div>)
-                        )}
-                    </div>
-                    <div className='user-panel__payment'>
-                        <h2 className='secondary-heading'>Payment Info</h2>
-                        {(this.props.auth.isAdmin ? 
-                            (<p>This is an Admin account.  There is no payment information to display</p>)
-                            :
-                            (<div>
-                                {this.state.stripeData==='WAITING' && <p>Waiting for payment info</p>}
-                                {this.state.stripeData==='RECEIVED' && <StripePanel customer={this.state.customer} token={this.props.auth.token} updateCustomer={this.updateCustomer}/>}
-                                {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
-                            </div>)
-                        )}
-                    </div>
+                    {
+                        (!this.props.auth.isAdmin && this.props.auth.masterUser)
+                        &&
+                        (
+                            <div>
+                            <div className='user-panel__subscription'>
+                                <h2 className='secondary-heading'>Subscription Info</h2>
+                                {(this.props.auth.isAdmin ? 
+                                    (<p>This is an Admin account.  There is no subscription information to display</p>)
+                                    :
+                                    (<div>
+                                        {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
+                                        {this.state.stripeData==='RECEIVED' && <SubscriptionPanel onPlanClick={this.onPlanClick} onCancelClick={this.onCancelClick} customer={this.state.customer} token={this.props.auth.token}/>}
+                                        {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
+                                    </div>)
+                                )}
+                            </div>
+                            <div className='user-panel__payment'>
+                                <h2 className='secondary-heading'>Payment Info</h2>
+                                {(this.props.auth.isAdmin ? 
+                                    (<p>This is an Admin account.  There is no payment information to display</p>)
+                                    :
+                                    (<div>
+                                        {this.state.stripeData==='WAITING' && <p>Waiting for payment info</p>}
+                                        {this.state.stripeData==='RECEIVED' && <StripePanel customer={this.state.customer} token={this.props.auth.token} updateCustomer={this.updateCustomer}/>}
+                                        {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
+                                    </div>)
+                                )}
+                            </div>
+                            </div>
+                        )
+                    }
                 </div>
         );
     }

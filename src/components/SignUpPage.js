@@ -8,7 +8,6 @@ import SignUpForm from './SignUpForm';
 import { login } from "./../actions/auth";
 import { history } from "./../routers/AppRouter";
 
-
 class SignUpPage extends React.Component {
     constructor(props) {
         super(props);

@@ -24,7 +24,6 @@ class SubscribePage extends React.Component{
     }
 
     componentDidMount(){
-
         console.log('Subscribe Component Mounted.');
 
         if(this.props.subscribed === null){

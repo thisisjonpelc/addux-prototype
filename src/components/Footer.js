@@ -11,7 +11,7 @@ const Footer = (props) => (
         <a href='mailto:contact@adduxonline.com' className="footer__box">
             <span className="footer__text--light-gray">Get</span>&nbsp; Help
         </a>
-        <div className="footer__box">
+        <div onClick={props.changeTutorialActive} className="footer__box">
             <svg className="footer__icon">
                 <use xlinkHref="img/sprite.svg#icon-video-solid"></use>
             </svg>

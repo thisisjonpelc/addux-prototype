@@ -489,6 +489,7 @@ app.post("/users", async (req, res) => {
         });
         
         var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
+        console.log(body);
         body.masterUser = true;
         body.lastLogin = moment().unix();
         body.customerId = customer.id;
@@ -538,7 +539,8 @@ app.post("/users", async (req, res) => {
 app.post('/users/subordinate', async (req, res) => {
     
     try{
-        const body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company', 'customerId']);
+        const body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company', 'customerId', 'isAdmin']);
+        console.log(body);
         const user = new User(body);
         user.lastLogin = moment().unix();
 

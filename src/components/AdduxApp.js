@@ -17,6 +17,7 @@ import AdminPage from './AdminPage';
 import UserPage from './UserPage';
 import AdduxNameForm from './AdduxNameForm';
 import AppOverlay from './AppOverlay';
+import VimeoVideo from './VimeoVideo';
 
 import {history} from './../routers/AppRouter';
 
@@ -39,6 +40,7 @@ class AdduxApp extends React.Component{
             notesActive: false,
             userActive: false,
             createModal: false,
+            tutorialActive: false,
             redirectToSubscribePage: false
         }
     }
@@ -70,6 +72,26 @@ class AdduxApp extends React.Component{
     changeUserActive = () => {
         this.setState((prevState) => ({
             userActive: !prevState.userActive
+        }));
+    }
+
+    changeTutorialActive = () => {
+
+        if(this.state.tutorialActive){
+            var $frame = $(`iframe#301701128`);
+
+            // saves the current iframe source
+            var vidsrc = $frame.attr('src');
+
+            // sets the source to nothing, stopping the video
+            $frame.attr('src',''); 
+
+            // sets it back to the correct link so that it reloads immediately on the next window open
+            $frame.attr('src', vidsrc);
+        }
+
+        this.setState((prevState) => ({
+            tutorialActive: !prevState.tutorialActive
         }));
     }
 
@@ -208,7 +230,7 @@ class AdduxApp extends React.Component{
                         walkthrough={this.props.walkthrough}
                     />
                     
-                    <Footer showCreateModal={this.showCreateModal}/>
+                    <Footer changeTutorialActive={this.changeTutorialActive} showCreateModal={this.showCreateModal}/>
                 
                     <AppOverlay 
                         isOpen={this.state.createModal}
@@ -227,6 +249,13 @@ class AdduxApp extends React.Component{
                         onRequestClose={this.changeUserActive}
                     >
                         <UserPage />
+                    </AppOverlay>
+
+                    <AppOverlay
+                        isOpen={this.state.tutorialActive}
+                        onRequestClose={this.changeTutorialActive}
+                    >
+                        <VimeoVideo id={301701128} />
                     </AppOverlay>
 
                     {!this.props.empty 

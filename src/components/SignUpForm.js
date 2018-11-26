@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import { CardElement } from 'react-stripe-elements';
+import { CardElement , injectStripe} from 'react-stripe-elements';
 import axios from 'axios';
 
 import { login } from "./../actions/auth";
@@ -61,7 +61,7 @@ class SignUpForm extends React.Component {
                     axios.post('/users',
                         {
                             firstName:this.state.firstName,
-                            lastname:this.state.lastName,
+                            lastName:this.state.lastName,
                             company:this.state.lastName,
                             password:this.state.password,
                             email:this.state.email,
@@ -145,8 +145,8 @@ class SignUpForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (user) => dipsatch(login(user))
+        login: (user) => dispatch(login(user))
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignUpForm);
+export default connect(null, mapDispatchToProps)(injectStripe(SignUpForm));

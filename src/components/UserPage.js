@@ -176,23 +176,25 @@ class UserPage extends React.Component {
 
     componentDidMount() {
 
-        axios.get(
-            '/users/me/customer',
-            {
-                headers: {
-                    'x-auth': this.props.auth.token
+        if(!this.props.auth.isAdmin){
+            axios.get(
+                '/users/me/customer',
+                {
+                    headers: {
+                        'x-auth': this.props.auth.token
+                    }
                 }
-            }
-        )
-        .then((response) => {
-            this.setState(() => ({
-                stripeData:'RECEIVED',
-                customer: response.data
-            }));
-        })
-        .catch((e) => {
-
-        })
+            )
+            .then((response) => {
+                this.setState(() => ({
+                    stripeData:'RECEIVED',
+                    customer: response.data
+                }));
+            })
+            .catch((e) => {
+    
+            })
+        }
     }
 
     render() {

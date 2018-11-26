@@ -538,6 +538,8 @@ app.post("/users", async (req, res) => {
 
 app.patch('/users/subordinate', async (req, res) => {
     
+    console.log('Adding subordinate user');
+
     try{
         const body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company', 'customerId', 'isAdmin']);
         console.log(body);

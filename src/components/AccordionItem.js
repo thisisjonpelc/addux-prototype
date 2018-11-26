@@ -15,6 +15,9 @@ class AccordionItem extends React.Component{
     constructor(props){
         super(props);
 
+        
+        console.log(props);
+
         this.state ={
             text: props.activeAddux[`${props.category}_${props.number}`]
         }
@@ -120,8 +123,8 @@ const mapStateToProps = (state) => {
     //console.log(this);
     
     return {
-        token: state.auth.token,
-        activeAddux: state.addux[state.addux.active]
+        token: state.auth.token
+        //activeAddux: state.addux[state.addux.active]
     }
 } 
 

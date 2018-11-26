@@ -186,7 +186,6 @@ class Columns extends React.Component{
                           activeAddux={this.props.activeAddux} 
                           category={'projects'} 
                           readOnly={this.props.readOnly}
-                          onScroll={this.onScroll} 
                       />
 
                       {
@@ -224,7 +223,6 @@ class Columns extends React.Component{
                           activeAddux={this.props.activeAddux} 
                           category={'timelines'} 
                           readOnly={this.props.readOnly}
-                          onScroll={this.onScroll}
                       />
 
                       {
@@ -262,7 +260,6 @@ class Columns extends React.Component{
                           activeAddux={this.props.activeAddux} 
                           category={'projectOwner'} 
                           readOnly={this.props.readOnly}
-                          onScroll={this.onScroll} 
                       />
 
                       {
@@ -300,7 +297,6 @@ class Columns extends React.Component{
                           activeAddux={this.props.activeAddux} 
                           category={'resources'} 
                           readOnly={this.props.readOnly}
-                          onScroll={this.onScroll} 
                       />
 
                       {
@@ -337,8 +333,7 @@ class Columns extends React.Component{
                           openFields={this.state.openFields} 
                           activeAddux={this.props.activeAddux} 
                           category={'progress'} 
-                          readOnly={this.props.readOnly}
-                          onScroll={this.onScroll} 
+                          readOnly={this.props.readOnly} 
                       />
 
                       {
@@ -357,13 +352,6 @@ class Columns extends React.Component{
               </main>
           )
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    activeAddux: state.addux[state.addux.active],
-    walkthrough: state.walkthrough
   }
 }
 

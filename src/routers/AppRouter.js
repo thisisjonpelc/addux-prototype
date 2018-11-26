@@ -106,7 +106,6 @@ class ProtectedRouter extends React.Component {
                             <Route path="/" component={AdduxWrapper} exact={true} />
                             <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
                             <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
-                            <Route path='/testpage' component={TestPage} />
                             <PrivateRoute path="/subscribe" component={SubscribePage} />
                             <PublicRoute path='/signup/:plan' component={SignUpPage} />
                             <PublicRoute path="/login" component={LoginPage} />

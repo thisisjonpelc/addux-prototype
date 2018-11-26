@@ -11,6 +11,7 @@ class HomePage extends React.Component{
         this.state = {
             monthly: false,
             annual: false,
+            showForm:false,
             error: ''
         }
     }
@@ -55,7 +56,7 @@ class HomePage extends React.Component{
         return (
             <div className='sales-page'>
                 <header className='sales-header'>
-                    <img src='img/addux-logo.png' className='sales-header__logo' />
+                    <img src='/img/addux-logo.png' className='sales-header__logo' />
                     <p className='sales-header__text'>Launch Special Ends - 12.14</p>
                 </header>
 
@@ -76,6 +77,7 @@ class HomePage extends React.Component{
 
                             </div>
                         </div>
+
                         <div className='blurb'>
                             <h2 className='blurb__heading'>
                                 Software, online training, interactive coaching and a resource library to help you simplify and grow.

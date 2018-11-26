@@ -473,18 +473,28 @@ app.post("/users", async (req, res) => {
     let addux;
 
     try{
-        var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
-        body.masterUser = true;
-        var user = new User(body);
-        user.lastLogin = moment().unix();
-
-        await user.save();
         const customer = await stripe.customers.create({
-            description: `${user.firstName} ${user.lastName}`,
-            email: user.email
+            description: `${req.body.firstName} ${req.body.lastName}`,
+            email: req.body.email,
+            source:req.body.token
+        });
+
+        const subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [
+                {
+                    plan: process.env[`${req.body.plan}_PLAN_ID`]
+                }
+            ]
         });
         
-        user.customerId = customer.id;
+        var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
+        body.masterUser = true;
+        body.lastLogin = moment().unix();
+        body.customerId = customer.id;
+        var user = new User(body);
+
+        //await user.save();
         
         const token = await user.generateAuthToken();
 

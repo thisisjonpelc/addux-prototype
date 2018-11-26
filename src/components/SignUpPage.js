@@ -1,146 +1,93 @@
 import React from "react";
-import {connect} from "react-redux";
-import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { connect } from "react-redux";
+import { Elements, injectStripe } from 'react-stripe-elements';
+import { Link } from 'react-router-dom';
 
-import {login} from "./../actions/auth";
-import {history} from "./../routers/AppRouter";
+import SignUpForm from './SignUpForm';
+
+import { login } from "./../actions/auth";
+import { history } from "./../routers/AppRouter";
 
 
-class SignUpPage extends React.Component{
-    constructor(props){
+class SignUpPage extends React.Component {
+    constructor(props) {
         super(props);
+
+        console.log(props);
 
         this.state = {
             firstName: "",
             lastName: "",
-            company:"",
-            email:"",
-            password:"",
-            error:""
+            company: "",
+            email: "",
+            password: "",
+            error: ""
         }
     };
 
     onFirstNameChange = (e) => {
         const firstName = e.target.value;
-        this.setState(() => ({firstName}));
+        this.setState(() => ({ firstName }));
     }
 
     onLastNameChange = (e) => {
         const lastName = e.target.value;
-        this.setState(() => ({lastName}));
+        this.setState(() => ({ lastName }));
     }
 
     onCompanyChange = (e) => {
         const company = e.target.value;
-        this.setState(() => ({company}));
+        this.setState(() => ({ company }));
     }
 
     onEmailChange = (e) => {
         const email = e.target.value;
-        this.setState(() => ({email}));
+        this.setState(() => ({ email }));
     }
 
     onPasswordChange = (e) => {
         const password = e.target.value;
-        this.setState(() => ({password}));
+        this.setState(() => ({ password }));
     }
 
     onSubmit = (e) => {
 
         e.preventDefault();
 
-        if(!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName){
-            this.setState(() => ({error: "Please complete all required fields!"}));
-        }   
-        else{
+        if (!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName) {
+            this.setState(() => ({ error: "Please complete all required fields!" }));
+        }
+        else {
             axios.post('/users/', {
-                email:this.state.email,
-                password:this.state.password,
-                firstName:this.state.firstName,
-                lastName:this.state.lastName,
-                company:this.state.company
+                email: this.state.email,
+                password: this.state.password,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                company: this.state.company
             })
-            .then((response) => {
-                this.props.login({
-                    ...response.data,
-                    token: response.headers['x-auth']
+                .then((response) => {
+                    this.props.login({
+                        ...response.data,
+                        token: response.headers['x-auth']
+                    });
+                    //history.push("/");
+                })
+                .catch((error) => {
+                    this.setState(() => ({ error: "Could not register user" }));
                 });
-                //history.push("/");
-            })
-            .catch((error) => {                
-                this.setState(() => ({error: "Could not register user"}));
-            });
         }
     }
 
     render() {
-        return(
-
-            <div className='home-page'>
-                <div className="bg-video">
-                    <video className="bg-video__content" autoPlay muted loop>
-                        <source src="img/white-board.mp4" type="video/mp4" />
-                        <source src="img/white-board.webm" type="video/webm" />
-                        Your browser is not supported!
-                    </video>
-                </div>
-                <div className='home-page__form'>
-                    
-                    <h1 className='home-page__heading'>Welcome to <img src='img/addux-logo.png'/>!</h1>
-                    <h1 className='home-page__sub-heading'>Where we help you map the future of your business!</h1>
-
-                    {this.state.error && <Alert color='danger'>{this.state.error}</Alert>}
-                    <form className='form' onSubmit={this.onSubmit}>
-                        <div className='form__form-group'>
-                        <input 
-                            className='form__input'
-                            type="text"
-                            placeholder="First Name"
-                            value={this.state.firstName}
-                            onChange={this.onFirstNameChange}
-                        />
-                        </div>
-                        <div className='form__form-group'>
-                        <input 
-                            className='form__input'
-                            type="text"
-                            placeholder="Last Name"
-                            value={this.state.lastName}
-                            onChange={this.onLastNameChange}
-                        />
-                        </div>
-                        <div className='form__form-group'>
-                        <input 
-                            className='form__input'
-                            type="text"
-                            placeholder="Company(Optional)"
-                            value={this.state.company}
-                            onChange={this.onCompanyChange}
-                        />
-                        </div>
-                        <div className='form__form-group'>
-                        <input 
-                            className='form__input'
-                            type="email" 
-                            placeholder="Email"
-                            value={this.state.email}
-                            onChange = {this.onEmailChange}
-                        />
-                        </div>
-                        <div className='form__form-group'>
-                        <input 
-                            className='form__input'
-                            type="password" 
-                            placeholder="Password"
-                            value={this.state.password}
-                            onChange = {this.onPasswordChange}
-                        />
-                        </div>
-                        <button className='btn btn--full-width'>Sign up!</button>
-                    </form>
-                    <Link className='app-link' to='/login'>Already have an account?</Link>
-                </div>
+        return (
+            <div className='signup-page'>
+                <header className='sales-header'>
+                    <img src='/img/addux-logo.png' className='sales-header__logo' />
+                    <p className='sales-header__text'>Launch Special Ends - 12.14</p>
+                </header>
+                <Elements>
+                    <SignUpForm plan={this.props.match.params.plan.toUpperCase()}/>
+                </Elements>
             </div>
         );
     };

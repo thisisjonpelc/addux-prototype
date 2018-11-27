@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import { CardElement , injectStripe} from 'react-stripe-elements';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 import axios from 'axios';
 
 import { login } from "./../actions/auth";
@@ -19,7 +19,8 @@ class SignUpForm extends React.Component {
             company: '',
             email: '',
             password: '',
-            error: ''
+            error: '',
+            waiting: false
         }
     }
 
@@ -49,37 +50,55 @@ class SignUpForm extends React.Component {
     }
 
     onSubmit = (e) => {
+        console.log('Submitting new user data!');
+
         e.preventDefault();
 
-        this.props.stripe.createToken()
-            .then((token) => {
-                
-                if(token.error){
-                    this.setState(() => ({error: token.error.message, status:''}));
-                }
-                else{
-                    axios.post('/users',
-                        {
-                            firstName:this.state.firstName,
-                            lastName:this.state.lastName,
-                            company:this.state.lastName,
-                            password:this.state.password,
-                            email:this.state.email,
-                            token:token.token.id,
-                            plan: this.props.plan
-                        })
-                        .then((response) => {
-                            this.props.login({
-                                ...response.data,
-                                token: response.headers['x-auth']
+        if (!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName) {
+            this.setState(() => ({ error: "Please complete all required fields!" }));
+        }
+        else {
+
+            this.setState({
+                error:'',
+                waiting:true
+            });
+
+
+            this.props.stripe.createToken()
+                .then((token) => {
+
+                    if (token.error) {
+                        this.setState(() => ({ error: token.error.message, status: '' }));
+                    }
+                    else {
+                        axios.post('/users',
+                            {
+                                firstName: this.state.firstName,
+                                lastName: this.state.lastName,
+                                company: this.state.company,
+                                password: this.state.password,
+                                email: this.state.email,
+                                token: token.token.id,
+                                plan: this.props.plan
+                            })
+                            .then((response) => {
+                                this.props.login({
+                                    ...response.data,
+                                    token: response.headers['x-auth']
+                                });
+                                history.push('/');
+                            })
+                            .catch((err) => {
+                                //this.setState(() => ())
+                                this.setState(() => ({ error: 'That email address is already taken.', waiting:false }));
                             });
-                            history.push('/');
-                        });
-                }
-            })
-            .catch((err) => {
-                this.setState(() => ({error: 'Sorry! We couldn\'t sign you up right now.  Please try again later.'}));
-            })
+                    }
+                })
+                .catch((err) => {
+                    this.setState(() => ({ error: 'Sorry! We couldn\'t sign you up right now.  Please try again later.', waiting:false }));
+                });
+        }
     }
 
     render() {
@@ -136,7 +155,8 @@ class SignUpForm extends React.Component {
                 <div className='signup-page__description'>
 
                 </div>
-                <button className='btn btn--full-width'>Sign up!</button>
+                {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
+                <button className='btn btn--full-width' disabled={this.state.waiting}>{this.state.waiting ? (<img className='btn__loading' src='/img/loading.gif'/>): ('Sign Up')}</button>
                 <Link className='app-link' to='/login'>Already have an account?</Link>
             </form>
         );

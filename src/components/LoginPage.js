@@ -62,16 +62,9 @@ class LoginPage extends React.Component{
     render(){
         return(
             <div className='login-page'>
-                <div className="bg-video">
-                    <video className="bg-video__content" autoPlay muted loop>
-                        <source src="img/white-board.mp4" type="video/mp4" />
-                        <source src="img/white-board.webm" type="video/webm" />
-                        Your browser is not supported!
-                    </video>
-                </div>
                 <div className='login-page__form'>
-                    <h1 className='login-page__heading'>It's nice to see you again!</h1>
-                    {this.state.error && <p>{this.state.error}</p>}
+                    <img className='login-page__logo' src='/img/addux-logo.png' />
+                    {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
                     <form className='form' onSubmit={this.onSubmit}>
                         <div className='form__form-group'>
                             <input
@@ -93,10 +86,11 @@ class LoginPage extends React.Component{
                             />
                         </div>
                         
-                        <button className='btn'>Log in!</button>
+                        <button className='btn btn--full-width'>Log in!</button>
                     </form>
-                    <Link className='app-link' to='/'>Don't have an account?</Link>
-                    <Link className='app-link' to='/reset'>Forgot your password?</Link>
+                    <Link className='app-link login-page__link' to='/'>Don't have an account?</Link>
+                    <p className='login-page__or'> or </p>
+                    <Link className='app-link login-page__link' to='/reset'>Forgot your password?</Link>
                 </div>
             </div>
         );

@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = (props) => (
     <footer className="footer">
-        <a href='https://www.kajabi.com' target='_blank' className="footer__box">
+        <a href='https://adduxonline.mykajabi.com/login' target='_blank' className="footer__box">
             <span className="footer__text--light-gray">Access</span>&nbsp; Course
         </a>
         <a href='https://www.adduxonline.com/private-workshop' target='_blank' className="footer__box">

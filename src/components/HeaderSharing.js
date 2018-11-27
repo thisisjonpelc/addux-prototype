@@ -15,7 +15,6 @@ const HeaderSharing = (props) => {
                         
                         <div  className="info-box">
                             <h1 className="info-box__title">{props.activeAddux.name}</h1>
-                            <div className="info-box__progress-bar"></div>
                         </div>
                         
                 </header>

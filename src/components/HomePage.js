@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {history} from './../routers/AppRouter';
 
@@ -78,13 +79,21 @@ class HomePage extends React.Component{
                             </div>
                         </div>
 
+                        <Link className='loginButton' to='/login'>Login</Link>
+
                         <div className='blurb'>
                             <h2 className='blurb__heading'>
                                 Software, online training, interactive coaching and a resource library to help you simplify and grow.
                             </h2>
                             <div className='blurb__lists'>
                                     <h3 className='blurb__list-heading'>
-                                            Include in the addux Online System:
+                                            Included in the addux Online System:
+                                            <p className='blurb__list-heading--promo'>
+                                                For Enterprise Only: Launch Special 20 Users
+                                            </p>
+                                            <p className='blurb__list-heading--promo'>
+                                                (normally, $2997 for 10 users)
+                                            </p>
                                         </h3>
                                         <ul className='blurb__list'>
                                             <li>addux Software</li>

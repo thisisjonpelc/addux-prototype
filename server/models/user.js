@@ -106,6 +106,10 @@ UserSchema.methods.generateAuthToken = function(oldToken) {
 
     return user.save().then(() => {
         return token;
+    })
+    .catch((error) => {
+        console.log('THROWING ERROR!');
+        throw error;
     });
 };
 

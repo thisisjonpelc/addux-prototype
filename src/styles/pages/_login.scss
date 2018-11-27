@@ -11,7 +11,6 @@
         background-color:#F6F6F6;
         border:1px solid darken(#F6F6F6, 10%);
         max-width:40rem;
-        margin-left:5rem;
         padding:3rem;
         border-radius:.7rem;
         position: absolute;
@@ -20,12 +19,17 @@
         transform:translate(-50%, -50%);
         box-shadow:0px 3px 5px 5px rgba(50, 50, 50, 0.3);
         width:60%;
+
+        @include respond(tab-port){
+            width:80%;
+        }
     }
 
     &__logo{
         display:block;
         margin:0 auto;
         margin-bottom:1rem;
+        max-width:100%;
     }
 
     &__link{

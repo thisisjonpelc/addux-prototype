@@ -61,9 +61,9 @@ class LoginPage extends React.Component{
 
     render(){
         return(
-            <div className='login-page'>
-                <div className='login-page__form'>
-                    <img className='login-page__logo' src='/img/addux-logo.png' />
+            <div className='center-form-page'>
+                <div className='center-form-page__form'>
+                    <img className='center-form-page__logo' src='/img/addux-logo.png' />
                     {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
                     <form className='form' onSubmit={this.onSubmit}>
                         <div className='form__form-group'>
@@ -88,9 +88,9 @@ class LoginPage extends React.Component{
                         
                         <button className='btn btn--full-width'>Log in!</button>
                     </form>
-                    <Link className='app-link login-page__link' to='/'>Don't have an account?</Link>
-                    <p className='login-page__or'> or </p>
-                    <Link className='app-link login-page__link' to='/reset'>Forgot your password?</Link>
+                    <Link className='app-link center-form-page__link' to='/'>Don't have an account?</Link>
+                    <p className='center-form-page__or'> or </p>
+                    <Link className='app-link center-form-page__link' to='/reset'>Forgot your password?</Link>
                 </div>
             </div>
         );

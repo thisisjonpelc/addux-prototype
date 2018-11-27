@@ -716,6 +716,10 @@ body {
     margin-left: 1rem;
     font-size: 1.6rem; }
 
+.full-viewport {
+  height: 100vh;
+  width: 100%; }
+
 .app {
   height: 100vh;
   display: flex;
@@ -992,13 +996,13 @@ body {
         -o-transform: rotate(-5deg);
         transform: rotate(-5deg); }
 
-.login-page {
+.center-form-page {
   height: 100vh;
   width: 100%; }
-  .login-page__heading {
+  .center-form-page__heading {
     font-size: 3.9rem;
     margin-bottom: 1rem; }
-  .login-page__form {
+  .center-form-page__form {
     background-color: #F6F6F6;
     border: 1px solid #dddddd;
     max-width: 40rem;
@@ -1011,17 +1015,17 @@ body {
     box-shadow: 0px 3px 5px 5px rgba(50, 50, 50, 0.3);
     width: 60%; }
     @media only screen and (max-width: 56.25em) {
-      .login-page__form {
+      .center-form-page__form {
         width: 80%; } }
-  .login-page__logo {
+  .center-form-page__logo {
     display: block;
     margin: 0 auto;
     margin-bottom: 1rem;
     max-width: 100%; }
-  .login-page__link {
+  .center-form-page__link {
     display: block;
     text-align: center; }
-  .login-page__or {
+  .center-form-page__or {
     text-align: center;
     font-size: 1.6rem;
     margin: 1rem; }

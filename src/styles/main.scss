@@ -36,8 +36,10 @@
 @import 'components/loading-page';
 @import 'components/logout-button';
 
+@import 'layout/viewport';
+
 @import "pages/app";
 @import 'pages/home';
-@import 'pages/login';
+@import 'pages/center-form';
 @import 'pages/signup';
 

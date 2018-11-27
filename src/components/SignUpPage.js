@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Elements, injectStripe } from 'react-stripe-elements';
-import { Link } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import SignUpForm from './SignUpForm';
 
@@ -9,6 +9,12 @@ import { login } from "./../actions/auth";
 import { history } from "./../routers/AppRouter";
 
 const SignUpPage = (props) => {
+
+    if(props.match.params.plan !== 'enterprise' && props.match.params.plan !== 'individual'){
+       return (
+            <Redirect to='/' />
+       ); 
+    }
 
     return (
         <div className='signup-page' >

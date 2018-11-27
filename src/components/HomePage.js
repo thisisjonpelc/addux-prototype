@@ -10,28 +10,28 @@ class HomePage extends React.Component{
         super(props);
 
         this.state = {
-            monthly: false,
-            annual: false,
+            individual: false,
+            enterprise: false,
             showForm:false,
             error: ''
         }
     }
 
-    onMonthlyClick = () => {
+    onindividualClick = () => {
         this.setState((prevState) => {
             return {
-                monthly: !prevState.monthly,
-                annual:false,
+                individual: !prevState.individual,
+                enterprise:false,
                 error: ''
             }
         });
     }
 
-    onAnnualClick = () => {
+    onenterpriseClick = () => {
         this.setState((prevState) => {
             return {
-                monthly: false,
-                annual: !prevState.annual,
+                individual: false,
+                enterprise: !prevState.enterprise,
                 error: ''
             }
         });
@@ -41,13 +41,13 @@ class HomePage extends React.Component{
 
         console.log('Button clicked!');
 
-        if(!(this.state.monthly || this.state.annual)){
+        if(!(this.state.individual || this.state.enterprise)){
             this.setState(() => {
                 return {error: 'Please select a plan'}
             });
         }
         else{
-            history.push(`/signup/${this.state.monthly ? 'monthly' : 'annual'}`);
+            history.push(`/signup/${this.state.individual ? 'individual' : 'enterprise'}`);
         }
     }
 
@@ -98,7 +98,7 @@ class HomePage extends React.Component{
                                         <ul className='blurb__list'>
                                             <li>addux Software</li>
                                             <li>Online Training Course</li>
-                                            <li>Weekly Coaching Call For Your Team (Valued @ $2,500/Monthly)</li>
+                                            <li>Weekly Coaching Call For Your Team (Valued @ $2,500/individual)</li>
                                             <li>Weekly Call on how to best use addux</li>
                                     </ul>
                             
@@ -131,18 +131,18 @@ class HomePage extends React.Component{
 
 
                         <div className='choose-block__plans'>
-                            <div onClick={this.onMonthlyClick} className={`plan ${this.state.monthly ? 'plan--selected' : ''}`}>
+                            <div onClick={this.onindividualClick} className={`plan ${this.state.individual ? 'plan--selected' : ''}`}>
                                 <p className='plan__title'>
-                                    Monthly
+                                    individual
                                 </p>
                                 <p className='plan__price'>
                                     <span className='plan__price--strike'>$397</span>
                                     <span>$297</span>
                                 </p>
                             </div>
-                            <div onClick={this.onAnnualClick} className={`plan ${this.state.annual ? 'plan--selected' : ''}`}>
+                            <div onClick={this.onenterpriseClick} className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
                                 <p className='plan__title'>
-                                    Annual
+                                    enterprise
                                 </p>
                                 <p className='plan__price'>
                                     <span className='plan__price--strike'>$2,997</span>

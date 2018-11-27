@@ -69,7 +69,7 @@ class SignUpForm extends React.Component {
                 .then((token) => {
 
                     if (token.error) {
-                        this.setState(() => ({ error: token.error.message, status: '' }));
+                        this.setState(() => ({ error: token.error.message, waiting:false }));
                     }
                     else {
                         axios.post('/users',

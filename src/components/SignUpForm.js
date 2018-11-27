@@ -104,6 +104,7 @@ class SignUpForm extends React.Component {
     render() {
         return (
             <form className='signup-page__form form' onSubmit={this.onSubmit}>
+                <Link className='signup-page__back' to='/'>Go Back</Link>
                 <div className='form__form-group'>
                     <input
                         className='form__input'

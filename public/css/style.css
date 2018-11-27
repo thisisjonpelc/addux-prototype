@@ -422,7 +422,7 @@ body {
     background-color: #48636f; }
   .btn:disabled {
     cursor: default;
-    background-color: #7798A6; }
+    background-color: #96afba; }
   .btn--small {
     font-size: 1.6rem;
     padding: .7rem; }
@@ -441,6 +441,11 @@ body {
       background-color: #808344; }
     .btn--danger:active {
       background-color: #5f6133; }
+  .btn--cancel {
+    background-color: #A16267;
+    color: #FFFFFF; }
+    .btn--cancel:hover {
+      background-color: #824e52; }
 
 .user-panel {
   margin: 0 auto;
@@ -454,9 +459,11 @@ body {
   .new-card-form__card-element {
     margin-bottom: 1rem; }
 
-.card-panel__text {
-  font-size: 1.6rem;
-  margin-bottom: 1rem; }
+.card-panel {
+  margin-bottom: 2rem; }
+  .card-panel__text {
+    font-size: 1.6rem;
+    margin-bottom: 1rem; }
 
 .bg-video {
   position: absolute;
@@ -1034,4 +1041,30 @@ body {
   background-color: #E5E3E2;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 6rem 10rem; }
+  padding: 6rem 10rem;
+  box-shadow: 0px 3px 5px 5px rgba(50, 50, 50, 0.3); }
+
+.signup-page__description {
+  font-size: 2rem;
+  margin-bottom: 1.5rem; }
+
+.signup-page__price {
+  font-size: 4.5rem;
+  color: #A90001; }
+  .signup-page__price--strike {
+    color: black;
+    font-size: 3.5rem;
+    position: relative; }
+    .signup-page__price--strike:before {
+      position: absolute;
+      content: "";
+      left: 0;
+      top: 50%;
+      right: 0;
+      border-top: 2px solid;
+      border-color: #A90001;
+      -webkit-transform: rotate(-5deg);
+      -moz-transform: rotate(-5deg);
+      -ms-transform: rotate(-5deg);
+      -o-transform: rotate(-5deg);
+      transform: rotate(-5deg); }

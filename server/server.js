@@ -336,7 +336,7 @@ app.post('/users/reset/:token', async (req, res) => {
         if (!user) {
             res.status(404).send();
         }
-        else{
+        else {
             res.send(user);
         }
     }
@@ -380,37 +380,31 @@ app.patch('/users/subscribe', authenticate, subscribed, async (req, res) => {
 
     const user = req.user;
 
-    console.log('Plan to change to: ', req.body.plan);
+    //console.log('Plan to change to: ', req.body.plan);
 
     try {
         const customer = await stripe.customers.retrieve(
             user.customerId
         );
 
-        const subscription = await stripe.subscriptions.retrieve(customer.subscriptions.data[0].id);
+        //const subscription = await stripe.subscriptions.retrieve(customer.subscriptions.data[0].id);
 
-        const trial_end = subscription.trial_end ? subscription.trial_end : subscription.current_period_end;
-        const bonusPlan = subscription.items.data[0].plan.id === process.env.MONTHLY_BONUS_PLAN_ID || subscription.items.data[0].plan.id === process.env.ANNUAL_BONUS_PLAN_ID;
+        //const trial_end = subscription.trial_end ? subscription.trial_end : subscription.current_period_end;
+        //const bonusPlan = subscription.items.data[0].plan.id === process.env.MONTHLY_BONUS_PLAN_ID || subscription.items.data[0].plan.id === process.env.ANNUAL_BONUS_PLAN_ID;
 
-        let newPlan;
+        // let newPlan;
 
-        if (bonusPlan) {
-            newPlan = `${req.body.plan}_BONUS_PLAN_ID`;
-        }
-        else {
-            newPlan = `${req.body.plan}_PLAN_ID`;
-        }
+        // if (bonusPlan) {
+        //     newPlan = `${req.body.plan}_BONUS_PLAN_ID`;
+        // }
+        // else {
+        //     newPlan = `${req.body.plan}_PLAN_ID`;
+        // }
 
         await stripe.subscriptions.update(
-            subscription.id,
+            customer.subscriptions.data[0].id,
             {
-                trial_end: trial_end,
-                prorate: false,
                 cancel_at_period_end: false,
-                items: [{
-                    id: subscription.items.data[0].id,
-                    plan: process.env[newPlan]
-                }]
             }
         );
 
@@ -473,31 +467,31 @@ app.post("/users", async (req, res) => {
     console.log('POST /users');
     let addux;
     console.log('SENT DATA:', req.body);
+    let customerCreated = false;
+    let userCreated = false;
+    let adduxCreated = false;
+    let customer;
+    let user;
 
     try {
-        const customer = await stripe.customers.create({
+        customer = await stripe.customers.create({
             description: `${req.body.firstName} ${req.body.lastName}`,
             email: req.body.email,
             source: req.body.token
         });
 
-        const subscription = await stripe.subscriptions.create({
-            customer: customer.id,
-            items: [
-                {
-                    plan: process.env[`${req.body.plan}_LAUNCH_PLAN_ID`]
-                }
-            ]
-        });
+        customerCreated = true;
 
         var body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company']);
         console.log(body);
         body.masterUser = true;
         body.lastLogin = moment().unix();
         body.customerId = customer.id;
-        var user = new User(body);
+        user = new User(body);
 
         await user.save();
+
+        userCreated = true;
 
         const token = await user.generateAuthToken();
 
@@ -524,6 +518,8 @@ app.post("/users", async (req, res) => {
         addux.progress_comments = insertedComments[6]._id;
 
         addux.save();
+
+        adduxCreated = true;
 
         //TODO: Remove User's tokens and password before sending back
 
@@ -559,23 +555,52 @@ app.post("/users", async (req, res) => {
         transporter.sendMail(message, (err, info) => {
             if (err) {
                 console.log('Could not send email!');
-                res.status(400).send(err);
+                //res.status(400).send(err);
             }
             else {
                 console.log('Message sent!');
-                res.send(info);
+                //res.send(info);
             }
         });
 
         const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser']);
 
+        const subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [
+                {
+                    plan: process.env[`${req.body.plan}_LAUNCH_PLAN_ID`]
+                }
+            ]
+        });
+
         res.header("x-auth", token).send(cleanUser);
     }
     catch (e) {
-        //console.log('IN THE CATCH BLOCK');
+        console.log('IN THE CATCH BLOCK');
         console.log('Error: ', e);
-        //await user.remove();
-        //await addux.remove();
+        try {
+            if (customerCreated) {
+                console.log('Removing Customer');
+                await stripe.customers.del(
+                    customer.id
+                );
+            }
+
+            if (userCreated) {
+                console.log('Removing User');
+                await user.remove();
+            }
+
+            if (adduxCreated) {
+                console.log('Removing Addux');
+                await addux.remove();
+            }
+        }
+        catch (e2) {
+            console.log('Error in removing failed user registration data', e2);
+        }
+
         res.status(400).send(e);
     }
 });

@@ -83,33 +83,4 @@ class CardPanel extends React.Component{
     }
 }
 
-// <AppOverlay
-//                     isOpen={this.state.showNewCard}
-
-//                 <Modal
-//                         style = {{
-//                             overlay: {
-//                                 zIndex: 201
-//                             },
-//                             content:{
-//                                 top:'50%',
-//                                 left:'50%',
-//                                 transform: 'translate(-50%, -50%)',
-//                                 maxWidth:'30rem',
-//                                 height:'16rem'
-//                             }
-//                         }}
-//                         isOpen={this.state.showNewCardForm}
-//                         contentLabel='Select Your New Card'
-//                         onRequestClose={this.handleCloseModal}
-//                         shouldCloseOnOverlayClick={true}
-//                     >
-//                     <div className='card-element'>
-//                         <CardElement />
-//                     </div>
-//                     <button className='btn btn--full-width' onClick={this.onCardSubmit}>Update Your Credit Card</button>
-//                     {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
-//                     {this.state.status && <p className='alert alert--success'>{this.state.status}</p>}
-//                 </Modal>
-
 export default injectStripe(CardPanel);

@@ -60,8 +60,8 @@ class SignUpForm extends React.Component {
         else {
 
             this.setState({
-                error:'',
-                waiting:true
+                error: '',
+                waiting: true
             });
 
 
@@ -69,7 +69,7 @@ class SignUpForm extends React.Component {
                 .then((token) => {
 
                     if (token.error) {
-                        this.setState(() => ({ error: token.error.message, waiting:false }));
+                        this.setState(() => ({ error: token.error.message, waiting: false }));
                     }
                     else {
                         axios.post('/users',
@@ -91,12 +91,12 @@ class SignUpForm extends React.Component {
                             })
                             .catch((err) => {
                                 //this.setState(() => ())
-                                this.setState(() => ({ error: 'That email address is already taken.', waiting:false }));
+                                this.setState(() => ({ error: 'That email address is already in use.', waiting: false }));
                             });
                     }
                 })
                 .catch((err) => {
-                    this.setState(() => ({ error: 'Sorry! We couldn\'t sign you up right now.  Please try again later.', waiting:false }));
+                    this.setState(() => ({ error: 'Sorry! We couldn\'t sign you up right now.  Please try again later.', waiting: false }));
                 });
         }
     }
@@ -153,10 +153,16 @@ class SignUpForm extends React.Component {
                     <CardElement className='form__input' />
                 </div>
                 <div className='signup-page__description'>
-
+                    <p>You have selected the {this.props.plan} plan at:</p>
+                    {this.props.plan === 'INDIVIDUAL' 
+                        ? 
+                        (<p className='signup-page__price'><span className='signup-page__price--strike'>$397</span>$297 per year</p>) 
+                        : 
+                        (<p className='signup-page__price'><span className='signup-page__price--strike'>$2997</span>$1997 per year</p>)
+                    }
                 </div>
                 {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
-                <button className='btn btn--full-width' disabled={this.state.waiting}>{this.state.waiting ? (<img className='btn__loading' src='/img/loading.gif'/>): ('Sign Up')}</button>
+                <button className='btn btn--full-width' disabled={this.state.waiting}>{this.state.waiting ? (<img className='btn__loading' src='/img/loading.gif' />) : ('Sign Up')}</button>
                 <Link className='app-link' to='/login'>Already have an account?</Link>
             </form>
         );

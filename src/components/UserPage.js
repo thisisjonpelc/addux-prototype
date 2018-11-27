@@ -150,15 +150,13 @@ class UserPage extends React.Component {
         })
     }
 
-    onPlanClick = (plan) => {
+    onContinueClick = () => {
         axios.patch(
             '/users/subscribe',
-            {
-                plan: plan
-            },
+            {},
             {
                 headers:{
-                    'x-auth': this.props.auth.token
+                    'x-auth':this.props.auth.token
                 }
             }
         )
@@ -171,7 +169,7 @@ class UserPage extends React.Component {
         })
         .catch((error) => {
             console.log(error);
-        })
+        });
     }
 
     componentDidMount() {
@@ -241,7 +239,7 @@ class UserPage extends React.Component {
                                     :
                                     (<div>
                                         {this.state.stripeData==='WAITING' && <p>Waiting for subscription info</p>}
-                                        {this.state.stripeData==='RECEIVED' && <SubscriptionPanel onPlanClick={this.onPlanClick} onCancelClick={this.onCancelClick} customer={this.state.customer} token={this.props.auth.token}/>}
+                                        {this.state.stripeData==='RECEIVED' && <SubscriptionPanel onPlanClick={this.onPlanClick} onContinueClick={this.onContinueClick} onCancelClick={this.onCancelClick} customer={this.state.customer} token={this.props.auth.token}/>}
                                         {this.state.stripeData==='ERROR' && <p>Unable to receive Data</p>}
                                     </div>)
                                 )}

@@ -822,6 +822,9 @@ body {
   @media only screen and (max-width: 68.75em) {
     .sales-header {
       justify-content: center; } }
+  @media only screen and (max-width: 37.5em) {
+    .sales-header {
+      height: 25rem; } }
   .sales-header__logo {
     width: 22.7rem;
     display: inline-block; }
@@ -852,6 +855,22 @@ body {
 
 .banner {
   position: relative; }
+  .banner__login {
+    display: block;
+    text-align: right;
+    padding-top: 1rem;
+    padding-right: 2rem; }
+  .banner__button {
+    font-size: 2rem;
+    border: 1px solid #7898AD;
+    padding: 1rem;
+    text-decoration: none;
+    color: #7898AD; }
+    .banner__button:visited {
+      color: #7898AD; }
+    .banner__button:hover {
+      background-color: #7898AD;
+      color: #FFFFFF; }
   .banner__header {
     font-size: 7.4rem;
     font-weight: 100;

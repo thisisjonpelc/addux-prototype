@@ -70,6 +70,11 @@ class HomePage extends React.Component{
                                 </div>
                             </div>
 
+                            <div className='banner__login'>
+                                <Link className='banner__button' to='/login'>Login</Link>
+                            </div>
+                            
+
                             <h1 className='banner__header'>
                                 <img src='img/addux-logo.png'/> Online
                             </h1>
@@ -78,8 +83,6 @@ class HomePage extends React.Component{
 
                             </div>
                         </div>
-
-                        <Link className='loginButton' to='/login'>Login</Link>
 
                         <div className='blurb'>
                             <h2 className='blurb__heading'>

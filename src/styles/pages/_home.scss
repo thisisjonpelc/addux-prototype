@@ -16,7 +16,11 @@
 
     @media only screen and (max-width: 68.75em) { 
         justify-content:center;
-    }; 
+    };
+    
+    @include respond(phone){
+        height:25rem;
+    }
 
     &__logo{
         width:22.7rem;
@@ -56,6 +60,30 @@
 
 .banner{
     position:relative;
+
+    &__login{
+        display:block;
+        text-align:right;
+        padding-top:1rem;
+        padding-right:2rem;
+    }
+
+    &__button{
+        font-size:2rem;
+        border:1px solid #7898AD;
+        padding:1rem;
+        text-decoration: none;
+        color:#7898AD;
+
+        &:visited{
+            color:#7898AD;
+        }
+
+        &:hover{
+            background-color:#7898AD;
+            color:$white;
+        }
+    }
 
     &__header{
         font-size: 7.4rem;

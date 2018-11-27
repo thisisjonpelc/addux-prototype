@@ -16,7 +16,7 @@ class AccordionItem extends React.Component{
         super(props);
 
         
-        console.log(props);
+        //console.log(props);
 
         this.state ={
             text: props.activeAddux[`${props.category}_${props.number}`]

@@ -275,12 +275,16 @@
     }
 
     &__price{
-        font-size:4.5rem;
+        font-size:3.5rem;
         color:#A90001;
+
+        &--time{
+            font-size:1.5rem;
+        }
 
         &--strike{
             color:black;
-            font-size:3.5rem;
+            font-size:2.5rem;
             position:relative;
 
             &:before {

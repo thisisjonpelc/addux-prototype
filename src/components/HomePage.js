@@ -91,18 +91,12 @@ class HomePage extends React.Component{
                             <div className='blurb__lists'>
                                     <h3 className='blurb__list-heading'>
                                             Included in the addux Online System:
-                                            <p className='blurb__list-heading--promo'>
-                                                For Enterprise Only: Launch Special 20 Users
-                                            </p>
-                                            <p className='blurb__list-heading--promo'>
-                                                (normally, $2997 for 10 users)
-                                            </p>
                                         </h3>
                                         <ul className='blurb__list'>
                                             <li>addux Software</li>
                                             <li>Online Training Course</li>
                                             <li>Weekly Coaching Call For Your Team (Valued @ $2,500/individual)</li>
-                                            <li>Weekly Call on how to best use addux</li>
+                                            <li>Weekly Call on How to Best Use addux</li>
                                     </ul>
                             
                                     <h3 className='blurb__list-heading blurb__list-heading--offer'>
@@ -110,8 +104,8 @@ class HomePage extends React.Component{
                                         </h3>
                                         <ul className='blurb__list'>
                                             <li>Instant Access Quick Win Strategy Guide</li>
-                                            <li>addux Marketing Roadmap</li>
-                                            <li>Free 1hr. consultation call - Clarifying your opportunity in 2019</li>
+                                            <li>addux Social Media Marketing Roadmap</li>
+                                            <li>Free Strategy Consultation Call - Clarifying your opportunity in 2019</li>
                                             <li>Strategy Implementation Blueprint</li>
                                             <li>
                                                 RIA Club (Results in Advance)
@@ -140,7 +134,7 @@ class HomePage extends React.Component{
                                 </p>
                                 <p className='plan__price'>
                                     <span className='plan__price--strike'>$397</span>
-                                    <span>$297</span>
+                                    $297<span className='plan__price--time'>per year</span>
                                 </p>
                             </div>
                             <div onClick={this.onenterpriseClick} className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
@@ -149,7 +143,7 @@ class HomePage extends React.Component{
                                 </p>
                                 <p className='plan__price'>
                                     <span className='plan__price--strike'>$2,997</span>
-                                    <span>$1,997</span>
+                                    $1,997<span className='plan__price--time'>per year</span>
                                 </p>
                             </div>
                         </div>

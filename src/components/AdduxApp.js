@@ -189,14 +189,6 @@ class AdduxApp extends React.Component{
     }
 
     render(){
-
-        // if(this.state.redirectToSubscribePage){
-        //     console.log('Redirecting to Subscribe Page');
-        //     return (
-        //         <Redirect to='/subscribe' />
-        //     );
-        // }
-
         if(this.state.dataStatus === "WAITING"){
             return (
                 <LoadingPage testId='MainAppPage'/>

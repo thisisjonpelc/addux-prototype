@@ -1002,11 +1002,13 @@ body {
     font-size: 3rem;
     margin-bottom: 1rem; }
   .plan__price {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     color: #A90001; }
+    .plan__price--time {
+      font-size: 1.5rem; }
     .plan__price--strike {
       color: black;
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       position: relative; }
       .plan__price--strike:before {
         position: absolute;

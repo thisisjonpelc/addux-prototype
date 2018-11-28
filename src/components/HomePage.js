@@ -18,23 +18,29 @@ class HomePage extends React.Component{
     }
 
     onindividualClick = () => {
-        this.setState((prevState) => {
-            return {
-                individual: !prevState.individual,
-                enterprise:false,
-                error: ''
-            }
-        });
+        
+        history.push(`/signup/individual`);
+        
+        // this.setState((prevState) => {
+        //     return {
+        //         individual: !prevState.individual,
+        //         enterprise:false,
+        //         error: ''
+        //     }
+        // });
     }
 
     onenterpriseClick = () => {
-        this.setState((prevState) => {
-            return {
-                individual: false,
-                enterprise: !prevState.enterprise,
-                error: ''
-            }
-        });
+
+        history.push(`/signup/enterprise`);
+
+        // this.setState((prevState) => {
+        //     return {
+        //         individual: false,
+        //         enterprise: !prevState.enterprise,
+        //         error: ''
+        //     }
+        // });
     }
 
     onButtonClick = () => {
@@ -105,7 +111,7 @@ class HomePage extends React.Component{
                                         <ul className='blurb__list'>
                                             <li>Instant Access Quick Win Strategy Guide</li>
                                             <li>addux Social Media Marketing Roadmap</li>
-                                            <li>Free Strategy Consultation Call - Clarifying your opportunity in 2019</li>
+                                            <li>Free Strategy Consultation Call - Clarifying Your Opportunity in 2019</li>
                                             <li>Strategy Implementation Blueprint</li>
                                             <li>
                                                 RIA Club (Results in Advance)
@@ -125,10 +131,12 @@ class HomePage extends React.Component{
                     <div className='choose-block'>
 
                         {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
-
+                        <p className='choose-block__button'>
+                            GET THE SYSTEM
+                        </p>
 
                         <div className='choose-block__plans'>
-                            <div onClick={this.onindividualClick} className={`plan ${this.state.individual ? 'plan--selected' : ''}`}>
+                            <Link to='/signup/individual' className={`plan ${this.state.individual ? 'plan--selected' : ''}`}>
                                 <p className='plan__title'>
                                     individual
                                 </p>
@@ -136,8 +144,8 @@ class HomePage extends React.Component{
                                     <span className='plan__price--strike'>$397</span>
                                     $297<span className='plan__price--time'>per year</span>
                                 </p>
-                            </div>
-                            <div onClick={this.onenterpriseClick} className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
+                            </Link>
+                            <Link to='/signup/enterprise' onClick={this.onenterpriseClick} className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
                                 <p className='plan__title'>
                                     enterprise
                                 </p>
@@ -145,12 +153,8 @@ class HomePage extends React.Component{
                                     <span className='plan__price--strike'>$2,997</span>
                                     $1,997<span className='plan__price--time'>per year</span>
                                 </p>
-                            </div>
+                            </Link>
                         </div>
-
-                        <p onClick={this.onButtonClick} className='choose-block__button'>
-                            GET THE SYSTEM
-                        </p>
                     </div>
 
                 </div>

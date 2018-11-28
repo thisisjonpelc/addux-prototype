@@ -235,11 +235,6 @@
         padding:4rem 0;
         letter-spacing: 2px;
         margin-bottom:2rem;
-        cursor: pointer;
-
-        &:hover{
-            background-color: darken(#7898AD, 10%);
-        }
         
     }
 }
@@ -251,6 +246,11 @@
     cursor: pointer;
     transition:all .3s;
     box-shadow: 0 0 0 rgba(0,0,0,0.15);
+    text-decoration: none;
+
+    &:visited{
+        color:black;
+    }
 
 
     @include respond(phone){

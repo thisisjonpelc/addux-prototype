@@ -580,6 +580,25 @@ app.post("/users", async (req, res) => {
             ]
         });
 
+        const newUserMessageText = `New user: ${user.firstName} ${user.lastName} with email ${user.email} just signed up for addux Online.`;
+
+        const newUserMessage = {
+            from: process.env.EMAIL_USERNAME,
+            to: process.env.EMAIL_USERNAME,
+            subject:'New addux Online user',
+            message:newUserMessageText,
+            html:`<p>${newUserMessageText}</p>`
+        }
+
+        transporter.sendMail(message, (err, info) => {
+            if(err){
+                console.log('Could not send new user notification email');
+            }
+            else{
+                console.log('New user notification email sent');
+            }
+        });
+
         res.header("x-auth", token).send(cleanUser);
     }
     catch (e) {
@@ -677,7 +696,7 @@ app.post("/users/login", async (req, res) => {
         if (!body.email || !body.password) {
             console.log('No email or password attempting to login through token');
             const loginToken = req.header('x-auth');
-            console.log('Login Token: ', loginToken);
+            //console.log('Login Token: ', loginToken);
             user = await User.findByToken(loginToken);
 
             //console.log('USER: ', user);
@@ -707,7 +726,7 @@ app.post("/users/login", async (req, res) => {
     }
     catch (e) {
         console.log('Error: ', e);
-        console.log(e);
+        //console.log(e);
         res.status(400).send(e);
     }
 });

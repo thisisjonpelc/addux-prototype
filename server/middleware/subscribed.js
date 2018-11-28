@@ -16,9 +16,9 @@ const subscribed = async (req, res, next) => {
             const customer = await stripe.customers.retrieve(user.customerId);
             const subscriptions = customer.subscriptions.data;
     
-            console.log('Customer: ', customer);
+            //console.log('Customer: ', customer);
 
-            console.log('Subscriptions: ', subscriptions);
+            //console.log('Subscriptions: ', subscriptions);
 
             subscriptions.forEach((subscription) => {
                 if((subscription.plan.id === process.env.INDIVIDUAL_PLAN_ID || subscription.plan.id === process.env.ENTERPRISE_PLAN_ID || subscription.plan.id === process.env.INDIVIDUAL_LAUNCH_PLAN_ID || subscription.plan.id === process.env.ENTERPRISE_LAUNCH_PLAN_ID) && (subscription.status === 'active' || subscription.status === 'trialing')){

@@ -90,7 +90,7 @@ UserSchema.methods.generateAuthToken = function(oldToken) {
                 return true;
             }
         });
-        console.log('User Tokens after removal of old token: ', user.tokens);
+        //console.log('User Tokens after removal of old token: ', user.tokens);
         //user.removeToken(oldToken);
     }
 

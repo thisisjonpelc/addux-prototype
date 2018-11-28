@@ -64,7 +64,7 @@ class CardPanel extends React.Component{
         return (
             <div className='card-panel'>
                 <p className='card-panel__text'><span className='bold'>Current Card:</span> {`${this.props.card.brand} ending in ${this.props.card.last4}`}</p>
-                <button className='btn btn--small card-panel__button btn--danger btn--full-width' onClick={this.showNewCardForm}>{this.state.showNewCardForm ? 'Keep Current Card' :'Change Card'}</button>
+                <button className='btn btn--small card-panel__button btn--full-width' onClick={this.showNewCardForm}>{this.state.showNewCardForm ? 'Keep Current Card' :'Change Card'}</button>
 
                 {this.state.showNewCardForm 
                     && 

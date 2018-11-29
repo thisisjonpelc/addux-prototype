@@ -19,7 +19,9 @@ class AccordionItem extends React.Component{
         //console.log(props);
 
         this.state ={
-            text: props.activeAddux[`${props.category}_${props.number}`]
+            text: props.activeAddux[`${props.category}_${props.number}`],
+            showSuccess: false,
+            showFailure: false
         }
     }
 
@@ -48,6 +50,22 @@ class AccordionItem extends React.Component{
         )
         .then((response) => {
             this.props.editAddux(this.props.activeAddux._id, updates);
+        
+            this.setState(() => {
+                return {
+                    showSuccess:true
+                };
+            });
+
+            setTimeout(() => {
+                this.setState(() => {
+                    return {
+                        showSuccess:false
+                    }
+                })
+            },
+            1000);
+
         })
         .catch((e) => {
             if(e.response.status === 402){
@@ -61,6 +79,21 @@ class AccordionItem extends React.Component{
             }
             else{
                 console.log('Could not save to database!');
+
+                this.setState(() => {
+                    return {
+                        showFailure:true
+                    };
+                });
+    
+                setTimeout(() => {
+                    this.setState(() => {
+                        return {
+                            showFailure:false
+                        }
+                    })
+                },
+                1000);
             }
         });
     });
@@ -112,6 +145,8 @@ class AccordionItem extends React.Component{
                         value={this.state.text}
                         readOnly={this.props.readOnly}>
                     </textarea>
+                    <div className={`accordion__alert accordion__alert--success ${this.state.showSuccess ? '' : 'accordion__alert--hidden'}`}>Input saved</div>
+                    <div className={`accordion__alert accordion__alert--failure ${this.state.showFailure ? '' : 'accordion__alert--hidden'}`}>Failed to save input</div>
                 </div> 
             </div>
         );

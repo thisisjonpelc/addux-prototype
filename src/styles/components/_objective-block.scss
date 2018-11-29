@@ -8,7 +8,7 @@
     }
 
 
-    .objective-block__label{
+    &__label{
         background-color: #7798A6;
         font-size: 1.4rem;
         height: 2.5rem;
@@ -17,5 +17,37 @@
         border: 1px solid #e6e6e6;
         display: flex;
         align-items: center;
+    }
+
+    &__input{
+        position: relative;
+    }
+
+    &__alert{
+        border:1px solid;
+        position: absolute;
+        width:100%;
+        bottom:0px;
+        font-size:1rem;
+        padding:.5rem;
+        text-align:center;
+        transition:all .3s ease-in-out;
+        opacity:1;
+
+        &--success{
+            background-color:#D3ECD9;
+            color: #396F45;
+            border-color:#C4E6CB;
+        }
+
+        &--failure{
+            background-color:#F8D6D9;
+            color:#A16267;
+            border-color:#F5C5CA;
+        }
+
+        &--hidden{
+            opacity:0;
+        }
     }
 }

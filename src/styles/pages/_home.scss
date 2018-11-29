@@ -16,10 +16,13 @@
 
     @media only screen and (max-width: 68.75em) { 
         justify-content:center;
+        flex-direction: column;
+        flex-wrap:nowrap;
+        height:auto;
     };
     
     @include respond(phone){
-        height:25rem;
+        //height:25rem;
     }
 
     &__logo{
@@ -27,7 +30,7 @@
         display:inline-block;
 
         @media only screen and (max-width: 68.75em) { 
-            margin-bottom:1rem;
+            margin-bottom:2rem;
         }; 
     }
 
@@ -229,9 +232,8 @@
 
     &__button{
         width:100%;
-        background-color: #7898AD;
         font-size:3.8rem;
-        color:#FFFFFF;
+        color:#7898AD;
         padding:4rem 0;
         letter-spacing: 2px;
         margin-bottom:2rem;

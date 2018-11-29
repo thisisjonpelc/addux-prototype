@@ -4,6 +4,7 @@ import { Elements, injectStripe } from 'react-stripe-elements';
 import {Redirect} from 'react-router-dom';
 
 import SignUpForm from './SignUpForm';
+import SalesHeader from './SalesHeader';
 
 import { login } from "./../actions/auth";
 import { history } from "./../routers/AppRouter";
@@ -18,10 +19,7 @@ const SignUpPage = (props) => {
 
     return (
         <div className='signup-page' >
-            <header className='sales-header'>
-                <img src='/img/addux-logo.png' className='sales-header__logo' />
-                <p className='sales-header__text'>Launch Special Ends - 12.14</p>
-            </header>
+            <SalesHeader />
             <Elements>
                 <SignUpForm plan={props.match.params.plan.toUpperCase()} />
             </Elements>

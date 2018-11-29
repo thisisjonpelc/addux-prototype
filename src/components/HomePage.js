@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import {history} from './../routers/AppRouter';
-
+import SalesHeader from './SalesHeader';
 
 class HomePage extends React.Component{
 
@@ -62,10 +62,7 @@ class HomePage extends React.Component{
         
         return (
             <div className='sales-page'>
-                <header className='sales-header'>
-                    <img src='/img/addux-logo.png' className='sales-header__logo' />
-                    <p className='sales-header__text'>Launch Special Ends - 12.14</p>
-                </header>
+                <SalesHeader />
 
                 <div className='content'>
                     <div className='content-box'>

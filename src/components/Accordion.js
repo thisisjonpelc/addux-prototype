@@ -29,7 +29,7 @@ class Accordion extends React.Component{
         for(let i = 1; i<this.props.size+1; i++){
             result[i] = <AccordionItem 
                             linked={this.props.linked}
-                            key={`${this.props.activeAddux._id}-${i}-${this.props.openFields[i-1]}`} 
+                            key={`${this.props.activeAddux._id}-${i}`} 
                             category={this.props.category} 
                             number={i}
                             openFields={this.props.openFields}  
@@ -41,7 +41,7 @@ class Accordion extends React.Component{
         }
 
         return (
-            <div className="accordion">
+            <div onScroll={this.props.onScroll} className="accordion">
                 {result}
             </div>
         );

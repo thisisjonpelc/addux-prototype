@@ -146,6 +146,9 @@ class HomePage extends React.Component{
                                 <p className='plan__title'>
                                     enterprise
                                 </p>
+                                <p className='plan__extra'>
+                                    (Up to 10 users)
+                                </p>
                                 <p className='plan__price'>
                                     <span className='plan__price--strike'>$2,997</span>
                                     $1,997<span className='plan__price--time'>per year</span>

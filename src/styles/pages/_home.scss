@@ -254,6 +254,9 @@
         color:black;
     }
 
+    &__extra{
+        font-size:1.5rem;
+    }
 
     @include respond(phone){
         width:100%;

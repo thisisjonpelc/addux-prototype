@@ -1046,6 +1046,8 @@ body {
   text-decoration: none; }
   .plan:visited {
     color: black; }
+  .plan__extra {
+    font-size: 1.5rem; }
   @media only screen and (max-width: 37.5em) {
     .plan {
       width: 100%;

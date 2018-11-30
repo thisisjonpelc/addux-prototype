@@ -247,7 +247,7 @@ class AdduxApp extends React.Component{
                         isOpen={this.state.tutorialActive}
                         onRequestClose={this.changeTutorialActive}
                     >
-                        <VimeoVideo id={301701128} />
+                        <VimeoVideo id={303574328} />
                     </AppOverlay>
 
                     {!this.props.empty 

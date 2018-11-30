@@ -35,13 +35,13 @@ class ProtectedRouter extends React.Component {
     
      componentDidMount(){
 
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        // const vh = window.innerHeight * 0.01;
+        // document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-        window.addEventListener('resize', debounce(100, () => {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }));
+        // window.addEventListener('resize', debounce(100, () => {
+        //     let vh = window.innerHeight * 0.01;
+        //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+        // }));
 
         if(window.location.href.indexOf('share') === -1 && window.location.href.indexOf('comment') === -1){
 

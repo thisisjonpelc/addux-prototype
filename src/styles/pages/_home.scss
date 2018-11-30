@@ -249,9 +249,10 @@
     transition:all .3s;
     box-shadow: 0 0 0 rgba(0,0,0,0.15);
     text-decoration: none;
+    color:$black;
 
     &:visited{
-        color:black;
+        color:$black;
     }
 
     &__extra{

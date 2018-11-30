@@ -5,6 +5,7 @@
     top: 0;
     left:-30rem;
     height:100vh;
+    height: calc(var(--vh, 1vh) * 100);
     z-index:200;
 
     display:flex;

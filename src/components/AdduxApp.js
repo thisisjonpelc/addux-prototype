@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import axios from "axios";
 import $ from 'jquery';
 import Modal from 'react-modal';
+import {debounce} from 'throttle-debounce';
 
 import Header from "./Header";
 import Columns from "./Columns";

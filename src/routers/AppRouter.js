@@ -4,6 +4,7 @@ import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import {StripeProvider} from 'react-stripe-elements';
 import axios from 'axios';
+import {debounce} from 'throttle-debounce';
 
 import AdduxWrapper from "../components/AdduxWrapper";
 import LoginPage from "../components/LoginPage";
@@ -33,6 +34,14 @@ class ProtectedRouter extends React.Component {
     }
     
      componentDidMount(){
+
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        window.addEventListener('resize', debounce(100, () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }));
 
         if(window.location.href.indexOf('share') === -1 && window.location.href.indexOf('comment') === -1){
 

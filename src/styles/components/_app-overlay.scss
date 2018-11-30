@@ -3,6 +3,7 @@
     top:0px;
     left:0px;
     height:100vh;
+    height: calc(var(--vh, 1vh) * 100);
     width:100%;
     background-color: rgba($white, .75);
     z-index:101;
@@ -10,9 +11,6 @@
     align-items:center;
     justify-content: center;
     padding:0 1rem;
-
-    
-
 
     &__content{
         background-color:$white;    

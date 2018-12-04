@@ -1,8 +1,4 @@
 import React from "react";
-import {connect} from "react-redux";
-import Modal from "react-modal";
-import YouTube from "react-youtube";
-import Vimeo from 'react-vimeo';
 import $ from 'jquery';
 
 import AppOverlay from './AppOverlay';
@@ -13,8 +9,6 @@ import {labels} from "../constants/constants";
 class ColumnHeader extends React.Component{
     constructor(props){
         super(props);
-
-        Modal.setAppElement('#app');
 
         this.state = {
             showVideo: false

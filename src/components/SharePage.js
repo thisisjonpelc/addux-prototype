@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-//import html2canvas from 'html2canvas-render-offscreen';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import html2pdf from 'html2pdf.js';
 
 class SharePage extends React.Component{
     constructor(props){

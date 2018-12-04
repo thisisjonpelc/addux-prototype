@@ -1,5 +1,4 @@
 import React from "react";
-import Modal from "react-modal";
 import {connect} from 'react-redux';
 import axios from 'axios';
 
@@ -7,14 +6,13 @@ import axios from 'axios';
 import AdduxNameForm from "./AdduxNameForm";
 import {addAddux, setActive} from "./../actions/addux";
 import {logout} from './../actions/auth';
+import AppOverlay from './AppOverlay';
 
 class Header extends React.Component{
     
     constructor(props){
         super(props);
-
-        Modal.setAppElement('#app');
-
+        
         this.state = {
             createModal : false,
             editModal: false
@@ -126,14 +124,12 @@ class Header extends React.Component{
                         
                 </header>
 
-                <Modal
+                <AppOverlay
                     isOpen={this.state.editModal}
-                    contentLabel="Change Your Addux's name"
                     onRequestClose={this.handleCloseModal}
-                    shouldCloseOnOverlayClick={true}
                 >
                     <AdduxNameForm addux={this.props.activeAddux} buttonText='Edit your Addux' onSubmit={this.createNewModal}/>
-                </Modal>
+                </AppOverlay>
                 
             </div>
         );

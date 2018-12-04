@@ -1,10 +1,6 @@
 import React from 'react';
-import Modal from 'react-modal';
 import {CardElement, injectStripe} from 'react-stripe-elements';
 import axios from 'axios';
-
-import AppOverlay from './AppOverlay';
-
 
 
 class CardPanel extends React.Component{

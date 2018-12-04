@@ -2,25 +2,25 @@ const path = require('path');
 
 
 module.exports = {
-    entry: './src/app.js',
+    entry: {
+        bundle: './src/app.js',
+        // share: './src/components/SharePage.js'
+    },
     output:{
         path: path.join(__dirname, 'public'),
-        filename:'bundle.js'
+        filename:'[name].js'
     },
+    // optimization:{
+    //     splitChunks:{
+    //         chunks:'all'
+    //     }
+    // },
     module:{
         rules:[{
             loader: 'babel-loader',
             test: /\.js$/,
             exclude: /node_modules/
         },
-        // {
-        //     test: /\.scss$/,
-        //     use: [
-        //         'style-loader',
-        //         'css-loader',
-        //         'sass-loader'
-        //     ]
-        // },
         {
             test: /\.css$/,
             loaders: [
@@ -29,7 +29,7 @@ module.exports = {
             ]
         }]
     },
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     devServer:{
         contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true

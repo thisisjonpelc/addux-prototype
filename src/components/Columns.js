@@ -211,68 +211,6 @@ class Columns extends React.Component {
     });
   }
 
-
-  onAccordionScroll = (e) => {
-   
-    // console.log('scrolling!');
-    // console.log(e.target.scrollTop);
-
-    // const accordions = document.querySelectorAll('.accordion');
-
-    // accordions.forEach((accordion) => {
-    //   accordion.scrollTop=e.target.scrollTop;
-    // });
-
-    // for(let i = 1; i < accordions.length; i++){
-
-
-
-
-
-    //   if(accordions[i] === e.target){
-    //     if(!this.state.syncingScroll[i]){
-          
-    //       this.setState(() => {
-    //         const syncingScroll = [true, true, true, true, true];
-
-    //         syncingScroll[i] = false;
-
-    //         return {
-    //           syncingScroll
-    //         };
-    //       });
-          
-    //       for(let j = 1; j < accordions.length; j++){
-
-    //         if(accordions[j] !== e.target){
-    //           accordions[j].scrollTop = e.target.scrollTop;
-    //         }
-
-    //       }
-    //     }
-
-        // this.setState((prevState) => {
-          
-        //   const newState = prevState.syncingScroll;
-          
-        //   newState[i]=false;
-
-        //   return{
-        //     syncingScroll: newState
-        //   }
-        // });
-      //}
-    }
-  
-
-  componentDidMount() {
-    // const accordions = $('.accordion').not(':first');
-
-    // accordions.scroll(function () {
-    //   accordions.scrollTop($(this).scrollTop());
-    // });
-  }
-
   render() {
 
     return (

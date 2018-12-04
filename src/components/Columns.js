@@ -14,7 +14,11 @@ class Columns extends React.Component {
     super(props);
 
     this.state = {
-      syncingScroll: [false, false, false, false, false]
+      isCol1Syncing: false,
+      isCol2Syncing: false,
+      isCol3Syncing: false,
+      isCol4Syncing: false,
+      isCol5Syncing: false
     }
   }
 
@@ -57,13 +61,173 @@ class Columns extends React.Component {
     }
   }
 
+  projectColumnScroll = (e) => {
+    const accordions = document.querySelectorAll('.accordion');
+    
+    if(!this.state.isCol1Syncing){
+      this.setState(() => {
+        return {
+          isCol2Syncing: true,
+          isCol3Syncing:true,
+          isCol4Syncing:true,
+          isCol5Syncing:true
+        }
+      });
+
+      for(let i = 1; i < accordions.length; i++){
+        if(accordions[i] !== e.target){
+          accordions[i].scrollTop = e.target.scrollTop;
+        }
+        else{
+          console.log('Do not scroll this one');
+        }
+      }
+    }
+
+    this.setState(() => {
+      return {
+        isCol1Syncing:false
+      }
+    });
+  }
+
+  timelinesColumnScroll = (e) => {
+    const accordions = document.querySelectorAll('.accordion');
+    
+    if(!this.state.isCol2Syncing){
+      this.setState(() => {
+        return {
+          isCol1Syncing: true,
+          isCol3Syncing:true,
+          isCol4Syncing:true,
+          isCol5Syncing:true
+        }
+      });
+
+      for(let i = 1; i < accordions.length; i++){
+        if(accordions[i] !== e.target){
+          accordions[i].scrollTop = e.target.scrollTop;
+        }
+        else{
+          console.log('Do not scroll this one');
+        }
+      }
+    }
+
+    this.setState(() => {
+      return {
+        isCol2Syncing:false
+      }
+    });
+  }
+
+  projectOwnerColumnScroll = (e) => {
+    const accordions = document.querySelectorAll('.accordion');
+    
+    if(!this.state.isCol3Syncing){
+      this.setState(() => {
+        return {
+          isCol1Syncing: true,
+          isCol2Syncing:true,
+          isCol4Syncing:true,
+          isCol5Syncing:true
+        }
+      });
+
+      for(let i = 1; i < accordions.length; i++){
+        if(accordions[i] !== e.target){
+          accordions[i].scrollTop = e.target.scrollTop;
+        }
+        else{
+          console.log('Do not scroll this one');
+        }
+      }
+    }
+
+    this.setState(() => {
+      return {
+        isCol3Syncing:false
+      }
+    });
+  }
+
+  resourcesColumnScroll = (e) => {
+    const accordions = document.querySelectorAll('.accordion');
+    
+    if(!this.state.isCol4Syncing){
+      this.setState(() => {
+        return {
+          isCol1Syncing: true,
+          isCol2Syncing:true,
+          isCol3Syncing:true,
+          isCol5Syncing:true
+        }
+      });
+
+      for(let i = 1; i < accordions.length; i++){
+        if(accordions[i] !== e.target){
+          accordions[i].scrollTop = e.target.scrollTop;
+        }
+        else{
+          console.log('Do not scroll this one');
+        }
+      }
+    }
+
+    this.setState(() => {
+      return {
+        isCol4Syncing:false
+      }
+    });
+  }
+
+  progressColumnScroll = (e) => {
+    const accordions = document.querySelectorAll('.accordion');
+    
+    if(!this.state.isCol5Syncing){
+      this.setState(() => {
+        return {
+          isCol1Syncing: true,
+          isCol2Syncing:true,
+          isCol3Syncing:true,
+          isCol4Syncing:true
+        }
+      });
+
+      for(let i = 1; i < accordions.length; i++){
+        if(accordions[i] !== e.target){
+          accordions[i].scrollTop = e.target.scrollTop;
+        }
+        else{
+          console.log('Do not scroll this one');
+        }
+      }
+    }
+
+    this.setState(() => {
+      return {
+        isCol5Syncing:false
+      }
+    });
+  }
+
+
   onAccordionScroll = (e) => {
+   
     // console.log('scrolling!');
     // console.log(e.target.scrollTop);
 
     // const accordions = document.querySelectorAll('.accordion');
 
+    // accordions.forEach((accordion) => {
+    //   accordion.scrollTop=e.target.scrollTop;
+    // });
+
     // for(let i = 1; i < accordions.length; i++){
+
+
+
+
 
     //   if(accordions[i] === e.target){
     //     if(!this.state.syncingScroll[i]){
@@ -87,26 +251,26 @@ class Columns extends React.Component {
     //       }
     //     }
 
-    //     this.setState((prevState) => {
+        // this.setState((prevState) => {
           
-    //       const newState = prevState.syncingScroll;
+        //   const newState = prevState.syncingScroll;
           
-    //       newState[i]=false;
+        //   newState[i]=false;
 
-    //       return{
-    //         syncingScroll: newState
-    //       }
-    //     });
-    //   }
-    // }
-  }
+        //   return{
+        //     syncingScroll: newState
+        //   }
+        // });
+      //}
+    }
+  
 
   componentDidMount() {
-    const accordions = $('.accordion').not(':first');
+    // const accordions = $('.accordion').not(':first');
 
-    accordions.scroll(function () {
-      accordions.scrollTop($(this).scrollTop());
-    });
+    // accordions.scroll(function () {
+    //   accordions.scrollTop($(this).scrollTop());
+    // });
   }
 
   render() {
@@ -217,7 +381,7 @@ class Columns extends React.Component {
                   activeAddux={this.props.activeAddux}
                   category={'projects'}
                   readOnly={this.props.readOnly}
-                  onScroll={this.onAccordionScroll}
+                  onScroll={this.projectColumnScroll}
                 />
 
                 {
@@ -255,7 +419,7 @@ class Columns extends React.Component {
                   activeAddux={this.props.activeAddux}
                   category={'timelines'}
                   readOnly={this.props.readOnly}
-                  onScroll={this.onAccordionScroll}
+                  onScroll={this.timelinesColumnScroll}
                 />
 
                 {
@@ -293,7 +457,7 @@ class Columns extends React.Component {
                   activeAddux={this.props.activeAddux}
                   category={'projectOwner'}
                   readOnly={this.props.readOnly}
-                  onScroll={this.onAccordionScroll}
+                  onScroll={this.projectOwnerColumnScroll}
                 />
 
                 {
@@ -331,7 +495,7 @@ class Columns extends React.Component {
                   activeAddux={this.props.activeAddux}
                   category={'resources'}
                   readOnly={this.props.readOnly}
-                  onScroll={this.onAccordionScroll}
+                  onScroll={this.resourcesColumnScroll}
                 />
 
                 {
@@ -369,7 +533,7 @@ class Columns extends React.Component {
                   activeAddux={this.props.activeAddux}
                   category={'progress'}
                   readOnly={this.props.readOnly}
-                  onScroll={this.onAccordionScroll}
+                  onScroll={this.progressColumnScroll}
                 />
 
                 {

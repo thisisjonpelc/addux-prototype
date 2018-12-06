@@ -550,6 +550,17 @@ app.post("/users", async (req, res) => {
 
         const htmlContent = `<p>${messageText.join('</p><p>')}</p>`;
 
+        const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser']);
+
+        const subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [
+                {
+                    plan: process.env[`${req.body.plan}_LAUNCH_PLAN_ID`]
+                }
+            ]
+        });
+
         const message = {
             from: process.env.EMAIL_USERNAME,
             to: user.email,
@@ -569,18 +580,7 @@ app.post("/users", async (req, res) => {
             }
         });
 
-        const cleanUser = _.pick(user, ['isAdmin', '_id', 'email', 'firstName', 'lastName', 'company', 'masterUser']);
-
-        const subscription = await stripe.subscriptions.create({
-            customer: customer.id,
-            items: [
-                {
-                    plan: process.env[`${req.body.plan}_LAUNCH_PLAN_ID`]
-                }
-            ]
-        });
-
-        const newUserMessageText = `New user: ${user.firstName} ${user.lastName} with email ${user.email} just signed up for addux Online.`;
+        const newUserMessageText = `New user: ${user.firstName} ${user.lastName} with email ${user.email} just signed up for addux Online as a Enterprise (master) user.`;
 
         const newUserMessage = {
             from: process.env.EMAIL_USERNAME,
@@ -590,7 +590,7 @@ app.post("/users", async (req, res) => {
             html:`<p>${newUserMessageText}</p>`
         }
 
-        transporter.sendMail(message, (err, info) => {
+        transporter.sendMail(newUserMessage, (err, info) => {
             if(err){
                 console.log('Could not send new user notification email');
             }

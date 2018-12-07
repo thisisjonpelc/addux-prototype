@@ -100,8 +100,8 @@ class LoginPage extends React.Component {
                 
                     <div className='bg-video'>
                         <video className='bg-video__video' autoPlay muted loop>
-                            <source src='img/white-board.mp4' type='video/mp4' />
-                            <source src='img/white-board.webm' type='video/webm' />
+                            <source src='/img/white-board.mp4' type='video/mp4' />
+                            <source src='/img/white-board.webm' type='video/webm' />
                         </video>
                         <div className='bg-video__image'>
 

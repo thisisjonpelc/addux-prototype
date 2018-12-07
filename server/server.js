@@ -383,9 +383,7 @@ app.patch('/users/subscribe', authenticate, subscribed, async (req, res) => {
     //console.log('Plan to change to: ', req.body.plan);
 
     try {
-        const customer = await stripe.customers.retrieve(
-            user.customerId
-        );
+        const customer = req.customer;
 
         //const subscription = await stripe.subscriptions.retrieve(customer.subscriptions.data[0].id);
 
@@ -428,15 +426,13 @@ app.delete('/users/subscribe', authenticate, subscribed, async (req, res) => {
     const user = req.user;
 
     try {
-        const customer = await stripe.customers.retrieve(
-            user.customerId
-        );
+        const customer = req.customer;
 
-        console.log(customer);
+        //console.log(customer);
 
         const subscription = customer.subscriptions.data[0];
 
-        console.log(subscription);
+        //console.log(subscription);
 
         if (!subscription.cancel_at_period_end) {
             console.log('The sub wasn\'t set to cancel');

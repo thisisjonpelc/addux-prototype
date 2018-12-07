@@ -28,6 +28,7 @@ const subscribed = async (req, res, next) => {
     
             if(subscribed){
                 console.log(`User ${user._id} is subscribed`);
+                req.customer = customer;
                 next();
             }
             else{

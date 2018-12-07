@@ -124,7 +124,7 @@ class UserPage extends React.Component {
 
         }
         else{
-            this.setState(() => ({formError: 'First Name, Last Name, and Email are required'}));
+            this.setState(() => ({formError: 'First Name, Last Name, and Email are required', formStatus: ''}));
         }
 
     }
@@ -201,8 +201,8 @@ class UserPage extends React.Component {
                 <div className='user-panel'>
                     <div className='user-panel__info'>
                         <h1 className='primary-heading'>User Info</h1>
-                        {this.state.formError && <p>{this.state.formError}</p>}
-                        {this.state.formStatus && <p>{this.state.formStatus}</p>}
+                        {this.state.formError && <p className='alert alert--failure'>{this.state.formError}</p>}
+                        {this.state.formStatus && <p  className='alert alert--success'>{this.state.formStatus}</p>}
                         <form className='form' onSubmit={this.onUserInfoSubmit}>
                             <div className='form__form-group'>
                                 <label htmlFor='firstName'>First Name</label>

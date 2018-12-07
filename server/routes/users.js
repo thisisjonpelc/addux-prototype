@@ -179,7 +179,7 @@ router.delete('/users/subscribe', authenticate, subscribed, async (req, res) => 
 
             const result = await stripe.customers.retrieve(
                 user.customerId
-            )
+            );
 
             res.send(result);
         }
@@ -406,34 +406,6 @@ router.post("/users/login", async (req, res) => {
         console.log('Error: ', e);
         //console.log(e);
         res.status(400).send(e);
-    }
-});
-
-router.delete("/users/me/token", authenticate, async (req, res) => {
-
-    console.log('DELETE /users/me/token');
-
-    try {
-        await req.user.removeToken(req.Token);
-        res.status(200).send();
-    }
-    catch (e) {
-        console.log('Error: ', e);
-        res.status(400).send();
-    }
-});
-
-router.get("/users/me/token", authenticate, async (req, res) => {
-
-    console.log('GET /users/me/token');
-
-    try {
-        const token = await req.user.generateAuthToken(req.token);
-        res.header("x-auth", token).send(req.user);
-    }
-    catch (e) {
-        console.log('Error: ', e);
-        res.status(400).send();
     }
 });
 

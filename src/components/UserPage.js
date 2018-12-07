@@ -115,6 +115,7 @@ class UserPage extends React.Component {
                     history.push('/login');
                 }
                 else{
+                    console.log(e);
                     this.setState(() => ({
                         formStatus: '',
                         formError: e.message

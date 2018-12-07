@@ -97,7 +97,7 @@ UserSchema.methods.generateAuthToken = function(oldToken) {
     user.removeExpiredTokens();
 
     const options = {
-        expiresIn: '12h'
+        expiresIn: '30d'
     };
 
     var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRET, options).toString();

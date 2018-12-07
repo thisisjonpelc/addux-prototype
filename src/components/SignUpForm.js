@@ -19,6 +19,7 @@ class SignUpForm extends React.Component {
             company: '',
             email: '',
             password: '',
+            checked: false,
             error: '',
             waiting: false
         }
@@ -49,6 +50,10 @@ class SignUpForm extends React.Component {
         this.setState(() => ({ password }));
     }
 
+    onCheckChange = (e) => {
+        this.setState((prevState) => ({checked: !prevState.checked}));
+    }
+
     onSubmit = (e) => {
         console.log('Submitting new user data!');
 
@@ -56,6 +61,9 @@ class SignUpForm extends React.Component {
 
         if (!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName) {
             this.setState(() => ({ error: "Please complete all required fields!" }));
+        }
+        else if(!this.state.checked){
+            this.setState(() => ({error: 'You must agree to the Terms and Conditions and Privacy Policy'}));
         }
         else {
 
@@ -161,6 +169,12 @@ class SignUpForm extends React.Component {
                         : 
                         (<p className='signup-page__price'><span className='signup-page__price--strike'>$2997</span>$1997 per year</p>)
                     }
+                </div>
+                <div className='signup-page__agreement'>
+                    <input  className='signup-page__checkbox' onChange={this.onCheckChange} type='checkbox' checked={this.state.checked} />
+                    <label>
+                        I agree to the addux Online <a className='app-link app-link--bold' href='https://www.cypressresources.com/terms' target='_blank'>Terms and Conditions</a> and <a className='app-link app-link--bold' href='https://www.cypressresources.com/privacy-policy' target='_blank'>Privacy Policy</a>
+                    </label>
                 </div>
                 {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
                 <button className='btn btn--full-width' disabled={this.state.waiting}>{this.state.waiting ? (<img className='btn__loading' src='/img/loading.gif' />) : ('Sign Up')}</button>

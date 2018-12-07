@@ -629,6 +629,8 @@ app.post("/users", async (req, res) => {
 app.patch('/users/subordinate', async (req, res) => {
 
     console.log('Adding subordinate user');
+    let userCreated = false;
+    let adduxCreated = false;
 
     try {
         const body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'company', 'customerId', 'isAdmin']);
@@ -637,7 +639,7 @@ app.patch('/users/subordinate', async (req, res) => {
         user.lastLogin = moment().unix();
 
         await user.save();
-
+        userCreated = true;
         const token = user.generateAuthToken();
 
         const addux = new Addux({
@@ -663,7 +665,7 @@ app.patch('/users/subordinate', async (req, res) => {
         addux.progress_comments = insertedComments[6]._id;
 
         addux.save();
-
+        adduxCreated = true;
 
         //const messageText = `Hi ${user.firstName}!  A password reset was requested for your Addux account.  Please visit https://${req.headers.host}/reset/${passwordReset} to create a new password. This link will expire in 4 hours`;
         const messageText = [];
@@ -736,8 +738,15 @@ app.patch('/users/subordinate', async (req, res) => {
     }
     catch (error) {
         console.log('Error: ', error);
-        await user.remove();
-        await addux.remove();
+
+        if(userCreated){
+            await user.remove();
+        }
+
+        if(adduxCreated){
+            await addux.remove();            
+        }
+
         res.status(400).send(error);
     }
 

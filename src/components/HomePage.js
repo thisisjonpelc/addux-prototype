@@ -102,7 +102,7 @@ class LoginPage extends React.Component {
                         <video className='bg-video__video' autoPlay muted loop>
                             <source src='/img/White-Board.mp4' type='video/mp4' />
                             <source src='/img/White-Board.webm' type='video/webm' />
-                        </video>g
+                        </video>
                         <div className='bg-video__image'>
 
                         </div>

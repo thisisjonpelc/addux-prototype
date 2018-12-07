@@ -1,4 +1,6 @@
 .notes{
+    display:flex;
+    flex-direction:column;
     width:50rem;
     position:absolute;
     background-color:$white;
@@ -31,6 +33,11 @@
         &:hover{
             fill:$black;
         }
+    }
+
+    &__editor{
+        margin-top:5rem;
+        overflow:auto;
     }
 
     &--active{

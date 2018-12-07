@@ -81,6 +81,7 @@ class Notes extends React.Component{
                 <RichTextEditor
                     value={this.state.value}
                     onChange={this.onChange}
+                    className='notes__editor'
                     placeholder='Place your notes here...'
                 />
             </div>

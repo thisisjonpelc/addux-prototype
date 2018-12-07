@@ -7,13 +7,11 @@ import axios from 'axios';
 import {debounce} from 'throttle-debounce';
 
 import AdduxWrapper from "../components/AdduxWrapper";
-import LoginPage from "../components/HomePage";
 import SubscribePage from './../components/SubscribePage';
 import ResetRequestPage from './../components/ResetRequestPage';
 import ResetPasswordPage from './../components/ResetPasswordPage';
 import LoadingPage from './../components/LoadingPage';
 import ShareAddux from './../components/ShareAddux';
-import TestPage from './../components/TestPage';
 import SalesPage2018 from './../components/SalesPage2018';
 
 import {login} from './../actions/auth';

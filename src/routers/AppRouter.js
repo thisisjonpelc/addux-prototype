@@ -7,13 +7,14 @@ import axios from 'axios';
 import {debounce} from 'throttle-debounce';
 
 import AdduxWrapper from "../components/AdduxWrapper";
-import LoginPage from "../components/LoginPage";
+import LoginPage from "../components/HomePage";
 import SubscribePage from './../components/SubscribePage';
 import ResetRequestPage from './../components/ResetRequestPage';
 import ResetPasswordPage from './../components/ResetPasswordPage';
 import LoadingPage from './../components/LoadingPage';
 import ShareAddux from './../components/ShareAddux';
 import TestPage from './../components/TestPage';
+import SalesPage2018 from './../components/SalesPage2018';
 
 import {login} from './../actions/auth';
 
@@ -116,8 +117,8 @@ class ProtectedRouter extends React.Component {
                             <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
                             <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
                             <PrivateRoute path="/subscribe" component={SubscribePage} />
+                            <PublicRoute path='/offer/2018' component={SalesPage2018} />
                             <PublicRoute path='/signup/:plan' component={SignUpPage} />
-                            <PublicRoute path="/login" component={LoginPage} />
                             <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
                             <PublicRoute path='/reset/:token' component={ResetPasswordPage} />
                             <Redirect to="/" />

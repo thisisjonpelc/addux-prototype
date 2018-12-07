@@ -4,10 +4,11 @@ import axios from 'axios';
 
 import AdduxApp from "./AdduxApp";
 import SignUpPage from "./SignUpPage";
-import HomePage from './HomePage';
+import SalesPage2018 from './SalesPage2018';
+import LoginPage from './HomePage';
 
 const AdduxWrapper = (props) => {
-        return props.isAuthenticated ? (<AdduxApp />) : (<HomePage />);
+        return props.isAuthenticated ? (<AdduxApp />) : (<LoginPage />);
 }
 
 

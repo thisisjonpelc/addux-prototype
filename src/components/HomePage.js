@@ -1,167 +1,153 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import axios from "axios";
+import { Link } from 'react-router-dom';
 
-import {history} from './../routers/AppRouter';
-import SalesHeader from './SalesHeader';
+import { login, updateToken } from "../actions/auth";
 
-class HomePage extends React.Component{
+import { history } from "../routers/AppRouter";
 
-    constructor(props){
+
+class LoginPage extends React.Component {
+
+    constructor(props) {
         super(props);
 
         this.state = {
-            individual: false,
-            enterprise: false,
-            showForm:false,
-            error: ''
+            email: "",
+            password: "",
+            error: ""
         }
     }
 
-    onindividualClick = () => {
-        
-        history.push(`/signup/individual`);
-        
-        // this.setState((prevState) => {
-        //     return {
-        //         individual: !prevState.individual,
-        //         enterprise:false,
-        //         error: ''
-        //     }
-        // });
+    onEmailChange = (e) => {
+        const email = e.target.value;
+        this.setState(() => ({ email }));
     }
 
-    onenterpriseClick = () => {
-
-        history.push(`/signup/enterprise`);
-
-        // this.setState((prevState) => {
-        //     return {
-        //         individual: false,
-        //         enterprise: !prevState.enterprise,
-        //         error: ''
-        //     }
-        // });
+    onPasswordChange = (e) => {
+        const password = e.target.value;
+        this.setState(() => ({ password }));
     }
 
-    onButtonClick = () => {
+    onSubmit = (e) => {
 
-        console.log('Button clicked!');
+        e.preventDefault();
 
-        if(!(this.state.individual || this.state.enterprise)){
-            this.setState(() => {
-                return {error: 'Please select a plan'}
-            });
+        if (!this.state.email || !this.state.password) {
+            this.setState(() => ({ error: "Please enter your email and password!" }));
         }
-        else{
-            history.push(`/signup/${this.state.individual ? 'individual' : 'enterprise'}`);
+        else {
+            this.setState(() => ({ error: '' }));
+
+            axios.post('/users/login', {
+                email: this.state.email,
+                password: this.state.password
+            })
+                .then((response) => {
+                    this.props.login(
+                        {
+                            ...response.data,
+                            token: response.headers['x-auth']
+                        }
+                    );
+                    history.push("/");
+                })
+                .catch((error) => {
+
+                    this.setState(() => ({ error: "Could not find a user with those credentials" }));
+
+                });
         }
     }
 
+    // <div className='center-form-page'>
+    //     <div className='center-form-page__form'>
+    //         <img className='center-form-page__logo' src='/img/addux-logo.png' />
+    //         {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
+    //         <form className='form' onSubmit={this.onSubmit}>
+    //             <div className='form__form-group'>
+    //                 <input
+    //                     className='form__input'
+    //                     type="email" 
+    //                     placeholder="Email"
+    //                     autoFocus
+    //                     value={this.state.email}
+    //                     onChange = {this.onEmailChange}
+    //                 />
+    //             </div>
+    //             <div className='form__form-group'>
+    //                 <input
+    //                     className='form__input' 
+    //                     type="password" 
+    //                     placeholder="Password"
+    //                     value={this.state.password}
+    //                     onChange = {this.onPasswordChange}
+    //                 />
+    //             </div>
 
-    render(){
-        
+    //             <button className='btn btn--full-width'>Log in!</button>
+    //         </form>
+    //         <Link className='app-link center-form-page__link' to='/'>Don't have an account?</Link>
+    //         <p className='center-form-page__or'> or </p>
+    //         <Link className='app-link center-form-page__link' to='/reset'>Forgot your password?</Link>
+    //     </div>
+    // </div>
+
+    render() {
         return (
-            <div className='sales-page'>
-                <SalesHeader />
-
-                <div className='content'>
-                    <div className='content-box'>
-                        <div className='banner'>
-                            <div className='ribbon'>
-                                <div className='ribbon__text'>
-                                    Launch Special
-                                </div>
-                            </div>
-
-                            <div className='banner__login'>
-                                <Link className='banner__button' to='/login'>Login</Link>
-                            </div>
-                            
-
-                            <h1 className='banner__header'>
-                                <img src='img/addux-logo.png'/> Online
-                            </h1>
-                            <img className='banner__image' src='img/banner-image.png' />
-                            <div className='banner__accent'>
-
-                            </div>
-                        </div>
-
-                        <div className='blurb'>
-                            <h2 className='blurb__heading'>
-                                Software, online training, interactive coaching and a resource library to help you simplify and grow.
-                            </h2>
-                            <div className='blurb__lists'>
-                                    <h3 className='blurb__list-heading'>
-                                            Included in the addux Online System:
-                                        </h3>
-                                        <ul className='blurb__list'>
-                                            <li>addux Software</li>
-                                            <li>Online Training Course</li>
-                                            <li>Weekly Coaching Call For Your Team (Valued @ $2,500/individual)</li>
-                                            <li>Weekly Call on How to Best Use addux</li>
-                                    </ul>
-                            
-                                    <h3 className='blurb__list-heading blurb__list-heading--offer'>
-                                            Exclusive Launch Bonuses:
-                                        </h3>
-                                        <ul className='blurb__list'>
-                                            <li>Instant Access Quick Win Strategy Guide</li>
-                                            <li>addux Social Media Marketing Roadmap</li>
-                                            <li>Free Strategy Consultation Call - Clarifying Your Opportunity in 2019</li>
-                                            <li>Strategy Implementation Blueprint</li>
-                                            <li>
-                                                RIA Club (Results in Advance)
-                                                <ul className='blurb__inner-list'>
-                                                    <li>Additional Video Training</li>
-                                                    <li>Action Exercises</li>
-                                                    <li>e-books</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                            </div>
-                            
+            <div className='home-page'>
+                
+                    <div className='bg-video'>
+                        <video className='bg-video__video' autoPlay muted loop>
+                            <source src='img/white-board.mp4' type='video/mp4' />
+                            <source src='img/white-board.webm' type='video/webm' />
+                        </video>
+                        <div className='bg-video__image'>
 
                         </div>
                     </div>
+                
 
-                    <div className='choose-block'>
-
-                        {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
-                        <p className='choose-block__button'>
-                            GET THE SYSTEM
-                        </p>
-
-                        <div className='choose-block__plans'>
-                            <Link to='/signup/individual' className={`plan ${this.state.individual ? 'plan--selected' : ''}`}>
-                                <p className='plan__title'>
-                                    individual
-                                </p>
-                                <p className='plan__price'>
-                                    <span className='plan__price--strike'>$397</span>
-                                    $297<span className='plan__price--time'>per year</span>
-                                </p>
-                            </Link>
-                            <Link to='/signup/enterprise' onClick={this.onenterpriseClick} className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
-                                <p className='plan__title'>
-                                    enterprise
-                                </p>
-                                <p className='plan__extra'>
-                                    (Up to 10 users)
-                                </p>
-                                <p className='plan__price'>
-                                    <span className='plan__price--strike'>$2,997</span>
-                                    $1,997<span className='plan__price--time'>per year</span>
-                                </p>
-                            </Link>
+                <div className='home-page__form'>
+                    <img className='home-page__logo' src='/img/addux-logo.png' />
+                    {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
+                    <form className='form' onSubmit={this.onSubmit}>
+                        <div className='form__form-group'>
+                            <input
+                                className='form__input'
+                                type="email"
+                                placeholder="Email"
+                                autoFocus
+                                value={this.state.email}
+                                onChange={this.onEmailChange}
+                            />
                         </div>
-                    </div>
+                        <div className='form__form-group'>
+                            <input
+                                className='form__input'
+                                type="password"
+                                placeholder="Password"
+                                value={this.state.password}
+                                onChange={this.onPasswordChange}
+                            />
+                        </div>
 
+                        <button className='btn btn--full-width'>Login</button>
+                    </form>
+                    <Link className='app-link center-form-page__link' to='/offer/2018'>Don't have an account?</Link>
+                    <p className='center-form-page__or'> or </p>
+                    <Link className='app-link center-form-page__link' to='/reset'>Forgot Your Password?</Link>
                 </div>
-            </div>
 
+            </div>
         );
     }
 }
 
-export default HomePage;
+const mapDispatchToProps = (dispatch) => ({
+    login: (user) => dispatch(login(user)),
+    updateToken: (token) => dispatch(updateToken(token))
+});
+
+export default connect(undefined, mapDispatchToProps)(LoginPage);

@@ -61,13 +61,12 @@ class ResetPasswordPage extends React.Component {
                         <button className='btn btn--full-width'>Change Your Password</button>
 
                     </form>
-                    <Link className='app-link center-form-page__link' to='/login'>Login to your account</Link>
+                    <Link className='app-link center-form-page__link' to='/'>Login to your account</Link>
                     <p className='center-form-page__or'> or </p>
                     <Link className='app-link center-form-page__link' to='/reset'>Request a new password reset</Link>
                 </div>
             </div>
-
-        )
+        );
     }
 }
 

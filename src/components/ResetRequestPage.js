@@ -61,9 +61,9 @@ class ResetRequestPage extends React.Component {
                         </div>
                         <button className='btn btn--full-width'>Request Password Reset</button>
                     </form>
-                    <Link className='app-link center-form-page__link' to='/login'>Login to your account</Link>
+                    <Link className='app-link center-form-page__link' to='/'>Login to your account</Link>
                     <p className='center-form-page__or'> or </p>
-                    <Link className='app-link center-form-page__link' to='/'>Don't have an account?</Link>
+                    <Link className='app-link center-form-page__link' to='/offer/2018'>Don't have an account?</Link>
                 </div>
             </div>
         )

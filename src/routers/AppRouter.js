@@ -91,15 +91,9 @@ class ProtectedRouter extends React.Component {
                 }
              }
         }
-        else{
-            console.log('Attepting to show share screen');
-        }
     }
 
     render(){
-
-        console.log(window.location.href);
-        console.log(window.location.href.indexOf('share'));
 
         if(this.state.tokenExists && !this.state.attemptedLogin && window.location.href.indexOf('share') === -1 && window.location.href.indexOf('comment') === -1){
                 return (

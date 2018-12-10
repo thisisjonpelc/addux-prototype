@@ -22,18 +22,6 @@ class SalesHeader extends React.Component{
 
     render(){
 
-        //console.log(this.state.eventTime);
-        //console.log(this.state.currentTime);
-        //console.log(this.state.timeDifference);
-
-        //console.log(this.state.currentTime);
-
-        //const date = moment().set({'year': 2018, 'month':11, 'day':14});
-        //console.log(moment.duration(this.state.currentTime.diff(date)));
-
-        //console.log(this.state.timeDifference.asSeconds());
-        //console.log(this.state.timeDifference.days());
-
         //Timer to add back later
 
 

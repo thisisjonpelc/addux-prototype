@@ -19,11 +19,10 @@ import VimeoVideo from './VimeoVideo';
 
 import {history} from './../routers/AppRouter';
 
-import {dataReceived, dataError} from '../actions/data';
-import {setAdduxes, setActive, addAddux} from '../actions/addux';
-import {setWalkthrough} from '../actions/walkthrough';
+import {addAddux} from './../actions/addux';
 import {initializeApp} from './../actions/universal';
 import {unsubscribe} from './../actions/subscription';
+import {logout} from './../actions/auth';
 
 class AdduxApp extends React.Component{
     constructor(props){
@@ -167,13 +166,13 @@ class AdduxApp extends React.Component{
             });
         })
         .catch((err) => {
-            console.log(err.response);
             if(err.response.status === 402){
                 this.props.unsubscribe();
                 history.push('/subscribe');
             }
             else if(err.response.status === 401){
-                console.log('Authorization Failed');
+                this.props.logout();
+                history.push('/login');
             }
             else{
                 //this.props.dataError();
@@ -289,7 +288,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     initializeApp: (adduxes, walkthrough) => dispatch(initializeApp(adduxes, walkthrough)),
     unsubscribe: () => dispatch(unsubscribe()),
-    addAddux: (addux) => dispatch(addAddux(addux))
+    addAddux: (addux) => dispatch(addAddux(addux)),
+    logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdduxApp);

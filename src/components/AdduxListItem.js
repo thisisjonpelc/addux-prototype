@@ -25,12 +25,8 @@ const AdduxListItem = (props) => {
                     history.push('/subscribe');
                 }
                 else if(err.response.status === 401){
-                    console.log('User is not authorized');
                     props.logout();
                     history.push('/login');
-                }
-                else{
-                    console.log('Could not delete addux');
                 }
             });
             

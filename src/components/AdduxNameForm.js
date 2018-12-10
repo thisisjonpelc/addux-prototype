@@ -65,7 +65,6 @@ class AdduxNameForm extends React.Component{
                     history.push('/subscribe');
                 }
                 else if(err.response.status === 401){
-                    console.log('Token has expired');
                     this.props.logout();
                     history.push('/login');
                 }

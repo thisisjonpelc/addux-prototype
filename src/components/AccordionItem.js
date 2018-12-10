@@ -15,9 +15,6 @@ class AccordionItem extends React.Component{
     constructor(props){
         super(props);
 
-        
-        //console.log(props);
-
         this.state ={
             text: props.activeAddux[`${props.category}_${props.number}`],
             showSuccess: false,
@@ -32,8 +29,6 @@ class AccordionItem extends React.Component{
     }
 
     saveText = debounce(1000, (text) => {
-
-        console.log('Sending changes!');
 
         const updates = {};
 
@@ -73,13 +68,10 @@ class AccordionItem extends React.Component{
                 history.push('/subscribe');
             }
             else if(e.response.status === 401){
-                console.log('User is not authorized');
                 this.props.logout();
                 history.push('/login');
             }
             else{
-                console.log('Could not save to database!');
-
                 this.setState(() => {
                     return {
                         showFailure:true
@@ -155,7 +147,6 @@ class AccordionItem extends React.Component{
 
 const mapStateToProps = (state) => {
 
-    //console.log(this);
     
     return {
         token: state.auth.token

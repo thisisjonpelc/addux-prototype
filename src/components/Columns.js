@@ -24,7 +24,6 @@ class Columns extends React.Component {
 
   onGoalsCheckChange = (num, target) => {
 
-    console.log('Goals were changed!');
 
     const accordion = document.querySelector('.accordion');
 
@@ -78,9 +77,6 @@ class Columns extends React.Component {
         if(accordions[i] !== e.target){
           accordions[i].scrollTop = e.target.scrollTop;
         }
-        else{
-          console.log('Do not scroll this one');
-        }
       }
     }
 
@@ -107,9 +103,6 @@ class Columns extends React.Component {
       for(let i = 1; i < accordions.length; i++){
         if(accordions[i] !== e.target){
           accordions[i].scrollTop = e.target.scrollTop;
-        }
-        else{
-          console.log('Do not scroll this one');
         }
       }
     }
@@ -138,9 +131,6 @@ class Columns extends React.Component {
         if(accordions[i] !== e.target){
           accordions[i].scrollTop = e.target.scrollTop;
         }
-        else{
-          console.log('Do not scroll this one');
-        }
       }
     }
 
@@ -168,9 +158,6 @@ class Columns extends React.Component {
         if(accordions[i] !== e.target){
           accordions[i].scrollTop = e.target.scrollTop;
         }
-        else{
-          console.log('Do not scroll this one');
-        }
       }
     }
 
@@ -197,9 +184,6 @@ class Columns extends React.Component {
       for(let i = 1; i < accordions.length; i++){
         if(accordions[i] !== e.target){
           accordions[i].scrollTop = e.target.scrollTop;
-        }
-        else{
-          console.log('Do not scroll this one');
         }
       }
     }

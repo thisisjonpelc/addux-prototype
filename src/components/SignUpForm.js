@@ -11,8 +11,6 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
-
         this.state = {
             firstName: '',
             lastName: '',
@@ -55,7 +53,6 @@ class SignUpForm extends React.Component {
     }
 
     onSubmit = (e) => {
-        console.log('Submitting new user data!');
 
         e.preventDefault();
 

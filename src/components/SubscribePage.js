@@ -15,8 +15,6 @@ class SubscribePage extends React.Component{
     constructor(props){
         super(props);
 
-        console.log(props);
-
         this.state ={
             checkedSubStatus: false,
             subscribed: false
@@ -24,11 +22,8 @@ class SubscribePage extends React.Component{
     }
 
     componentDidMount(){
-        console.log('Subscribe Component Mounted.');
 
         if(this.props.subscribed === null){
-
-            console.log('Sending request for subscription info');
 
             axios({
                 method:'get',
@@ -38,13 +33,9 @@ class SubscribePage extends React.Component{
                 }
             })
             .then((user) => {
-                console.log('Received Response');
-                console.log(user);                
                 this.props.subscribe();
             })
             .catch((e) => {
-                console.log('Error in Response');
-                console.log(e);
 
                 if(e.response.status === 402){
                     this.props.unsubscribe();
@@ -57,9 +48,6 @@ class SubscribePage extends React.Component{
     }
 
     render() {
-
-        //console.log('Rendering Subscription Page');
-        //console.log(this.props.subscribed);
 
         if(this.props.subscribed !== null){
 

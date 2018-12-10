@@ -110,12 +110,10 @@ class UserPage extends React.Component {
             .catch((e) => {
 
                 if(e.response.status === 401){
-                    console.log('Token has expired');
                     this.props.logout();
                     history.push('/login');
                 }
                 else{
-                    console.log(e);
                     this.setState(() => ({
                         formStatus: '',
                         formError: e.message
@@ -140,14 +138,13 @@ class UserPage extends React.Component {
             }
         )
         .then((response) => {
-            console.log(response);
 
             this.setState(() => ({
                 customer:response.data
             }));
         })
         .catch((error) => {
-            console.log(error);
+
         })
     }
 
@@ -162,14 +159,13 @@ class UserPage extends React.Component {
             }
         )
         .then((response) => {
-            console.log(response);
 
             this.setState(() => ({
                 customer:response.data
             }));
         })
         .catch((error) => {
-            console.log(error);
+
         });
     }
 

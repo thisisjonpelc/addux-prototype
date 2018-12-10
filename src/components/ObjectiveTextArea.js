@@ -69,7 +69,6 @@ class ObjectiveTextArea extends React.Component {
                     history.push('/subscribe');
                 }
                 else if (e.response.status === 401) {
-                    console.log('User is not authorized');
                     this.props.logout();
                     history.push('/login');
                 }

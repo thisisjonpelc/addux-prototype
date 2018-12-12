@@ -21,7 +21,7 @@ class SalesPage extends React.Component{
 
     onindividualClick = () => {
         
-        history.push(`/signup/individual`);
+        //history.push(`/signup/individual`);
         
         // this.setState((prevState) => {
         //     return {
@@ -34,7 +34,7 @@ class SalesPage extends React.Component{
 
     onenterpriseClick = () => {
 
-        history.push(`/signup/enterprise`);
+        //history.push(`/signup/enterprise`);
 
         // this.setState((prevState) => {
         //     return {
@@ -142,7 +142,7 @@ class SalesPage extends React.Component{
                                     $297<span className='plan__price--time'>per year</span>
                                 </p>
                             </Link>
-                            <Link to='/signup/enterprise' onClick={this.onenterpriseClick} className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
+                            <Link to='/signup/enterprise' className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
                                 <p className='plan__title'>
                                     enterprise
                                 </p>

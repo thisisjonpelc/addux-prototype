@@ -1,20 +1,42 @@
 import React from "react";
-import {connect} from "react-redux";
-import {Route, Redirect} from "react-router-dom";
+import { connect } from "react-redux";
+import { Route, Redirect } from "react-router-dom";
 
 const PublicRoute = ({
     isAuthenticated,
     component: Component,
     ...rest
-}) => (
-    <Route {...rest} component={(props) => (
-        isAuthenticated ? (
-            <Redirect to="/" />
-        ) : (
-            <Component {...props} />
-        )
-    )} />
-);
+}) => {
+
+    return (
+        <Route {...rest} component={(props) => {
+            
+            return (
+                isAuthenticated ? (
+                    <Redirect to="/" />
+                ) : (
+                        <Component {...props} />
+                    )
+            )
+        }} />
+    );
+
+};
+
+// const PublicRoute = (props) => {
+
+//     console.log(props);
+
+//     return (
+//         <Route {...rest} component={(props) => (
+//             props.isAuthenticated ? (
+//                 <Redirect to="/" />
+//             ) : (
+//                 <Component {...props} />
+//             )
+//         )} />
+//     );
+// }
 
 const mapStateToProps = (state) => {
     return {

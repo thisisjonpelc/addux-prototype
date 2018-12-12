@@ -12,7 +12,7 @@ import ResetRequestPage from './../components/ResetRequestPage';
 import ResetPasswordPage from './../components/ResetPasswordPage';
 import LoadingPage from './../components/LoadingPage';
 import ShareAddux from './../components/ShareAddux';
-import SalesPage2018 from './../components/SalesPage2018';
+import SalesPage from '../components/SalesPage';
 
 import {login} from './../actions/auth';
 
@@ -109,7 +109,7 @@ class ProtectedRouter extends React.Component {
                             <Route path='/share/:id' render={(props) => <ShareAddux {...props} showComments={false} />} />
                             <Route path='/comment/:id' render={(props) => <ShareAddux {...props} showComments={true} />} />
                             <PrivateRoute path="/subscribe" component={SubscribePage} />
-                            <PublicRoute path='/offer/2018' component={SalesPage2018} />
+                            <PublicRoute path='/offer/:id' component={SalesPage}/>
                             <PublicRoute path='/signup/:plan' component={SignUpPage} />
                             <PublicRoute path='/reset' component={ResetRequestPage} exact={true} />
                             <PublicRoute path='/reset/:token' component={ResetPasswordPage} />

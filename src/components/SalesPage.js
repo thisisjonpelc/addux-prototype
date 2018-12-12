@@ -4,10 +4,12 @@ import {Link} from 'react-router-dom';
 import {history} from '../routers/AppRouter';
 import SalesHeader from './SalesHeader';
 
-class SalesPage2018 extends React.Component{
+class SalesPage extends React.Component{
 
     constructor(props){
         super(props);
+
+        console.log(props);
 
         this.state = {
             individual: false,
@@ -45,8 +47,6 @@ class SalesPage2018 extends React.Component{
 
     onButtonClick = () => {
 
-        console.log('Button clicked!');
-
         if(!(this.state.individual || this.state.enterprise)){
             this.setState(() => {
                 return {error: 'Please select a plan'}
@@ -62,7 +62,7 @@ class SalesPage2018 extends React.Component{
         
         return (
             <div className='sales-page'>
-                <SalesHeader />
+                <SalesHeader showHeader={this.props.match.params.id === '2018'}/>
 
                 <div className='content'>
                     <div className='content-box'>
@@ -164,4 +164,4 @@ class SalesPage2018 extends React.Component{
     }
 }
 
-export default SalesPage2018;
+export default SalesPage;

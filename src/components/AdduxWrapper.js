@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import AdduxApp from "./AdduxApp";
 import SignUpPage from "./SignUpPage";
-import SalesPage2018 from './SalesPage2018';
+import SalesPage from './SalesPage';
 import LoginPage from './HomePage';
 
 const AdduxWrapper = (props) => {

@@ -6,8 +6,10 @@ class SalesHeader extends React.Component{
     constructor(props){
         super(props);
 
+        console.log(props);
+
         this.state = {
-            eventTime: 1544594400,
+            eventTime: 1544860800,
             currentTime: new moment().unix(),
             timeDifference: moment.duration(1544594400 - new moment().unix(), 'seconds')
         }
@@ -22,9 +24,9 @@ class SalesHeader extends React.Component{
 
     render(){
 
-        //Timer to add back later
+        //Timer to add back later -- check showHeader property
 
-
+    
         // <div className='timer'>
         //             <div className='timer__block'>
         //                 <p className='timer__number'>

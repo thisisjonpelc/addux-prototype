@@ -241,6 +241,9 @@ class SharePage extends React.Component{
 
     }
 
+    //PDF button to remove later
+    //<button className='btn btn--width-200 share-page__pdf-buton' onClick={this.onPdfClick} disabled={this.state.creatingPdf}>{this.state.creatingPdf ? (<img className='btn__loading' src='img/loading.gif' />) : ('Download as PDF')}</button>
+
     render(){
         const shareURL = `${window.location.href}share/${this.props.activeAddux._id}`;
         const commentURL = `${window.location.href}comment/${this.props.activeAddux._id}`;
@@ -267,8 +270,6 @@ class SharePage extends React.Component{
                     </CopyToClipboard>
                     <p className={`alert alert--success share-page__alert ${this.state.withCommentsCopied ? 'share-page__alert--reveal' : ''}`}>Link Copied to Clipboard!</p>
                 </div>
-
-                <button className='btn btn--width-200 share-page__pdf-buton' onClick={this.onPdfClick} disabled={this.state.creatingPdf}>{this.state.creatingPdf ? (<img className='btn__loading' src='img/loading.gif' />) : ('Download as PDF')}</button>
             </div>
         );
     }

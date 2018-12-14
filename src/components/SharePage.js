@@ -213,7 +213,6 @@ class SharePage extends React.Component{
         addux.appendChild(adduxColumns);
         addux.appendChild(footerLogo);
 
-
         // const style = addux.style;
         // style.position = 'relative';
         // style.top = window.innerHeight+'px';

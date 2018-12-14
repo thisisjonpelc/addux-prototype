@@ -62,18 +62,18 @@ router.patch('/users/subordinate', async (req, res) => {
         messageText[5] = `Login: ${user.email}`;
         messageText[6] = `Password: ${body.password}`
         messageText[7] = `Once you login, be sure to watch the Tutorial Video and the videos for each section.  This will give you what you need to get started`;
-        messageText[9] = `Additionally you will have 2 recurring weekly calls:`;
-        messageText[10] = `- 1 addux Software Training Call each Tuesday at 3:00pm CST (https://zoom.us/j/367489239 - Meeting ID 367-489-239)`;
-        messageText[11] = `- 1 Coaching Call each Thursday at 3:00pm CST. (https://zoom.us/j/222369494 - Meeting ID 222-369-494)`;
-        messageText[12] = `You will also be receiving 2 emails for accessing your addux Online Course from Kajabi.`;
-        messageText[13] = `Once again, welcome to addux Online...`;
-        messageText[14] = `Best Regards,`;
-        messageText[15] = `Carey`;
-        messageText[16] = `P.S. If you have any problems whatsoever, just send an email to Customer Support.  They'll take care of you right away: contact@adduxonline.com`;
+        messageText[8] = `Additionally you will have 2 recurring weekly calls:`;
+        messageText[9] = `- 1 addux Software Training Call each Tuesday at 3:00pm CST (https://zoom.us/j/367489239 - Meeting ID 367-489-239)`;
+        messageText[10] = `- 1 Coaching Call each Thursday at 3:00pm CST. (https://zoom.us/j/222369494 - Meeting ID 222-369-494)`;
+        messageText[11] = `You will also be receiving 2 emails for accessing your addux Online Course from Kajabi.`;
+        messageText[12] = `Once again, welcome to addux Online...`;
+        messageText[13] = `Best Regards,`;
+        messageText[14] = `Carey`;
+        messageText[15] = `P.S. If you have any problems whatsoever, just send an email to Customer Support.  They'll take care of you right away: contact@adduxonline.com`;
 
         const plainText = messageText.join('\n');
 
-        messageText[8] = `As part of your purchase you get a free strategy consulation call. Please <a href='https://adduxlaunch.com/call'>click here</a> to schedule`
+        //messageText[8] = `As part of your purchase you get a free strategy consulation call. Please <a href='https://adduxlaunch.com/call'>click here</a> to schedule`
 
         const htmlContent = `<p>${messageText.join('</p><p>')}</p>`;
 

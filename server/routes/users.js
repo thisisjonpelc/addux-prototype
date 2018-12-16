@@ -286,7 +286,7 @@ router.post("/users", async (req, res) => {
             customer: customer.id,
             items: [
                 {
-                    plan: process.env[`${req.body.plan}_LAUNCH_PLAN_ID`]
+                    plan: process.env[`${req.body.plan}_PLAN_ID`]
                 }
             ]
         });
@@ -314,7 +314,7 @@ router.post("/users", async (req, res) => {
 
         const newUserMessage = {
             from: process.env.EMAIL_USERNAME,
-            to: process.env.EMAIL_USERNAME,
+            to: process.env.EMAIL_NOTIFICATION_ON_SIGNUP,
             subject:'New addux Online user',
             message:newUserMessageText,
             html:`<p>${newUserMessageText}</p>`

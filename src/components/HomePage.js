@@ -135,7 +135,7 @@ class LoginPage extends React.Component {
 
                         <button className='btn btn--full-width'>Login</button>
                     </form>
-                    <Link className='app-link center-form-page__link' to='/offer/2018'>Don't have an account?</Link>
+                    <a className='app-link center-form-page__link' href='https://www.adduxonline.com/addux-online'>Don't have an account?</a>
                     <p className='center-form-page__or'> or </p>
                     <Link className='app-link center-form-page__link' to='/reset'>Forgot Your Password?</Link>
                 </div>

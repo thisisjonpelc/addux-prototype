@@ -11,6 +11,8 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props.plan);
+
         this.state = {
             firstName: '',
             lastName: '',
@@ -77,6 +79,33 @@ class SignUpForm extends React.Component {
                         this.setState(() => ({ error: token.error.message, waiting: false }));
                     }
                     else {
+                        
+                        let planId;
+
+                        switch(this.props.plan){
+
+                            case 'INDSW':
+                                planId='INDIVIDUAL_SOFTWARE';
+                                break;
+                            case 'INDSW-C':
+                                planId='INDIVIDUAL_SOFTWARE_AND_COURSE';
+                                break;
+                            case 'ENTSW':
+                                planId='ENTERPRISE_SOFTWARE'
+                                break;    
+                            case 'ENTSW-C':
+                                planId='ENTERPRISE_SOFTWARE_AND_COURSE';
+                                break;
+                            case 'INDIVIDUAL':
+                                planId='INDIVIDUAL_LAUNCH';
+                                break;
+                            case 'ENTERPRISE':
+                                planId='ENTERPRISE_LAUNCH';
+                                break;
+                            default:
+                                planId=this.props.plan
+                        }
+
                         axios.post('/users',
                             {
                                 firstName: this.state.firstName,
@@ -85,7 +114,7 @@ class SignUpForm extends React.Component {
                                 password: this.state.password,
                                 email: this.state.email,
                                 token: token.token.id,
-                                plan: this.props.plan
+                                plan: planId
                             })
                             .then((response) => {
                                 this.props.login({
@@ -109,7 +138,13 @@ class SignUpForm extends React.Component {
     render() {
         return (
             <form className='signup-page__form form' onSubmit={this.onSubmit}>
-                <Link className='signup-page__back' to='/offer/2018'>Go Back</Link>
+                {
+                    (this.props.plan ==='INDIVIDUAL' || this.props.plan === 'ENTERPRISE')
+                    ?
+                    (<Link className='signup-page__back' to='/offer/eg187'>Go Back</Link>)
+                    :
+                    (<a className='signup-page__back' href='https://www.adduxonline.com/addux-online'>Go Back</a>)
+                }
                 <div className='form__form-group'>
                     <input
                         className='form__input'

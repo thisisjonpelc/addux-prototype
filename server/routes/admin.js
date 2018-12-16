@@ -100,7 +100,7 @@ router.patch('/users/subordinate', async (req, res) => {
 
         const newUserMessage = {
             from: process.env.EMAIL_USERNAME,
-            to: process.env.EMAIL_USERNAME,
+            to: process.env.EMAIL_NOTIFICATION_ON_SIGNUP,
             subject:'New addux Online user',
             message:newUserMessageText,
             html:`<p>${newUserMessageText}</p>`

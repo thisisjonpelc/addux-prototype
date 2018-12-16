@@ -1,20 +1,23 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Elements, injectStripe } from 'react-stripe-elements';
-import {Redirect} from 'react-router-dom';
+import { Elements } from 'react-stripe-elements';
+import { Redirect } from 'react-router-dom';
 
 import SignUpForm from './SignUpForm';
 import SalesHeader from './SalesHeader';
 
-import { login } from "./../actions/auth";
-import { history } from "./../routers/AppRouter";
-
 const SignUpPage = (props) => {
 
-    if(props.match.params.plan !== 'enterprise' && props.match.params.plan !== 'individual'){
-       return (
+    if (!(
+        props.match.params.plan === 'enterprise' ||
+        props.match.params.plan === 'individual' ||
+        props.match.params.plan === 'indsw' ||
+        props.match.params.plan === 'indsw-c' ||
+        props.match.params.plan === 'entsw' ||
+        props.match.params.plan === 'entsw-c'
+    )) {
+        return (
             <Redirect to='/' />
-       ); 
+        );
     }
 
     return (
@@ -27,8 +30,6 @@ const SignUpPage = (props) => {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    login: (user) => dispatch(login(user))
-});
 
-export default connect(undefined, mapDispatchToProps)(SignUpPage);
+
+export default SignUpPage;

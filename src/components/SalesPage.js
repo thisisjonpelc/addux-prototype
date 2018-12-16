@@ -19,50 +19,11 @@ class SalesPage extends React.Component{
         }
     }
 
-    onindividualClick = () => {
-        
-        //history.push(`/signup/individual`);
-        
-        // this.setState((prevState) => {
-        //     return {
-        //         individual: !prevState.individual,
-        //         enterprise:false,
-        //         error: ''
-        //     }
-        // });
-    }
-
-    onenterpriseClick = () => {
-
-        //history.push(`/signup/enterprise`);
-
-        // this.setState((prevState) => {
-        //     return {
-        //         individual: false,
-        //         enterprise: !prevState.enterprise,
-        //         error: ''
-        //     }
-        // });
-    }
-
-    onButtonClick = () => {
-
-        if(!(this.state.individual || this.state.enterprise)){
-            this.setState(() => {
-                return {error: 'Please select a plan'}
-            });
-        }
-        else{
-            history.push(`/signup/${this.state.individual ? 'individual' : 'enterprise'}`);
-        }
-    }
-
-
     render(){
         
         return (
             <div className='sales-page'>
-                <SalesHeader showHeader={this.props.match.params.id === '2018'}/>
+                <SalesHeader />
 
                 <div className='content'>
                     <div className='content-box'>
@@ -133,7 +94,7 @@ class SalesPage extends React.Component{
                         </p>
 
                         <div className='choose-block__plans'>
-                            <Link to='/signup/individual' className={`plan ${this.state.individual ? 'plan--selected' : ''}`}>
+                            <Link to='/signup/individual' className='plan'>
                                 <p className='plan__title'>
                                     individual
                                 </p>
@@ -142,7 +103,7 @@ class SalesPage extends React.Component{
                                     $297<span className='plan__price--time'>per year</span>
                                 </p>
                             </Link>
-                            <Link to='/signup/enterprise' className={`plan ${this.state.enterprise ? 'plan--selected' : ''}`}>
+                            <Link to='/signup/enterprise' className='plan'>
                                 <p className='plan__title'>
                                     enterprise
                                 </p>

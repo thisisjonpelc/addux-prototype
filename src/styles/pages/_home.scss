@@ -7,12 +7,15 @@
     &__form{
         background-color: rgba(#F6F6F6, .8);
         border:1px solid darken(#F6F6F6, 10%);
-        max-width:40rem;
-        padding:3rem;
+        width:35rem;
+        max-height:95vh;
+        overflow:auto;
+        padding:2.5rem;
         border-radius:.7rem;
         position: absolute;
         top:50%;
         left:50%;
+        text-align:center;
         transform:translate(-50%, -50%);
         box-shadow:0px 3px 5px 5px rgba(50, 50, 50, 0.3);
     }

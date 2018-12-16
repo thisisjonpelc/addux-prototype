@@ -38,7 +38,7 @@ class LoginPage extends React.Component {
             this.setState(() => ({ error: "Please enter your email and password!" }));
         }
         else {
-            this.setState(() => ({ error: '' }));
+            //this.setState(() => ({ error: '' }));
 
             axios.post('/users/login', {
                 email: this.state.email,

@@ -237,7 +237,17 @@ const AdduxSchema = new mongoose.Schema({
         trim:true,
         default:''
     },
+    progress_1_status:{
+        type:String,
+        trim:true,
+        default:''
+    },
     progress_2:{
+        type:String,
+        trim:true,
+        default:''
+    },
+    progress_2_status:{
         type:String,
         trim:true,
         default:''
@@ -247,7 +257,17 @@ const AdduxSchema = new mongoose.Schema({
         trim:true,
         default:''
     },
+    progress_3_status:{
+        type:String,
+        trim:true,
+        default:''
+    },
     progress_4:{
+        type:String,
+        trim:true,
+        default:''
+    },
+    progress_4_status:{
         type:String,
         trim:true,
         default:''
@@ -257,7 +277,17 @@ const AdduxSchema = new mongoose.Schema({
         trim:true,
         default:''
     },
+    progress_5_status:{
+        type:String,
+        trim:true,
+        default:''
+    },
     progress_6:{
+        type:String,
+        trim:true,
+        default:''
+    },
+    progress_6_status:{
         type:String,
         trim:true,
         default:''
@@ -267,12 +297,27 @@ const AdduxSchema = new mongoose.Schema({
         trim:true,
         default:''
     },
+    progress_7_status:{
+        type:String,
+        trim:true,
+        default:''
+    },
     progress_8:{
         type:String,
         trim:true,
         default:''
     },
+    progress_8_status:{
+        type:String,
+        trim:true,
+        default:''
+    },
     progress_9:{
+        type:String,
+        trim:true,
+        default:''
+    },
+    progress_9_status:{
         type:String,
         trim:true,
         default:''

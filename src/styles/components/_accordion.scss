@@ -18,7 +18,12 @@
             &:checked{
                 
                 & ~ .accordion__text{
-                    height:5rem;
+                    height:7rem;
+                    
+                    & > .accordion__status{
+                        height:5.5rem;
+                    }
+                
                 }
 
                 & ~ .accordion__label .accordion__icon{
@@ -86,5 +91,43 @@
         &--hidden{
             opacity:0;
         }
+    }
+
+    &__status{
+        position:absolute;
+        width:1.5rem;
+        right:5px;
+        top:7px;
+        height:0;
+        transition:all .3s ease-in-out;
+        z-index: 2;
+    }
+
+    &__button{
+        height:1.5rem;
+        border-radius:50%;
+        background-color:$black;
+        cursor:pointer;
+
+        &--selected{
+            border:1px solid $black;
+        }
+
+        &:not(:last-child){
+            margin-bottom:.5rem;
+        }
+
+        &--red{
+            background-color:red;
+        }
+
+        &--yellow{
+            background-color:yellow;
+        }
+
+        &--green{
+            background-color:green;
+        }
+    
     }
 }

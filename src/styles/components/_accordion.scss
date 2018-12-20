@@ -110,7 +110,7 @@
         cursor:pointer;
 
         &--selected{
-            border:1px solid $black;
+            border:2px solid $black;
         }
 
         &:not(:last-child){
@@ -118,15 +118,15 @@
         }
 
         &--red{
-            background-color:red;
+            background-color:$status-red;
         }
 
         &--yellow{
-            background-color:yellow;
+            background-color:$status-yellow;
         }
 
         &--green{
-            background-color:green;
+            background-color:$status-green;
         }
     
     }

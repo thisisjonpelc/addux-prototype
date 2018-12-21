@@ -15,8 +15,6 @@ class AccordionItem extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props.category);
-
         this.state = {
             text: props.activeAddux[`${props.category}_${props.number}`],
             showSuccess: false,
@@ -100,8 +98,6 @@ class AccordionItem extends React.Component {
     }
 
     onStatusClick = (statusSelected) => {
-        console.log('Status clicked!');
-        console.log(statusSelected);
 
         this.setState(() => ({statusSelected}));
         
@@ -205,7 +201,7 @@ class AccordionItem extends React.Component {
                 </label>
                 <div className='accordion__text'>
                     <textarea
-                        maxLength='50'
+                        maxLength='100'
                         className='addux-textarea'
                         onChange={this.onTextChange}
                         value={this.state.text}

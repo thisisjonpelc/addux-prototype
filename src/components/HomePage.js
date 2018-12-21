@@ -54,7 +54,6 @@ class LoginPage extends React.Component {
                     history.push("/");
                 })
                 .catch((error) => {
-
                     this.setState(() => ({ error: "Could not find a user with those credentials" }));
 
                 });

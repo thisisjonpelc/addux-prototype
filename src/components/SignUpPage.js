@@ -10,10 +10,8 @@ const SignUpPage = (props) => {
     if (!(
         props.match.params.plan === 'enterprise' ||
         props.match.params.plan === 'individual' ||
-        props.match.params.plan === 'indsw' ||
-        props.match.params.plan === 'indsw-c' ||
-        props.match.params.plan === 'entsw' ||
-        props.match.params.plan === 'entsw-c'
+        props.match.params.plan === 'coaching-a' ||
+        props.match.params.plan === 'coaching-q' 
     )) {
         return (
             <Redirect to='/' />

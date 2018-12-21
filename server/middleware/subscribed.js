@@ -25,10 +25,8 @@ const subscribed = async (req, res, next) => {
                     subscription.plan.id === process.env.ENTERPRISE_PLAN_ID ||
                     subscription.plan.id === process.env.INDIVIDUAL_LAUNCH_PLAN_ID ||
                     subscription.plan.id === process.env.ENTERPRISE_LAUNCH_PLAN_ID ||
-                    subscription.plan.id === process.env.INDIVIDUAL_SOFTWARE_PLAN_ID ||
-                    subscription.plan.id === process.env.INDIVIDUAL_SOFTWARE_AND_COURSE_PLAN_ID ||
-                    subscription.plan.id === process.env.ENTERPRISE_SOFTWARE_PLAN_ID ||
-                    subscription.plan.id === process.env.ENTERPRISE_SOFTWARE_AND_COURSE_PLAN_ID)
+                    subscription.plan.id === process.env.COACHING_ANNUAL_PLAN_ID ||
+                    subscription.plan.id === process.env.COACHING_QUARTERLY_PLAN_ID)
                     &&
                     (subscription.status === 'active' || subscription.status === 'trialing')) {
                     subscribed = true;

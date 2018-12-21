@@ -43,7 +43,11 @@
 
     &__price{
         font-size:4.5rem;
-        color:#A90001;
+        color:$black;
+
+        &--red{
+            color:#A90001;
+        }
 
         &--strike{
             color:black;

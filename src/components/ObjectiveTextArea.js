@@ -95,7 +95,7 @@ class ObjectiveTextArea extends React.Component {
         return (
             <div className='objective-block__input'>
                 <textarea
-                    maxLength='50'
+                    maxLength='100'
                     className='addux-textarea addux-textarea--single'
                     onChange={this.onTextChange}
                     value={this.state.text}

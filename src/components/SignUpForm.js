@@ -11,8 +11,6 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props.plan);
-
         this.state = {
             firstName: '',
             lastName: '',
@@ -84,17 +82,11 @@ class SignUpForm extends React.Component {
 
                         switch(this.props.plan){
 
-                            case 'INDSW':
-                                planId='INDIVIDUAL_SOFTWARE';
-                                break;
-                            case 'INDSW-C':
-                                planId='INDIVIDUAL_SOFTWARE_AND_COURSE';
-                                break;
-                            case 'ENTSW':
-                                planId='ENTERPRISE_SOFTWARE'
+                            case 'COACHING-Q':
+                                planId='COACHING_QUARTERLY'
                                 break;    
-                            case 'ENTSW-C':
-                                planId='ENTERPRISE_SOFTWARE_AND_COURSE';
+                            case 'COACHING-A':
+                                planId='COACHING_ANNUAL';
                                 break;
                             case 'INDIVIDUAL':
                                 planId='INDIVIDUAL_LAUNCH';
@@ -195,12 +187,10 @@ class SignUpForm extends React.Component {
                 </div>
                 <div className='signup-page__description'>
                     <p>You have selected the {this.props.plan} plan at:</p>
-                    {this.props.plan === 'INDIVIDUAL' 
-                        ? 
-                        (<p className='signup-page__price'><span className='signup-page__price--strike'>$397</span>$297 per year</p>) 
-                        : 
-                        (<p className='signup-page__price'><span className='signup-page__price--strike'>$2997</span>$1997 per year</p>)
-                    }
+                    {this.props.plan === 'INDIVIDUAL' && (<p className='signup-page__price signup-page__price--red'><span className='signup-page__price--strike'>$397</span>$297 per year</p>)}
+                    {this.props.plan === 'ENTERPRISE' && (<p className='signup-page__price signup-page__price--red'><span className='signup-page__price--strike'>$2997</span>$1997 per year</p>)}
+                    {this.props.plan === 'COACHING-A' && (<p className='signup-page__price'>$2997 per year</p>)}
+                    {this.props.plan === 'COACHING-Q' && (<p className='signup-page__price'>$350 per month billed quarterly</p>)}
                 </div>
                 <div className='signup-page__agreement'>
                     <input  className='signup-page__checkbox' onChange={this.onCheckChange} type='checkbox' checked={this.state.checked} />

@@ -7,6 +7,7 @@ import axios from 'axios';
 import {history} from './../routers/AppRouter';
 
 import {subscribe, unsubscribe} from './../actions/subscription';
+import {logout} from './../actions/auth';
 
 import CardForm from './CardForm';
 import LoadingPage from './LoadingPage';
@@ -56,18 +57,30 @@ class SubscribePage extends React.Component{
             }
             else{
 
-                if(this.props.auth.masterUser){
-                    return (
-                        <Elements>
-                            <CardForm token={this.props.token}/>
-                        </Elements>
-                    );
-                }
-                else{
-                    return (
-                        <p>The subscription associated with your account has ended.</p>
-                    );
-                }
+                return(
+                    <div className='subscribe-page'>
+                        <div className='subscribe-page__box'>
+                            <h1 className='subscribe-page__primary'>The subscription associated with your account has expired</h1>
+                            
+                            <button className='btn subscribe-page__logout' onClick={this.props.logout}>Logout</button>
+                            
+                            <p className='subscribe-page__tertiary'>If you believe this is a mistake or you wish to resubscribe please send an email to: <a className='app-link app-link--bold' href='mailto:contact@adduxonline.com'>contact@adduxonline.com</a></p>
+                        </div>
+                    </div>
+                );
+
+                // if(this.props.auth.masterUser){
+                //     return (
+                //         <Elements>
+                //             <CardForm token={this.props.token}/>
+                //         </Elements>
+                //     );
+                // }
+                // else{
+                //     return (
+                //         <p>The subscription associated with your account has ended.</p>
+                //     );
+                // }
             }
         }
         else{
@@ -87,7 +100,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         subscribe: () => dispatch(subscribe()),
-        unsubscribe: () => dispatch(unsubscribe())
+        unsubscribe: () => dispatch(unsubscribe()),
+        logout: () => dispatch(logout())
     }
 }
 

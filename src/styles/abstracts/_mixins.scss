@@ -15,3 +15,10 @@
         @media only screen and (min-width: 112.5em) { @content}; //1800px
     }
 }
+
+@mixin center-box{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}

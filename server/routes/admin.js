@@ -243,8 +243,8 @@ router.get('/addux/csv/:id', async (req, res) => {
  
         const json2csvParser = new Json2csvParser({ fields });
         const csv = json2csvParser.parse(rows);
-        const file = `${path.join(__dirname, '..', '/tmp')}/test.csv`;
-
+        //const file = `${path.join(__dirname, '..', '/tmp')}/test.csv`;
+        const file = '/tmp/test.csv';
 
         //console.log(csv);
         fs.writeFile(file, csv, 'utf8', (err) => {

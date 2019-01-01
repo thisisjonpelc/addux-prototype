@@ -144,7 +144,7 @@ router.get('/addux/csv/:id', async (req, res) => {
 
     try{
         const addux = await Addux.findOne({ _id: id});
-        console.log(addux);
+        //console.log(addux);
         //res.send(addux);
 
         const fields = ['Objective', 'Goals', 'Projects', 'Timelines', 'Project Owner', 'Resources Required', 'Progress Updates', 'Progress Status'];
@@ -244,7 +244,7 @@ router.get('/addux/csv/:id', async (req, res) => {
         const json2csvParser = new Json2csvParser({ fields });
         const csv = json2csvParser.parse(rows);
         //const file = `${path.join(__dirname, '..', '/tmp')}/test.csv`;
-        const file = '/tmp/test.csv';
+        const file = `/tmp/${addux.name}`;
 
         //console.log(csv);
         fs.writeFile(file, csv, 'utf8', (err) => {
@@ -258,7 +258,6 @@ router.get('/addux/csv/:id', async (req, res) => {
                 res.download(file);
             }
         });
-
     }
     catch(error){
         console.log('Error: ', error);

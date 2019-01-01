@@ -3,12 +3,15 @@ const router = express.Router();
 const _ = require("lodash");
 const crypto = require('crypto');
 const moment = require('moment');
+//const csv = require('express-csv');
+const fs = require('fs');
+const path = require('path');
+const Json2csvParser = require('json2csv').Parser;
 
 const {Addux} = require('./../models/addux');
 const {User} = require('./../models/user');
 const {Comment} = require('./../models/comment');
 const transporter = require('./../utilities/email');
-
 
 router.patch('/users/subordinate', async (req, res) => {
 
@@ -133,6 +136,134 @@ router.patch('/users/subordinate', async (req, res) => {
         res.status(400).send(error);
     }
 
+});
+
+router.get('/addux/csv/:id', async (req, res) => {
+    
+    const id = req.params.id;
+
+    try{
+        const addux = await Addux.findOne({ _id: id});
+        console.log(addux);
+        //res.send(addux);
+
+        const fields = ['Objective', 'Goals', 'Projects', 'Timelines', 'Project Owner', 'Resources Required', 'Progress Updates', 'Progress Status'];
+        const rows = [
+            {
+                "Objective":"",
+                "Goals":"",
+                "Projects":addux.projects_1,
+                "Timelines":addux.timelines_1,
+                "Project Owner":addux.projectOwner_1,
+                "Resources Required":addux.resources_1,
+                "Progress Updates":addux.progress_1,
+                "Progress Status": addux.progress_1_status
+            },
+            {
+                "Objective":"",
+                "Goals":"",
+                "Projects":addux.projects_2,
+                "Timelines":addux.timelines_2,
+                "Project Owner":addux.projectOwner_2,
+                "Resources Required":addux.resources_2,
+                "Progress Updates":addux.progress_2,
+                "Progress Status": addux.progress_2_status
+            },
+            {
+                "Objective":"",
+                "Goals":"",
+                "Projects":addux.projects_3,
+                "Timelines":addux.timelines_3,
+                "Project Owner":addux.projectOwner_3,
+                "Resources Required":addux.resources_3,
+                "Progress Updates":addux.progress_3,
+                "Progress Status": addux.progress_3_status
+            },
+            {
+                "Objective":"",
+                "Goals":"",
+                "Projects":addux.projects_4,
+                "Timelines":addux.timelines_4,
+                "Project Owner":addux.projectOwner_4,
+                "Resources Required":addux.resources_4,
+                "Progress Updates":addux.progress_4,
+                "Progress Status": addux.progress_4_status
+            },
+            {
+                "Objective":"",
+                "Goals":addux.goals_1,
+                "Projects":addux.projects_5,
+                "Timelines":addux.timelines_5,
+                "Project Owner":addux.projectOwner_5,
+                "Resources Required":addux.resources_5,
+                "Progress Updates":addux.progress_5,
+                "Progress Status": addux.progress_5_status
+            },
+            {
+                "Objective":addux.objective,
+                "Goals":addux.goals_2,
+                "Projects":addux.projects_6,
+                "Timelines":addux.timelines_6,
+                "Project Owner":addux.projectOwner_6,
+                "Resources Required":addux.resources_6,
+                "Progress Updates":addux.progress_6,
+                "Progress Status": addux.progress_6_status
+            },
+            {
+                "Objective":"",
+                "Goals":addux.goals_3,
+                "Projects":addux.projects_7,
+                "Timelines":addux.timelines_7,
+                "Project Owner":addux.projectOwner_7,
+                "Resources Required":addux.resources_7,
+                "Progress Updates":addux.progress_7,
+                "Progress Status": addux.progress_7_status
+            },
+            {
+                "Objective":"",
+                "Goals":"",
+                "Projects":addux.projects_8,
+                "Timelines":addux.timelines_8,
+                "Project Owner":addux.projectOwner_8,
+                "Resources Required":addux.resources_8,
+                "Progress Updates":addux.progress_8,
+                "Progress Status": addux.progress_8_status
+            },
+            {
+                "Objective":"",
+                "Goals":"",
+                "Projects":addux.projects_9,
+                "Timelines":addux.timelines_9,
+                "Project Owner":addux.projectOwner_9,
+                "Resources Required":addux.resources_9,
+                "Progress Updates":addux.progress_9,
+                "Progress Status": addux.progress_9_status
+            }
+        ];
+ 
+        const json2csvParser = new Json2csvParser({ fields });
+        const csv = json2csvParser.parse(rows);
+        const file = `${path.join(__dirname, '..', '/tmp')}/test.csv`;
+
+
+        //console.log(csv);
+        fs.writeFile(file, csv, 'utf8', (err) => {
+            if(err){
+                console.log('Could not save file!');
+                console.log(err);
+                res.status(400).send(err);
+            }
+            else{
+                console.log('File was saved!');
+                res.download(file);
+            }
+        });
+
+    }
+    catch(error){
+        console.log('Error: ', error);
+        res.status(400).send(error);
+    }
 });
 
 module.exports = router;

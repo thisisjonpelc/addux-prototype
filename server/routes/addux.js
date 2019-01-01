@@ -103,7 +103,7 @@ router.get("/addux/:id", (req, res) => {
     }
 
     Addux.findOne({
-        _id: id,
+        _id: id
     })
         .populate('objective_comments')
         .populate('goals_comments')

@@ -23,8 +23,10 @@
     "browserslist": "^4.2.0",
     "css-loader": "^1.0.0",
     "express": "^4.16.3",
+    "express-csv": "^0.6.0",
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.3.1",
+    "json2csv": "^4.3.2",
     "jsonwebtoken": "^8.3.0",
     "jspdf": "^1.4.1",
     "lodash": "^4.17.11",
@@ -64,11 +66,11 @@
   "devDependencies": {
     "autoprefixer": "^9.1.5",
     "cross-env": "^5.2.0",
+    "node-sass": "^4.9.3",
     "nodemon": "^1.18.4",
     "postcss-cli": "^6.0.0",
     "source-map-explorer": "^1.6.0",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8",
-    "node-sass": "^4.9.3"
+    "webpack-dev-server": "^3.1.8"
   }
 }

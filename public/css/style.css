@@ -314,8 +314,8 @@ body {
       outline-color: #333333; }
 
 .info-box {
-  max-width: 50rem;
-  flex: 1 1 auto; }
+  overflow: hidden;
+  font-size: 2.5rem; }
   @media only screen and (max-width: 43.75em) {
     .info-box {
       width: 100%;
@@ -323,7 +323,19 @@ body {
       order: 1; } }
   .info-box__title {
     font-size: 2.5rem;
-    font-weight: 300; }
+    font-weight: 300;
+    border: none;
+    outline: none;
+    font-family: Roboto, sans-serif;
+    flex: 1 1 auto; }
+    .info-box__title::selection {
+      background: #666666;
+      color: #FFFFFF; }
+    @media only screen and (max-width: 43.75em) {
+      .info-box__title {
+        text-align: center;
+        margin-bottom: 1rem;
+        width: 80%; } }
   .info-box__progress-bar {
     width: 100%;
     height: .5rem;
@@ -503,6 +515,9 @@ body {
     color: #FFFFFF; }
     .btn--cancel:hover {
       background-color: #824e52; }
+  .btn--short {
+    padding-top: 5px;
+    padding-bottom: 5px; }
 
 .user-panel {
   margin: 0 auto;
@@ -831,6 +846,17 @@ body {
   .timer__label {
     font-size: 1.9rem; }
 
+.name-edit-form__form {
+  display: inline-block;
+  margin-right: 1rem; }
+
+.name-edit-form__input {
+  font-size: inherit;
+  border-radius: .4rem;
+  padding: 0 1.2rem;
+  border: 1px solid #505050;
+  outline: none; }
+
 .full-viewport {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
@@ -846,7 +872,6 @@ body {
 
 .header {
   display: flex;
-  flex-wrap: wrap;
   padding: 1rem 2.5rem;
   align-items: flex-end; }
   @media only screen and (max-width: 43.75em) {

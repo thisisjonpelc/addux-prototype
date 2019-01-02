@@ -208,7 +208,7 @@ class AdduxApp extends React.Component{
                         changeUserActive={this.changeUserActive}
                         empty={this.props.empty} 
                         token={this.props.token}
-                        key={this.props.activeAddux._id}
+                        key={`${this.props.activeAddux._id}_${this.props.activeAddux.name}`}
                     />
                     
                     <Columns 

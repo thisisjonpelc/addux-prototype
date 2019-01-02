@@ -32,8 +32,6 @@ const AdduxListItem = (props) => {
             
 
         }
-        else{
-        }
     }
 
 

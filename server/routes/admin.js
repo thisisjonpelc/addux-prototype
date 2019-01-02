@@ -181,7 +181,7 @@ router.get('/addux/csv/:id', async (req, res) => {
             },
             {
                 "Objective":"",
-                "Goals":"",
+                "Goals":addux.goals_1,
                 "Projects":addux.projects_4,
                 "Timelines":addux.timelines_4,
                 "Project Owner":addux.projectOwner_4,
@@ -190,8 +190,8 @@ router.get('/addux/csv/:id', async (req, res) => {
                 "Progress Status": addux.progress_4_status
             },
             {
-                "Objective":"",
-                "Goals":addux.goals_1,
+                "Objective":addux.objective,
+                "Goals":addux.goals_2,
                 "Projects":addux.projects_5,
                 "Timelines":addux.timelines_5,
                 "Project Owner":addux.projectOwner_5,
@@ -200,8 +200,8 @@ router.get('/addux/csv/:id', async (req, res) => {
                 "Progress Status": addux.progress_5_status
             },
             {
-                "Objective":addux.objective,
-                "Goals":addux.goals_2,
+                "Objective":"",
+                "Goals":addux.goals_3,
                 "Projects":addux.projects_6,
                 "Timelines":addux.timelines_6,
                 "Project Owner":addux.projectOwner_6,
@@ -211,7 +211,7 @@ router.get('/addux/csv/:id', async (req, res) => {
             },
             {
                 "Objective":"",
-                "Goals":addux.goals_3,
+                "Goals":"",
                 "Projects":addux.projects_7,
                 "Timelines":addux.timelines_7,
                 "Project Owner":addux.projectOwner_7,

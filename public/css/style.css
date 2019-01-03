@@ -610,7 +610,9 @@ body {
       color: #505050; }
     .addux-list-item__name--display {
       text-overflow: ellipsis;
-      overflow: hidden; }
+      overflow: hidden;
+      text-align: left;
+      white-space: nowrap; }
   .addux-list-item__icon {
     height: 4rem;
     width: 4rem;

@@ -42,11 +42,11 @@ class Header extends React.Component {
                 this.props.editAddux(this.props.activeAddux._id, updates);
             })
             .catch((error) => {
-                if (e.response.status === 402) {
+                if (error.response.status === 402) {
                     this.props.unsubscribe();
                     history.push('/subscribe');
                 }
-                else if (e.response.status === 401) {
+                else if (error.response.status === 401) {
                     this.props.logout();
                     history.push('/login');
                 }

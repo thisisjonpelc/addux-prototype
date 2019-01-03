@@ -15,19 +15,43 @@
 
     &__name{
         margin-left:2rem;
+        margin-right:auto;
+        width:60%;
+
+        &--input{
+            border:none;
+            outline:none;
+            font-size:1.6rem;
+            color:$gray-dark;
+        }
+
+        &--display{
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 
-    &__delete{
+    &__icon{
         height:4rem;
         width:4rem;
         fill: $gray-dark;
         margin-left:auto;
         padding:1rem;
+        border-top:1px solid $gray-dark;
+        border-bottom:1px solid $gray-dark;
     
         &:hover{
-            background-color:#F8D6D9;
-            border-top:1px solid $gray-dark;
-            border-bottom:1px solid $gray-dark;
+            fill: $white;
+            background-color:$gray-dark;
+        }
+
+        &--delete{
+            margin:0;
+            
+            &:hover{
+                fill: $gray-dark;
+                background-color:#F8D6D9;
+            }
         }
     }
 
@@ -41,5 +65,9 @@
     &:hover{
         background-color:$gray-light;
         color: $gray-dark;
+    }
+
+    &__button{
+        margin-right:2rem;
     }
 }

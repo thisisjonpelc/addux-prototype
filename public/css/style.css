@@ -142,6 +142,7 @@ body {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   z-index: 200;
+  transition: left .3s ease-in-out;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #333333; }
@@ -327,7 +328,8 @@ body {
     border: none;
     outline: none;
     font-family: Roboto, sans-serif;
-    flex: 1 1 auto; }
+    flex: 1 1 auto;
+    margin-right: 2rem; }
     .info-box__title::selection {
       background: #666666;
       color: #FFFFFF; }
@@ -387,6 +389,7 @@ body {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   z-index: 200;
+  transition: right .3s ease-in-out;
   border-right: 1px solid #333333; }
   @media only screen and (max-width: 37.5em) {
     .notes {
@@ -495,6 +498,9 @@ body {
   .btn--small {
     font-size: 1.6rem;
     padding: .7rem; }
+  .btn--tiny {
+    font-size: 1.4rem;
+    padding: .5rem; }
   .btn--full-width {
     width: 100%; }
   .btn--width-200 {
@@ -594,23 +600,41 @@ body {
   display: flex;
   align-items: center; }
   .addux-list-item__name {
-    margin-left: 2rem; }
-  .addux-list-item__delete {
+    margin-left: 2rem;
+    margin-right: auto;
+    width: 60%; }
+    .addux-list-item__name--input {
+      border: none;
+      outline: none;
+      font-size: 1.6rem;
+      color: #505050; }
+    .addux-list-item__name--display {
+      text-overflow: ellipsis;
+      overflow: hidden; }
+  .addux-list-item__icon {
     height: 4rem;
     width: 4rem;
     fill: #505050;
     margin-left: auto;
-    padding: 1rem; }
-    .addux-list-item__delete:hover {
-      background-color: #F8D6D9;
-      border-top: 1px solid #505050;
-      border-bottom: 1px solid #505050; }
+    padding: 1rem;
+    border-top: 1px solid #505050;
+    border-bottom: 1px solid #505050; }
+    .addux-list-item__icon:hover {
+      fill: #FFFFFF;
+      background-color: #505050; }
+    .addux-list-item__icon--delete {
+      margin: 0; }
+      .addux-list-item__icon--delete:hover {
+        fill: #505050;
+        background-color: #F8D6D9; }
   .addux-list-item--active {
     color: #505050;
     background-color: #FFFFFF; }
   .addux-list-item:hover {
     background-color: #cccccc;
     color: #505050; }
+  .addux-list-item__button {
+    margin-right: 2rem; }
 
 .vimeo-video {
   width: 50vw; }
@@ -845,17 +869,6 @@ body {
     margin-bottom: -1rem; }
   .timer__label {
     font-size: 1.9rem; }
-
-.name-edit-form__form {
-  display: inline-block;
-  margin-right: 1rem; }
-
-.name-edit-form__input {
-  font-size: inherit;
-  border-radius: .4rem;
-  padding: 0 1.2rem;
-  border: 1px solid #505050;
-  outline: none; }
 
 .full-viewport {
   height: 100vh;

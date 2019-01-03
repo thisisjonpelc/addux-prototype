@@ -10,6 +10,7 @@
     height:100vh;
     height: calc(var(--vh, 1vh) * 100);
     z-index:200;
+    transition: right .3s ease-in-out;
 
     border-right:1px solid $gray-darker;
 

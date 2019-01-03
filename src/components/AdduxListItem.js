@@ -52,7 +52,7 @@ class AdduxListItem extends React.Component{
         });
     }
 
-    saveName = debounce(1000, (name) => {
+    saveName = debounce(3000, (name) => {
 
         const updates={
             name

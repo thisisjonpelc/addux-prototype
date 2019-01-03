@@ -23,3 +23,16 @@ for(var i = 0; i < labels.length; i++){
 
     });
 }
+
+export const validatePassword = (password) => {
+
+    const passwordExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W|_])(?=.{8,})/;
+
+    if(!passwordExpression.test(password)){
+        return false;
+    }
+    else{
+        return true;
+    }
+
+}

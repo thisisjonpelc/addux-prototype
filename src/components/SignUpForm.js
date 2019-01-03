@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { login } from "./../actions/auth";
 import { history } from "./../routers/AppRouter";
+import {validatePassword} from './../utils/utils';
 
 class SignUpForm extends React.Component {
     constructor(props) {
@@ -17,6 +18,8 @@ class SignUpForm extends React.Component {
             company: '',
             email: '',
             password: '',
+            passwordConfirm: '',
+            passwordValidationError: '',
             checked: false,
             error: '',
             waiting: false
@@ -48,6 +51,28 @@ class SignUpForm extends React.Component {
         this.setState(() => ({ password }));
     }
 
+    onPasswordConfirmChange = (e) => {
+        const passwordConfirm = e.target.value;
+        this.setState(() => ({passwordConfirm}));
+    }
+
+    onPasswordBlur = (e) => {
+        const password = e.target.value;
+
+        if(!validatePassword(password)){
+            this.setState(() => ({
+                passwordValidationError: 'Passwords must be at least 8 characters long and contain at least one uppercase letter, lowercase letter, number, and special character.'
+            }));
+        }
+        else{
+            if(this.state.passwordValidationError){
+                this.setState(() => ({
+                    passwordValidationError: ''
+                }));
+            }
+        }
+    }
+
     onCheckChange = (e) => {
         this.setState((prevState) => ({checked: !prevState.checked}));
     }
@@ -56,11 +81,17 @@ class SignUpForm extends React.Component {
 
         e.preventDefault();
 
-        if (!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName) {
+        if (!this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName || !this.state.passwordConfirm) {
             this.setState(() => ({ error: "Please complete all required fields!" }));
         }
+        else if(this.state.password !== this.state.passwordConfirm){
+            this.setState(() => ({error: 'Passwords do not match!'}));
+        }
+        else if(this.state.passwordValidationError){
+            this.setState(() => ({error: 'Stronger password required!'}))
+        }
         else if(!this.state.checked){
-            this.setState(() => ({error: 'You must agree to the Terms and Conditions and Privacy Policy'}));
+            this.setState(() => ({error: 'You must agree to the Terms and Conditions and Privacy Policy!'}));
         }
         else {
 
@@ -180,8 +211,19 @@ class SignUpForm extends React.Component {
                         placeholder="Password"
                         value={this.state.password}
                         onChange={this.onPasswordChange}
+                        onBlur={this.onPasswordBlur}
                     />
                 </div>
+                <div className='form__form-group'>
+                    <input
+                        className='form__input'
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={this.state.passwordConfirm}
+                        onChange={this.onPasswordConfirmChange}
+                    />
+                </div>
+                {this.state.passwordValidationError && <p className='alert alert--failure'>{this.state.passwordValidationError}</p>}
                 <div className='form__form-group'>
                     <CardElement className='form__input' />
                 </div>

@@ -16,7 +16,8 @@ class AdduxListItem extends React.Component{
 
         this.state ={
             nameEdit:false,
-            name:props.name
+            name:props.name,
+            nameChanged:false
         }
     }
 
@@ -42,17 +43,23 @@ class AdduxListItem extends React.Component{
         }
     }
 
-    changeNameEdit = (e) => {
+    onEditClick = (e) => {
         e.stopPropagation();
 
-        this.setState((prevState) => {
-            return {
-                nameEdit: !prevState.nameEdit,
-            }
-        });
+        this.setState({nameEdit:true});
     }
 
-    saveName = debounce(2000, (name) => {
+    onDoneClick = (e) => {
+        e.stopPropagation();
+
+        if(this.state.nameChanged){
+            this.saveName(this.state.name);
+        }
+ 
+        this.setState({nameEdit:false, nameChanged:false});
+    }
+
+    saveName = (name) => {
 
         const updates={
             name
@@ -83,14 +90,13 @@ class AdduxListItem extends React.Component{
                     history.push('/login');
                 }
             });
-    });
+    };
 
     onNameChange = (e) => {
         const name = e.target.value;
 
-        this.setState({name});
-        this.saveName(name);
-    }
+        this.setState({name, nameChanged:true});
+    };
 
     render() {
 
@@ -100,7 +106,7 @@ class AdduxListItem extends React.Component{
                 
                     <input onChange={this.onNameChange} className='addux-list-item__name addux-list-item__name--input' autoFocus={true} type='text' readOnly={!this.state.nameEdit} value={this.state.name} />
                 
-                    <button onClick={this.changeNameEdit} className='btn btn--tiny addux-list-item__button'>Done</button>
+                    <button onClick={this.onDoneClick} className='btn btn--tiny addux-list-item__button'>Done</button>
 
                 </div>
             );
@@ -110,7 +116,7 @@ class AdduxListItem extends React.Component{
                 <div className={`addux-list-item ${this.props.active ? 'addux-list-item--active' : ''}`} onClick={this.props.onClick}>
                     <div className="addux-list-item__name addux-list-item__name--display">{this.state.name}</div>
             
-                    <svg onClick={this.changeNameEdit} className='addux-list-item__icon'>
+                    <svg onClick={this.onEditClick} className='addux-list-item__icon'>
                         <use xlinkHref="img/sprite.svg#icon-pencil-alt-solid"></use>
                     </svg>
                     <svg onClick={this.onDeleteClick} className='addux-list-item__icon addux-list-item__icon--delete'>

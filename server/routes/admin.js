@@ -138,6 +138,41 @@ router.patch('/users/subordinate', async (req, res) => {
 
 });
 
+router.post('/addux/csv', async(req, res) => {
+    
+    const adduxPdfRequestMessage = [];
+
+    adduxPdfRequestMessage[0] = 'Hello,';
+    adduxPdfRequestMessage[1] = `User ${req.body.firstName} ${req.body.lastName} with email: ${req.body.email} has requested a pdf of the addux titled '${req.body.name}'`;
+    adduxPdfRequestMessage[2] = `The required csv can be downloaded from https://www.adduxapp.com/addux/csv/${req.body.activeAddux}`;
+
+    const plainText = adduxPdfRequestMessage.join('\n');
+
+    const htmlContent = `<p>${adduxPdfRequestMessage.join('</p><p>')}</p>`;
+
+    const message = {
+        from: process.env.EMAIL_USERNAME,
+        to: process.env.EMAIL_NOTIFICATION_ON_SIGNUP,
+        subject: `New addux pdf requested by ${req.body.firstName} ${req.body.lastName}!`,
+        message: plainText,
+        html: htmlContent
+    };
+
+    transporter.sendMail(message, (err, info) => {
+        if (err) {
+            console.log('Could not send email!');
+            //res.status(400).send(err);
+        }
+        else {
+            console.log('Message sent!');
+            //res.send(info);
+        }
+    });
+
+    res.status(200).send();
+
+})
+
 router.get('/addux/csv/:id', async (req, res) => {
     
     const id = req.params.id;

@@ -196,7 +196,6 @@ router.post("/users", async (req, res) => {
 
     console.log('POST /users');
     let addux;
-    console.log('SENT DATA:', req.body);
     let customerCreated = false;
     let userCreated = false;
     let adduxCreated = false;

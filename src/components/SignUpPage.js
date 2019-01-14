@@ -11,7 +11,9 @@ const SignUpPage = (props) => {
         props.match.params.plan === 'enterprise' ||
         props.match.params.plan === 'individual' ||
         props.match.params.plan === 'coaching-a' ||
-        props.match.params.plan === 'coaching-q' 
+        props.match.params.plan === 'coaching-q' ||
+        props.match.params.plan === 'ic' ||
+        props.match.params.plan === 'corp'
     )) {
         return (
             <Redirect to='/' />

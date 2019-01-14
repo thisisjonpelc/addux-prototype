@@ -125,8 +125,14 @@ class SignUpForm extends React.Component {
                             case 'ENTERPRISE':
                                 planId='ENTERPRISE_LAUNCH';
                                 break;
+                            case 'IC':
+                                planId='INDIVIDUAL_COACHING'
+                                break;
+                            case 'CORP':
+                                planId='CORPORATE_COACHING';
+                                break;
                             default:
-                                planId=this.props.plan
+                                planId=this.props.plan;
                         }
 
                         axios.post('/users',
@@ -159,6 +165,34 @@ class SignUpForm extends React.Component {
     }
 
     render() {
+
+        let planName = '';
+
+        switch(this.props.plan){
+
+            case 'COACHING-Q':
+                planName='COACHING QUARTERLY'
+                break;    
+            case 'COACHING-A':
+                planName='COACHING ANNUAL';
+                break;
+            case 'INDIVIDUAL':
+                planName='INDIVIDUAL';
+                break;
+            case 'ENTERPRISE':
+                planName='ENTERPRISE';
+                break;
+            case 'IC':
+                planName='INDVIDUAL COACHING'
+                break;
+            case 'CORP':
+                planName='CORPORATE COACHING'
+                break;
+            default:
+                planName=this.props.plan;
+        }
+
+
         return (
             <form className='signup-page__form form' onSubmit={this.onSubmit}>
                 {
@@ -228,11 +262,13 @@ class SignUpForm extends React.Component {
                     <CardElement className='form__input' />
                 </div>
                 <div className='signup-page__description'>
-                    <p>You have selected the {this.props.plan} plan at:</p>
+                    <p>You have selected the {planName} plan at:</p>
                     {this.props.plan === 'INDIVIDUAL' && (<p className='signup-page__price signup-page__price--red'><span className='signup-page__price--strike'>$397</span>$297 per year</p>)}
                     {this.props.plan === 'ENTERPRISE' && (<p className='signup-page__price signup-page__price--red'><span className='signup-page__price--strike'>$2997</span>$1997 per year</p>)}
                     {this.props.plan === 'COACHING-A' && (<p className='signup-page__price'>$2997 per year</p>)}
                     {this.props.plan === 'COACHING-Q' && (<p className='signup-page__price'>$350 per month billed quarterly</p>)}
+                    {this.props.plan === 'IC' && (<p className='signup-page__price'>$297 per month</p>)}
+                    {this.props.plan === 'CORP' && (<p className='signup-page__price'>$397 per month</p>)}
                 </div>
                 <div className='signup-page__agreement'>
                     <input  className='signup-page__checkbox' onChange={this.onCheckChange} type='checkbox' checked={this.state.checked} />
@@ -242,7 +278,7 @@ class SignUpForm extends React.Component {
                 </div>
                 {this.state.error && <p className='alert alert--failure'>{this.state.error}</p>}
                 <button className='btn btn--full-width' disabled={this.state.waiting}>{this.state.waiting ? (<img className='btn__loading' src='/img/loading.gif' />) : ('Sign Up')}</button>
-                <Link className='app-link' to='/login'>Already have an account?</Link>
+                <Link className='app-link' to='/'>Already have an account?</Link>
             </form>
         );
     };

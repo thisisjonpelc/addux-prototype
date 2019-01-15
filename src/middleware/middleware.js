@@ -1,7 +1,3 @@
-import axios from 'axios';
-
-import {login, logout} from './../actions/auth';
-
 export const saveAuthToken = store => next => action => {
 
     switch(action.type){

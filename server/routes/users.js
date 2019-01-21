@@ -263,14 +263,11 @@ router.post("/users", async (req, res) => {
         messageText[5] = `Login: ${user.email}`;
         messageText[6] = `Password: ${body.password}`
         messageText[7] = `Once you login, be sure to watch the Tutorial Video and the videos for each section. This will give you what you need to get started`;
-        messageText[8] = `As part of your purchase you get a free strategy consulation call. Please go to https://adduxlaunch.com/call to schedule`;
-        messageText[9] = `Additionally you will have 1 recurring weekly call:`;
-        messageText[10] = `- Coaching Call each Thursday at 3:00pm CST. (https://zoom.us/j/222369494 - Meeting ID 222-369-494)`;
-        messageText[11] = `You will also be receiving 2 emails for accessing your addux Online Course from Kajabi.`;
-        messageText[12] = `Once again, welcome to addux Online...`;
-        messageText[13] = `Best Regards,`;
-        messageText[14] = `Carey`;
-        messageText[15] = `P.S. If you have any problems whatsoever, just send an email to Customer Support.  They'll take care of you right away: contact@adduxonline.com`;
+        messageText[8] = `As part of your purchase you get a free strategy consulation call. During this call we will establish a time for our recurring calls.`;
+        messageText[9] = `Once again, welcome to addux Online...`;
+        messageText[10] = `Best Regards,`;
+        messageText[11] = `Carey`;
+        messageText[12] = `P.S. If you have any problems whatsoever, just send an email to Customer Support.  They'll take care of you right away: contact@adduxonline.com`;
 
         const plainText = messageText.join('\n');
 

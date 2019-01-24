@@ -271,7 +271,7 @@ router.post("/users", async (req, res) => {
 
         const plainText = messageText.join('\n');
 
-        messageText[8] = `As part of your purchase you get a free strategy consulation call. Please <a href='https://adduxlaunch.com/call'>click here</a> to schedule`
+        //messageText[8] = `As part of your purchase you get a free strategy consulation call. Please <a href='https://adduxlaunch.com/call'>click here</a> to schedule`
 
         const htmlContent = `<p>${messageText.join('</p><p>')}</p>`;
 

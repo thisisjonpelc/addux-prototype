@@ -1,6 +1,6 @@
 const walkthroughReducerDefaultState = {};
 
-const walkthroughReducer = (state = walkthroughReducer, action) => {
+const walkthroughReducer = (state = walkthroughReducerDefaultState, action) => {
     switch(action.type){
         case "INITIALIZE_APP":
         case "SET_WALKTHROUGH":

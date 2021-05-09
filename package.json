@@ -30,7 +30,7 @@
     "json2csv": "^4.5.0",
     "jsonwebtoken": "^8.5.1",
     "jspdf": "^1.5.3",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "mongodb": "^3.2.3",
     "mongoose": "^5.5.3",

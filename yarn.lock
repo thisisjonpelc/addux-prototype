@@ -5362,10 +5362,10 @@ lodash.isstring@^4.0.1:
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
   integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
 
-lodash.mergewith@^4.6.2:
+lodash.mergewith@^4.6.0:
   version "4.6.2"
-  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
-  integrity sha512-eWw5r+PYICtEBgrBE5hhlT6aAa75f411bgDz/ZL2KZqYV03USvucsxcHUIlGTDTECs1eunpI7HOV7U+WLDvNdQ==
+  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.2.tgz#617121f89ac55f59047c7aec1ccd6654c6590f55"
+  integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash.once@^4.0.0:
   version "4.1.1"
@@ -6677,9 +6677,9 @@ postcss-value-parser@^3.3.0, postcss-value-parser@^3.3.1:
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
 
 postcss@^7.0.0, postcss@^7.0.14, postcss@^7.0.5, postcss@^7.0.6, postcss@^7.0.7:
-  version "7.0.14"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.14.tgz#4527ed6b1ca0d82c53ce5ec1a2041c2346bbd6e5"
-  integrity sha512-NsbD6XUUMZvBxtQAJuWDJeeC4QFsmWsfozWxCJPWf3M55K9iu2iMDaKqyoOdTJ1R4usBXuxlVFAIo8rZPQD4Bg==
+  version "7.0.36"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.36.tgz#056f8cffa939662a8f5905950c07d5285644dfcb"
+  integrity sha512-BebJSIUMwJHRH0HAQoxN4u1CN86glsrwsW0q7T+/m44eXOUAxSNdHRkNZPYz5vVUbg17hFgOQDE7fZk7li3pZw==
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
